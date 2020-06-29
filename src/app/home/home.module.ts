@@ -7,10 +7,14 @@ import { PostDetailComponent } from './components/list-posts/post-detail/post-de
 import { AdvanceSearchComponent } from './components/advance-search/advance-search.component';
 import { SearchByAgeComponent } from './components/search-by-age/search-by-age.component';
 import { SearchByKeywordComponent } from './components/search-by-keyword/search-by-keyword.component';
+import { ListAllComponent } from './components/list-posts/list-all/list-all.component';
+import { PostFormComponent } from './components/post/post-form/post-form.component';
+import { PostConfirmComponent } from './components/post/post-confirm/post-confirm.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, PostDetailComponent, AdvanceSearchComponent, SearchByAgeComponent, SearchByKeywordComponent],
+  // tslint:disable-next-line:max-line-length
+  declarations: [HomeComponent, PostDetailComponent, AdvanceSearchComponent, SearchByAgeComponent, SearchByKeywordComponent, ListAllComponent, PostFormComponent, PostConfirmComponent],
   imports: [
     CommonModule,
     HomeRoutingModule
