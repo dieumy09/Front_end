@@ -1,143 +1,145 @@
-<h3 class="font-weight-normal">Chỉnh Sửa Bài Đăng</h3>
-<p>Thay đổi thông tin bài đăng: Cần bán một căn hộ thuộc khu chung cư</p>
-<hr>
-<form [formGroup]="editPostForm">
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">
-      <b>Danh mục sản phẩm:</b>
-    </label>
-    <div class="col-10">
-      <select class="form-control col-form-label">
-        <option value="Nhà Đất">Nhà Đất</option>
-        <option value="Căn hộ">Căn hộ</option>
-        <option value="Biệt thự">Biệt thự</option>
-      </select>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">
-      <b>Vùng miền:</b>
-    </label>
-    <div class="col-10">
-      <select class="form-control col-form-label">
-        <option value="Nhà Đất">TP Hồ Chí Minh</option>
-        <option value="Căn hộ">Hà Nội</option>
-        <option value="Biệt thự">Đà Nẵng</option>
-      </select>
-    </div>
-  </div>
-  <div class="row">
-    <legend class="col-form-label col-2 mr-3"><b>Bạn là:</b></legend>
-    <div class="col-2">
-      <input class="form-check-input" type="radio" checked>
-      <label class="form-check-label">
-        Cá nhân
+<div style="background-color: white">
+  <h3 class="font-weight-normal">Chỉnh Sửa Bài Đăng</h3>
+  <p>Thay đổi thông tin bài đăng: Cần bán một căn hộ thuộc khu chung cư</p>
+  <hr>
+  <form [formGroup]="editPostForm">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">
+        <b>Danh mục sản phẩm:</b>
       </label>
+      <div class="col-10">
+        <select class="form-control col-form-label">
+          <option value="Nhà Đất">Nhà Đất</option>
+          <option value="Căn hộ">Căn hộ</option>
+          <option value="Biệt thự">Biệt thự</option>
+        </select>
+      </div>
     </div>
-    <div class="col-2">
-      <input class="form-check-input" type="radio">
-      <label class="form-check-label">
-        Công ty
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">
+        <b>Vùng miền:</b>
       </label>
+      <div class="col-10">
+        <select class="form-control col-form-label">
+          <option value="Nhà Đất">TP Hồ Chí Minh</option>
+          <option value="Căn hộ">Hà Nội</option>
+          <option value="Biệt thự">Đà Nẵng</option>
+        </select>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <legend class="col-form-label col-2 mr-3"><b>Bạn đăng tin:</b></legend>
-    <div class="col-2">
-      <input class="form-check-input" type="radio" checked>
-      <label class="form-check-label">
-        Cần bán
+    <div class="row">
+      <legend class="col-form-label col-2 mr-3"><b>Bạn là:</b></legend>
+      <div class="col-2">
+        <input class="form-check-input" type="radio" checked>
+        <label class="form-check-label">
+          Cá nhân
+        </label>
+      </div>
+      <div class="col-2">
+        <input class="form-check-input" type="radio">
+        <label class="form-check-label">
+          Công ty
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <legend class="col-form-label col-2 mr-3"><b>Bạn đăng tin:</b></legend>
+      <div class="col-2">
+        <input class="form-check-input" type="radio" checked>
+        <label class="form-check-label">
+          Cần bán
+        </label>
+      </div>
+      <div class="col-2">
+        <input class="form-check-input" type="radio">
+        <label class="form-check-label">
+          Cần mua
+        </label>
+      </div>
+      <div class="col-2">
+        <input class="form-check-input" type="radio">
+        <label class="form-check-label">
+          Cho thuê
+        </label>
+      </div>
+      <div class="col-2">
+        <input class="form-check-input" type="radio">
+        <label class="form-check-label">
+          Cần thuê
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <legend class="col-form-label col-2 mr-3"><b>Tình trạng:</b></legend>
+      <div class="col-2">
+        <input class="form-check-input" type="radio" checked>
+        <label class="form-check-label">
+          Mới
+        </label>
+      </div>
+      <div class="col-2">
+        <input class="form-check-input" type="radio">
+        <label class="form-check-label">
+          Đã sử dụng
+        </label>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"><b>Địa chỉ:<span class="required">(*)</span></b></label>
+      <div class="col-sm-10">
+        <input class="form-control" placeholder="Quận Gò Vấp, TP Hồ Chí Minh">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"><b>Diện tích:<span class="required">(*)</span></b></label>
+      <div class="col-sm-10">
+        <input class="form-control" placeholder="64">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">
+        <b>Hướng:</b>
       </label>
+      <div class="col-10">
+        <select class="form-control col-form-label">
+          <option value="Nhà Đất">Đông Nam</option>
+          <option value="Căn hộ">Đông Bắc</option>
+          <option value="Biệt thự">Đông Tây</option>
+        </select>
+      </div>
     </div>
-    <div class="col-2">
-      <input class="form-check-input" type="radio">
-      <label class="form-check-label">
-        Cần mua
-      </label>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"><b>Tiêu đề:<span class="required">(*)</span></b></label>
+      <div class="col-sm-10">
+        <input class="form-control" placeholder="Cần bán một căn hộ thuộc khu chung cư">
+      </div>
     </div>
-    <div class="col-2">
-      <input class="form-check-input" type="radio">
-      <label class="form-check-label">
-        Cho thuê
-      </label>
-    </div>
-    <div class="col-2">
-      <input class="form-check-input" type="radio">
-      <label class="form-check-label">
-        Cần thuê
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <legend class="col-form-label col-2 mr-3"><b>Tình trạng:</b></legend>
-    <div class="col-2">
-      <input class="form-check-input" type="radio" checked>
-      <label class="form-check-label">
-        Mới
-      </label>
-    </div>
-    <div class="col-2">
-      <input class="form-check-input" type="radio">
-      <label class="form-check-label">
-        Đã sử dụng
-      </label>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label"><b>Địa chỉ:<span class="required">(*)</span></b></label>
-    <div class="col-sm-10">
-      <input class="form-control" placeholder="Quận Gò Vấp, TP Hồ Chí Minh">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label"><b>Diện tích:<span class="required">(*)</span></b></label>
-    <div class="col-sm-10">
-      <input class="form-control" placeholder="64">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">
-      <b>Hướng:</b>
-    </label>
-    <div class="col-10">
-      <select class="form-control col-form-label">
-        <option value="Nhà Đất">Đông Nam</option>
-        <option value="Căn hộ">Đông Bắc</option>
-        <option value="Biệt thự">Đông Tây</option>
-      </select>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label"><b>Tiêu đề:<span class="required">(*)</span></b></label>
-    <div class="col-sm-10">
-      <input class="form-control" placeholder="Cần bán một căn hộ thuộc khu chung cư">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label"><b>Nội dung:<span class="required">(*)</span></b></label>
-    <div class="col-sm-10">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"><b>Nội dung:<span class="required">(*)</span></b></label>
+      <div class="col-sm-10">
       <textarea class="w-100" placeholder="">
         Nằm trung tâm thị trấn diên khánh, cách chợ thành và Khu đô thị #Nam_Sông_Cái
        chỉ 350m, cách đường hà huy tập chỉ 200m, thông ra đường tỉnh lộ 8. Khu dân cư đông đúc, thuận tiện đi lại.
        Trường chợ, quán xá, ngân hàng, trung tâm đều trong bán kính 500m. Giá nhẹ tênh : 660tr còn giảm
       </textarea>
+      </div>
     </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label"><b>Giá:<span class="required">(*)</span></b></label>
-    <div class="col-sm-10">
-      <input class="form-control" placeholder="9000000000">
-      <input type="checkbox" checked>
-      <label> Giá có thể thỏa thuận</label>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"><b>Giá:<span class="required">(*)</span></b></label>
+      <div class="col-sm-10">
+        <input class="form-control" placeholder="9000000000">
+        <input type="checkbox" checked>
+        <label> Giá có thể thỏa thuận</label>
+      </div>
     </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>
-    <div class="col-sm-10">
-      <button class="img-btn"><img src="assets/user2.jpg" class="product-img"></button>
-      <button class="img-btn"><img src="assets/user2.jpg" class="product-img"></button>
-      <button class="img-btn"><img src="assets/user2.jpg" class="product-img"></button>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>
+      <div class="col-sm-10">
+        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>
+        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>
+        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>
+      </div>
     </div>
-  </div>
-  <button class="btn btn-primary btn-block ml-auto w-25"><i class="fa fa-check"></i>Hoàn thành</button>
-</form>
+    <button class="btn btn-primary btn-block ml-auto w-25"><i class="fa fa-check"></i>Hoàn thành</button>
+  </form>
+</div>
