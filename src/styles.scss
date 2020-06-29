@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+.right-bottom {
+  position: absolute;
+  text-align: right;
+  font-weight: bold;
+  bottom: -15px;
+  right: 5px;
+}
+
+.advance-search-item {
+  margin-bottom: 20px;
+}
+
+.right-top {
+  position: absolute;
+  text-align: right;
+  font-weight: bold;
+  right: 5px;
+}
+
+.right-bottom span {
+  color: red;
+}
