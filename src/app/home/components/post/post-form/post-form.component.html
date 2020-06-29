@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+<h3>Đăng tin</h3>
+<h5>Thông tin liên hệ</h5>
+<hr  width="100%" size="10px" align="center" color="black" />
+<div class="col-md-11 ml-auto ">
+  <table style="width:50%">
+    <tr>
+      <td><label>Họ và tên:</label></td>
+      <td><label>Thảo Thu</label></td>
+    </tr>
+    <tr>
+      <td><label>Email:</label></td>
+      <td><label>thao@gmail.com</label></td>
+    </tr>
+    <tr>
+      <td><label>Địa chỉ:</label></td>
+      <td><label>25 Duy Tân, TP Huế</label></td>
+    </tr>
+    <tr>
+      <td><label>Số điện thoại:</label></td>
+      <td><label>0963463060</label></td>
+    </tr>
+  </table>
+</div>
+<hr  width="100%" size="10px" align="center" color="black"/><br>
+<label><h5>Nội dung tin<a class="note">(vui lòng điền đầy đủ tất cả các mục)</a></h5></label>
+<hr  width="100%" size="10px" align="center" color="black"/>
+<form class="col-md-11 ml-auto">
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Danh Mục:</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="combobox">
+        <option value="Nhà Đất">Nhà Đất</option>
+        <option value="Đất Thổ Cư">Đất Thổ Cư </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Vùng Miền:</label>
+    <div class="col-sm-10">
+      <select class="form-control">
+        <option value="Hà Nội">Hà Nội</option>
+        <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+        <option value="Đà Nẵng">Đà Nẵng</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Bạn Là:</label>
+    <div class="col-sm-10 col-form-label">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Cá nhân">
+        <label class="form-check-label" for="inlineRadio1">Cá Nhân</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Tổ chức">
+        <label class="form-check-label" for="inlineRadio2">Tổ Chức</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Bạn Đăng Tin</label>
+    <div class="col-sm-10 col-form-label">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadio" id="inlineRadio3" value="Cần mua">
+        <label class="form-check-label" for="inlineRadio3">Cần mua</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadio" id="inlineRadio4" value="Cần bán">
+        <label class="form-check-label" for="inlineRadio4">Cần bán</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadio" id="inlineRadio5" value="Cho thuê">
+        <label class="form-check-label" for="inlineRadio5">Cho thuê</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadio" id="inlineRadio6" value="Cần thuê">
+        <label class="form-check-label" for="inlineRadio6">Cần thuê</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Địa Chỉ:<a class="obligatory">(*)</a></label>
+    <div class="col-sm-10">
+      <input  type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Diện Tích:<a class="obligatory">(*)</a></label>
+    <div class="col-sm-10">
+      <input  type="number" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Hướng:</label>
+    <div class="col-sm-10">
+      <select class="form-control">
+        <option value="Đông">Đông</option>
+        <option value="Tây">Tây</option>
+        <option value="Nam">Nam</option>
+        <option value="Bắc">Bắc</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Tựa Đề:<a class="obligatory">(*)</a></label>
+    <div class="col-sm-10">
+      <input  type="text" class="form-control" >
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Nội Dung:<a class="obligatory">(*)</a></label>
+    <div class="col-sm-10">
+      <textarea></textarea>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Giá:<a class="obligatory">(*)</a></label>
+    <div class="col-sm-10">
+      <input  type="number" class="form-control">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Thoả thuận" id="defaultCheck1">
+        <label class="form-check-label" for="defaultCheck1">
+          Giá cả có thể thoả thuận.
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label">Hình ảnh:</label>
+    <div class="col-sm-10">
+      <label style=" color: sandybrown">Chỉ hình ảnh thật của sản phẩm mới được duyệt. Lưu ý không sử dụng hình ảnh có đính kèm số điện thoại hoặc địa chỉ website.</label>
+      <button><img src="../../../../../assets/img/upload-img.png"></button>
+      <button><img src="../../../../../assets/img/upload-img.png"></button>
+      <button><img src="../../../../../assets/img/upload-img.png"></button>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label  class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-10">
+      <button><img src="../../../../../assets/img/upload-img.png"></button>
+      <button><img src="../../../../../assets/img/upload-img.png"></button>
+      <button><img src="../../../../../assets/img/upload-img.png"></button>
+    </div>
+  </div>
+  <div class="col-sm-5" style="float: right">
+    <button class="btn btn-info btn-block" type="submit" [routerLink]="['/post-confirm']"><i class="fa fa-check"></i> Đăng tin.</button>
+  </div>
+</form>
+</body>
