@@ -1,0 +1,32 @@
+<h3 class="font-weight-normal">Thông tin cá nhân</h3>
+<hr>
+<div class="row">
+  <div class="col-4">
+    <img src="assets/img/user.jpg" style="border-radius: 50%; width: 200px; height: 200px">
+  </div>
+  <div class="col-8">
+    <table>
+      <tr>
+        <td><label>Họ và tên: </label></td>
+        <td><label>Nguyễn Thu Thảo</label></td>
+      </tr>
+      <tr>
+        <td><label>Email: </label></td>
+        <td><label>thuthao@gmail.com</label></td>
+      </tr>
+      <tr>
+        <td><label>Địa chỉ: </label></td>
+        <td><label>87 Hàng Chiếu</label></td>
+      </tr>
+      <tr>
+        <td><label>Số điện thoại: </label></td>
+        <td><label>0908123456</label></td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-primary" [routerLink]="['info-edit']">Chỉnh Sửa Thông Tin</button></td>
+        <td><button class="btn btn-primary" [routerLink]="['password-edit']">Đổi Mật Khẩu</button></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<router-outlet></router-outlet>
