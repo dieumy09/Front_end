@@ -5,32 +5,34 @@
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
-<h3>Đăng tin</h3>
-<h5>Thông tin liên hệ</h5>
-<hr  width="100%" size="10px" align="center" color="black" />
-<div class="col-md-11 ml-auto ">
-  <table style="width:50%">
-    <tr>
-      <td><label>Họ và tên:</label></td>
-      <td><label>Thảo Thu</label></td>
-    </tr>
-    <tr>
-      <td><label>Email:</label></td>
-      <td><label>thao@gmail.com</label></td>
-    </tr>
-    <tr>
-      <td><label>Địa chỉ:</label></td>
-      <td><label>25 Duy Tân, TP Huế</label></td>
-    </tr>
-    <tr>
-      <td><label>Số điện thoại:</label></td>
-      <td><label>0963463060</label></td>
-    </tr>
-  </table>
+<div id="content">
+  <h3>Đăng tin</h3>
+  <h5>Thông tin liên hệ</h5>
+  <hr  width="100%" size="10px" align="center" color="black" />
+  <div class="col-md-11 ml-auto ">
+    <table style="width:50%">
+      <tr>
+        <td><label>Họ và tên:</label></td>
+        <td><label>Thảo Thu</label></td>
+      </tr>
+      <tr>
+        <td><label>Email:</label></td>
+        <td><label>thao@gmail.com</label></td>
+      </tr>
+      <tr>
+        <td><label>Địa chỉ:</label></td>
+        <td><label>25 Duy Tân, TP Huế</label></td>
+      </tr>
+      <tr>
+        <td><label>Số điện thoại:</label></td>
+        <td><label>0963463060</label></td>
+      </tr>
+    </table>
+  </div>
+  <hr  width="100%" size="10px" align="center" color="black"/><br>
+  <label><h5>Nội dung tin<a class="note">(vui lòng điền đầy đủ tất cả các mục)</a></h5></label>
+  <hr  width="100%" size="10px" align="center" color="black"/>
 </div>
-<hr  width="100%" size="10px" align="center" color="black"/><br>
-<label><h5>Nội dung tin<a class="note">(vui lòng điền đầy đủ tất cả các mục)</a></h5></label>
-<hr  width="100%" size="10px" align="center" color="black"/>
 <form class="col-md-11 ml-auto">
   <div class="form-group row">
     <label  class="col-sm-2 col-form-label">Danh Mục:</label>
@@ -65,7 +67,7 @@
     </div>
   </div>
   <div class="form-group row">
-    <label  class="col-sm-2 col-form-label">Bạn Đăng Tin</label>
+    <label  class="col-sm-2 col-form-label">Bạn Đăng Tin:</label>
     <div class="col-sm-10 col-form-label">
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="inlineRadio" id="inlineRadio3" value="Cần mua">
@@ -154,8 +156,10 @@
       <button><img src="../../../../../assets/img/upload-img.png"></button>
     </div>
   </div>
-  <div class="col-sm-5" style="float: right">
-    <button class="btn btn-info btn-block" type="submit" [routerLink]="['/post-confirm']"><i class="fa fa-check"></i> Đăng tin.</button>
+  <div class="form-group row" id="button-post">
+    <div class="col-sm-5 ml-auto" >
+      <button class="btn btn-info btn-block" type="submit" [routerLink]="['/post-confirm']"><i class="fa fa-check"></i> Đăng tin.</button>
+    </div>
   </div>
 </form>
 </body>
