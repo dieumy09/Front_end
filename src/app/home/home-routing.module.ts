@@ -6,7 +6,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {UserComponent} from '../user/user.component';
-import {UserModule} from '../user/user.module';
 import {PostEditComponent} from '../user/components/post-edit/post-edit.component';
 
 import {ListAllComponent} from './components/list-posts/list-all/list-all.component';

@@ -10,6 +10,7 @@ import { SearchByKeywordComponent } from './components/search-by-keyword/search-
 import { ListAllComponent } from './components/list-posts/list-all/list-all.component';
 import { PostFormComponent } from './components/post/post-form/post-form.component';
 import { PostConfirmComponent } from './components/post/post-confirm/post-confirm.component';
+import {UserModule} from '../user/user.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PostConfirmComponent } from './components/post/post-confirm/post-confir
   declarations: [HomeComponent, PostDetailComponent, AdvanceSearchComponent, SearchByAgeComponent, SearchByKeywordComponent, ListAllComponent, PostFormComponent, PostConfirmComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    UserModule
   ]
 })
 export class HomeModule { }
