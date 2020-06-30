@@ -14,7 +14,6 @@ import {PostFormComponent} from './components/post/post-form/post-form.component
 import {PostConfirmComponent} from './components/post/post-confirm/post-confirm.component';
 
 
-
 const routes: Routes = [
   {
     path: '',
