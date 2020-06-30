@@ -15,6 +15,6 @@ import {ReactiveFormsModule} from '@angular/forms';
     UserRoutingModule,
     ReactiveFormsModule
   ],
-  exports: [UserComponent]
+  exports: [UserComponent, UserInfoComponent, PostListComponent, PostEditComponent]
 })
 export class UserModule { }
