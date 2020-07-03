@@ -9,23 +9,26 @@ import {User} from '../models/user';
 })
 export class PostService {
   private readonly API = 'http://localhost:8080/api/v1/posts';
-  private readonly USER_API = 'http://localhost:8080/api/v1/users';
 
   constructor(private http: HttpClient) { }
 
-  getPosts(): Observable<Post> {
-    return this.http.get<Post>(this.API);
+  getPosts(): Observable<any> {
+    return this.http.get<any>(this.API);
   }
 
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.API, post);
   }
 
-  editPost(post: Post, id: number): Observable<Post> {
-    return this.http.put<Post>(`${this.API}/${id}`, post);
+  editPost(post: Post): Observable<Post> {
+    return this.http.put<Post>(`${this.API}/${post.id}`, post);
   }
 
   deletePost(id: number): Observable<Post> {
     return this.http.delete<Post>(`${this.API}/${id}`);
+  }
+
+  getPostById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.API}/${id}`);
   }
 }
