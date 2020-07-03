@@ -12,6 +12,7 @@
 <br>
 <table class="table">
   <tr>
+    <th>Post ID</th>
     <th>Tiêu đề</th>
     <th>Loại bài viết</th>
     <th>Danh mục</th>
@@ -20,12 +21,16 @@
     <th></th>
     <th></th>
   </tr>
-    <tr>
-      <td><label>Cần bán gấp</label></td>
-      <td><label>Cần bán</label></td>
-      <td><label>Nhà Đất</label></td>
-      <td><label>26/03/2020</label></td>
-      <td><label>Đang rao</label></td>
+    <tr *ngFor="let post of posts">
+      <td><label>{{post.id}}</label></td>
+      <td><label>{{post.title}}</label></td>
+      <td><label>{{post.postType}}</label></td>
+      <td><label>{{post.category}}</label></td>
+      <td><label>{{post.createdAt |date: 'dd/MM/yyyy'}}</label></td>
+      <ng-container [ngSwitch]="post.approved">
+        <td *ngSwitchCase=true>Đang rao</td>
+        <td *ngSwitchCase=false>Chưa duyệt</td>
+      </ng-container>
       <td>
         <button class="btn btn-light" [routerLink]="['/post-edit']"><i class="fa fa-edit"></i></button>
       </td>

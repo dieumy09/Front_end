@@ -13,6 +13,7 @@ import {PostFormComponent} from './components/post/post-form/post-form.component
 import {PostConfirmComponent} from './components/post/post-confirm/post-confirm.component';
 import {PostDetailComponent} from './components/list-posts/post-detail/post-detail.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -21,7 +22,7 @@ const routes: Routes = [
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegistrationComponent},
       {path: 'verify', component: VerifyComponent},
-      {path: 'user', component: UserComponent},
+      {path: 'user/:id', component: UserComponent},
       {path: 'post-edit', component: PostEditComponent},
       {path: '', component: ListAllComponent},
       {path: 'post-detail', component: PostDetailComponent},
