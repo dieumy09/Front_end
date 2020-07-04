@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Post} from '../models/post';
-import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +19,8 @@ export class PostService {
     return this.http.post<Post>(this.API, post);
   }
 
-  editPost(post: Post): Observable<Post> {
-    return this.http.patch<Post>(`${this.API}/${post.id}`, post);
+  editPost(post: Post, postId: number): Observable<Post> {
+    return this.http.patch<Post>(`${this.API}/${postId}`, post);
   }
 
   deletePost(id: number): Observable<Post> {
