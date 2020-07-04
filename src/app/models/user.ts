@@ -1,4 +1,5 @@
 import { Role } from './role';
+import {Post} from './post';
 export interface User {
   id: number;
   name: string;
@@ -11,4 +12,5 @@ export interface User {
   role: Role;
   createdAt: Date;
   updatedAt: Date;
+  posts: Post[];
 }

@@ -15,19 +15,19 @@ export class UserService {
     return this.http.get<any>(this.API);
   }
 
-  getUserById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.API}/${id}`);
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.API}/${id}`);
   }
 
-  createUser(user: User): Observable<any> {
-    return this.http.post<any>(this.API, user);
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.API, user);
   }
 
-  editUser(user: User, id: number): Observable<any> {
-    return this.http.put(`${this.API}/${id}`, user);
+  editUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.API}/${user.id}`, user);
   }
 
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.API}/${id}`);
+  deleteUser(id: number): Observable<User> {
+    return this.http.delete<User>(`${this.API}/${id}`);
   }
 }

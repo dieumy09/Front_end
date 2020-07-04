@@ -1,3 +1,4 @@
+import { Region } from './region';
 import { User } from './user';
 import { Direction } from './direction';
 import { PostType } from './post-type';
@@ -8,6 +9,7 @@ export interface Post {
   title: string;
   condition: boolean;
   address: string;
+  region: Region;
   area: number;
   price: number;
   deal: boolean;

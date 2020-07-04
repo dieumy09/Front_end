@@ -1,4 +1,4 @@
-import { PostService } from './../services/post.service';
+import { SearchService } from './../services/search.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,11 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private postService: PostService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.postService.getPosts(0).subscribe((next) => {
-      console.log(next);
-    });
-  }
+  ngOnInit(): void {}
 }

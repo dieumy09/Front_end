@@ -1,4 +1,4 @@
-import { PostList } from './../models/post-list';
+import { List } from '../models/list';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,8 +12,8 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(page = 0): Observable<PostList<Post>> {
-    return this.http.get<PostList<Post>>(this.API + '?page=' + page);
+  getPosts(page = 0): Observable<List<Post>> {
+    return this.http.get<List<Post>>(this.API + '?page=' + page);
   }
 
   createPost(post: Post): Observable<Post> {
