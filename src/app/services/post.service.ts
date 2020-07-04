@@ -21,7 +21,7 @@ export class PostService {
   }
 
   editPost(post: Post): Observable<Post> {
-    return this.http.put<Post>(`${this.API}/${post.id}`, post);
+    return this.http.patch<Post>(`${this.API}/${post.id}`, post);
   }
 
   deletePost(id: number): Observable<Post> {
