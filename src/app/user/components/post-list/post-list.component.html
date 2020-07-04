@@ -24,15 +24,15 @@
     <tr *ngFor="let post of posts">
       <td><label>{{post.id}}</label></td>
       <td><label>{{post.title}}</label></td>
-      <td><label>{{post.postType}}</label></td>
-      <td><label>{{post.category}}</label></td>
+      <td><label>{{post.postType.name}}</label></td>
+      <td><label>{{post.category.name}}</label></td>
       <td><label>{{post.createdAt |date: 'dd/MM/yyyy'}}</label></td>
       <ng-container [ngSwitch]="post.approved">
         <td *ngSwitchCase=true>Đang rao</td>
         <td *ngSwitchCase=false>Chưa duyệt</td>
       </ng-container>
       <td>
-        <button class="btn btn-light" [routerLink]="['/post-edit']"><i class="fa fa-edit"></i></button>
+        <button class="btn btn-light" [routerLink]="['/post-edit/'+post.id]"><i class="fa fa-edit"></i></button>
       </td>
       <td>
         <button class="btn btn-light"><i class="fa fa-times"></i></button>
