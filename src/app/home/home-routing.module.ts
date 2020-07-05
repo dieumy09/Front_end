@@ -23,7 +23,7 @@ const routes: Routes = [
       {path: 'register', component: RegistrationComponent},
       {path: 'verify', component: VerifyComponent},
       {path: 'user/:id', component: UserComponent},
-      {path: 'post-edit', component: PostEditComponent},
+      {path: 'post-edit/:id', component: PostEditComponent},
       {path: '', component: ListAllComponent},
       {path: 'post-detail', component: PostDetailComponent},
       {path: 'post-form', component: PostFormComponent},
