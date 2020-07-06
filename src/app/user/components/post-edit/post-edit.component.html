@@ -94,9 +94,9 @@
       <label class="col-sm-2 col-form-label"><b>Diện tích:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
         <input class="form-control" formControlName="area" placeholder="Vui lòng nhập diện tích.">
-        <p *ngIf="editPostForm.controls.area.errors?.required && editPostForm.controls.area.errors?.touched" class="text-danger">Vui lòng nhập diện tích!</p>
-        <p *ngIf="editPostForm.controls.area.errors?.pattern && editPostForm.controls.area.errors?.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
-        <p *ngIf="editPostForm.controls.area.errors?.min && editPostForm.controls.area.errors?.touched" class="text-danger">Diện tích phải là số dương. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.required && editPostForm.controls.area.touched" class="text-danger">Vui lòng nhập diện tích!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.pattern && editPostForm.controls.area.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.min && editPostForm.controls.area.touched" class="text-danger">Diện tích phải là số dương. Vui lòng nhập lại!</p>
       </div>
     </div><br>
 
@@ -107,7 +107,7 @@
       </label>
       <div class="col-10">
         <select class="form-control col-form-label" formControlName="direction">
-          <option *ngFor="let direction of directions" [ngValue]="direction">{{direction.name}}</option>
+            <option *ngFor="let direction of directions" [ngValue]="direction">{{direction.name}}</option>
         </select>
       </div>
     </div><br>
@@ -118,7 +118,7 @@
       <div class="col-sm-10">
         <input class="form-control" formControlName="title" placeholder="Vui lòng nhập tiêu đề.">
         <p *ngIf="editPostForm.controls.title.errors?.required && editPostForm.controls.title.touched" class="text-danger">Vui lòng nhập tiêu đề!</p>
-        <p *ngIf="editPostForm.controls.title.errors?.pattern && editPostForm.controls.title.errors?.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.title.errors?.maxlength && editPostForm.controls.title.touched" class="text-danger">Tiêu đề của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
       </div>
     </div><br>
 
@@ -137,23 +137,26 @@
       <label class="col-sm-2 col-form-label"><b>Giá:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
         <input class="form-control" formControlName="price" placeholder="Vui lòng nhập giá.">
-        <p *ngIf="editPostForm.controls.price.errors?.required && editPostForm.controls.price.errors?.touched" class="text-danger">Vui lòng nhập giá!</p>
-        <p *ngIf="editPostForm.controls.price.errors?.pattern && editPostForm.controls.price.errors?.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
-        <p *ngIf="editPostForm.controls.price.errors?.min && editPostForm.controls.price.errors?.touched" class="text-danger">Giá phải là số dương. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.required && editPostForm.controls.price.touched" class="text-danger">Vui lòng nhập giá!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.pattern && editPostForm.controls.price.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.min && editPostForm.controls.price.touched" class="text-danger">Giá phải là số dương. Vui lòng nhập lại!</p>
         <input type="checkbox"  [checked]="true">
         <label> Giá có thể thỏa thuận</label>
       </div>
     </div>
 
 <!--    Image-->
-<!--    <div class="form-group row">-->
-<!--      <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>-->
-<!--      <div class="col-sm-10">-->
-<!--        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>-->
-<!--        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>-->
-<!--        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>-->
-<!--      </div>-->
-<!--    </div>-->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>
+      <div class="col-sm-10 row">
+        <div class="col-sm-4 mb-5" *ngFor="let img of postImages">
+          <button class="img-btn" type="button" (click)="deletePostImage(img);"><img src="assets/img/{{img.image}}" class="product-img"></button>
+        </div>
+        <div class="col-sm-4 mb-5">
+          <button type="button" class="img-btn"><img src="assets/img/upload-img.png" class="product-img"></button>
+        </div>
+      </div>
+    </div>
     <button class="btn btn-primary btn-block ml-auto w-25"><i class="fa fa-check"></i>Hoàn thành</button>
   </form>
 </div>

@@ -11,6 +11,8 @@ import {PostTypeService} from '../../../services/post-type.service';
 import {PostType} from '../../../models/post-type';
 import {Direction} from '../../../models/direction';
 import {DirectionService} from '../../../services/direction.service';
+import {PostImage} from '../../../models/post-image';
+import {PostImageService} from '../../../services/post-image.service';
 
 @Component({
   selector: 'app-post-edit',
@@ -18,7 +20,15 @@ import {DirectionService} from '../../../services/direction.service';
   styleUrls: ['./post-edit.component.scss']
 })
 export class PostEditComponent implements OnInit {
-  selectedCategory: Category;
+  editPostForm: FormGroup;
+  post: Post;
+  categories: Category[];
+  regions: Region[];
+  postTypes: PostType[];
+  directions: Direction[];
+  postImages: PostImage[];
+  postId: number;
+  selectedDirection: Direction;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,15 +38,9 @@ export class PostEditComponent implements OnInit {
     private categoryService: CategoryService,
     private regionService: RegionService,
     private postTypeService: PostTypeService,
-    private directionService: DirectionService
+    private directionService: DirectionService,
+    private postImageService: PostImageService
   ) { }
-  editPostForm: FormGroup;
-  post: Post;
-  categories: Category[];
-  regions: Region[];
-  postTypes: PostType[];
-  directions: Direction[];
-  postId: number;
 
   ngOnInit(): void {
     this.editPostForm = this.formBuilder.group({
@@ -54,7 +58,7 @@ export class PostEditComponent implements OnInit {
       category: [''],
       postImage: [''],
       postType: [''],
-      direction: [''],
+      direction: [ ],
       createdAt: [''],
       updatedAt: [''],
       region: [''],
@@ -66,6 +70,7 @@ export class PostEditComponent implements OnInit {
     this.getAllDirections();
     this.getAllPostTypes();
     this.getAllRegions();
+    this.getAllPostImages();
 
     console.log(this.editPostForm);
   }
@@ -76,6 +81,7 @@ export class PostEditComponent implements OnInit {
       this.postService.getPostById(this.postId).subscribe(data => {
         this.post = data;
         console.log(data);
+        this.selectedDirection = data.direction;
         this.editPostForm.patchValue(data);
       });
     });
@@ -85,7 +91,16 @@ export class PostEditComponent implements OnInit {
     if (this.editPostForm.valid) {
       this.postService.editPost(this.editPostForm.value, this.postId).subscribe(data => {
         console.log(data);
-        this.router.navigateByUrl('/');
+        alert('Bạn đã chỉnh sửa bài đăng thành công!');
+        this.router.navigateByUrl(`/user/${data.user.id}`);
+      });
+    }
+  }
+
+  deletePostImage(image: PostImage) {
+    if (confirm('Bạn có muốn xóa ảnh này không?')) {
+      this.postImageService.deletePostImage(image.id).subscribe(() => {
+        this.postImages = this.postImages.filter(img => img !== image);
       });
     }
   }
@@ -111,6 +126,12 @@ export class PostEditComponent implements OnInit {
   getAllDirections() {
     this.directionService.getDirections().subscribe(data => {
       this.directions = data;
+    });
+  }
+
+  getAllPostImages() {
+    this.postImageService.getPostImages().subscribe(data => {
+      this.postImages = data.content;
     });
   }
 }

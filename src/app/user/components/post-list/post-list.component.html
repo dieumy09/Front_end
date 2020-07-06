@@ -2,9 +2,9 @@
 
 <!-- Search form -->
 <div class="input-group  ml-auto w-50">
-  <input type="text" class="form-control" placeholder="Tìm kiếm">
+  <input type="text" class="form-control" placeholder="Tìm kiếm" [(ngModel)]="search">
   <div class="input-group-append">
-    <button class="btn btn-primary" type="button">
+    <button class="btn btn-primary" type="button" (click)="getPostsByUser();">
       Search
     </button>
   </div>
@@ -12,7 +12,7 @@
 <br>
 <table class="table table-responsive{-sm|-md|-lg|-xl}">
   <tr>
-<!--    <th>Post ID</th>-->
+    <th>Post ID</th>
     <th>Tiêu đề</th>
     <th>Loại bài viết</th>
     <th>Danh mục</th>
@@ -22,7 +22,8 @@
     <th></th>
   </tr>
     <tr *ngFor="let post of posts">
-<!--      <td><label>{{post.id}}</label></td>-->
+      <ng-container *ngIf="post.status">
+      <td><label>{{post.id}}</label></td>
       <td><label>{{post.title}}</label></td>
       <td><label>{{post.postType.name}}</label></td>
       <td><label>{{post.category.name}}</label></td>
@@ -35,9 +36,15 @@
         <button class="btn btn-light" [routerLink]="['/post-edit/'+post.id]"><i class="fa fa-edit"></i></button>
       </td>
       <td>
-        <button class="btn btn-light"><i class="fa fa-times"></i></button>
+        <button class="btn btn-light" (click)="deletePost(post)"><i class="fa fa-times"></i></button>
       </td>
+      </ng-container>
+    </tr>
 </table>
-<div class="d-flex justify-content-center">
-  <button class="btn btn-light border-primary text-primary">1</button>
-</div>
+<nav class="d-flex justify-content-center">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let p of pages; let i=index">
+      <a class="page-link" href="" (click)="setPage(i, $event)">{{i+1}}</a>
+    </li>
+  </ul>
+</nav>
