@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Region} from '../models/Region';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Region } from '../models/region';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RegionService {
   private readonly API = 'http://localhost:8080/api/v1/regions';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getRegions(): Observable<any> {
     return this.http.get<any>(this.API);
