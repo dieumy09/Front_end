@@ -12,7 +12,7 @@
 <br>
 <table class="table table-responsive{-sm|-md|-lg|-xl}">
   <tr>
-    <th>Post ID</th>
+<!--    <th>Post ID</th>-->
     <th>Tiêu đề</th>
     <th>Loại bài viết</th>
     <th>Danh mục</th>
@@ -23,7 +23,7 @@
   </tr>
     <tr *ngFor="let post of posts">
       <ng-container *ngIf="post.status">
-      <td><label>{{post.id}}</label></td>
+<!--      <td><label>{{post.id}}</label></td>-->
       <td><label>{{post.title}}</label></td>
       <td><label>{{post.postType.name}}</label></td>
       <td><label>{{post.category.name}}</label></td>
