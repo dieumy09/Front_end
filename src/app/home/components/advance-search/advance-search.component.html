@@ -21,16 +21,24 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="container-fluid">
+        <div [formGroup]="searchForm" class="container-fluid">
           <div class="row advance-search-item">
             <div class="col-4">
               <p class="right-bottom">Danh mục:</p>
             </div>
-            <div class="col-8">
-              <select name="category" class="custom-select" id="categorySelect">
-                <option>Tất cả</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
+            <div class="col-md-8">
+              <select
+                name="category"
+                formControlName="categoryId"
+                class="custom-select"
+                id="categorySelect"
+              >
+                <option [ngValue]="null">Tất cả</option>
+                <option
+                  *ngFor="let category of categories"
+                  [ngValue]="category.id"
+                  >{{ category.name }}</option
+                >
               </select>
             </div>
           </div>
@@ -38,11 +46,17 @@
             <div class="col-4">
               <p class="right-bottom">Vùng miền:</p>
             </div>
-            <div class="col-8">
-              <select name="region" class="custom-select" id="regionSelect">
-                <option value="">Tất cả</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
+            <div class="col-md-8">
+              <select
+                name="region"
+                formControlName="regionId"
+                class="custom-select"
+                id="regionSelect"
+              >
+                <option [ngValue]="null">Tất cả</option>
+                <option *ngFor="let region of regions" [ngValue]="region.id">{{
+                  region.name
+                }}</option>
               </select>
             </div>
           </div>
@@ -84,60 +98,23 @@
             </div>
           </div>
           <div class="row advance-search-item">
-            <div class="col-4">
-              <p class="right-top">Loại tin:</p>
+            <div class="col-md-4">
+              <p class="right-bottom">Loại tin:</p>
             </div>
-            <div class="col-8">
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="type"
-                  id="type1"
-                  value="all"
-                />
-                <label class="form-check-label" for="type1">Tất cả</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="type"
-                  id="type2"
-                  value="forSale"
-                />
-                <label class="form-check-label" for="type2">Cần bán</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="type"
-                  id="type3"
-                  value="buyingNeeds"
-                />
-                <label class="form-check-label" for="type3">Cần mua</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="type"
-                  id="type4"
-                  value="forRent"
-                />
-                <label class="form-check-label" for="type4">Cho thuê</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="type"
-                  id="type5"
-                  value="rentingNeeds"
-                />
-                <label class="form-check-label" for="type5">Cần thuê</label>
-              </div>
+            <div class="col-md-8">
+              <select
+                name="region"
+                formControlName="postTypeId"
+                class="custom-select"
+                id="postTypeSelect"
+              >
+                <option [ngValue]="null">Tất cả</option>
+                <option
+                  *ngFor="let postType of postTypes"
+                  [ngValue]="postType.id"
+                  >{{ postType.name }}</option
+                >
+              </select>
             </div>
           </div>
           <div class="row advance-search-item">
@@ -150,8 +127,9 @@
                   class="form-check-input"
                   type="radio"
                   name="condition"
+                  formControlName="condition"
                   id="condition1"
-                  value="all"
+                  [value]="null"
                 />
                 <label class="form-check-label" for="poster1">Tất cả</label>
               </div>
@@ -160,8 +138,9 @@
                   class="form-check-input"
                   type="radio"
                   name="condition"
+                  formControlName="condition"
                   id="condition2"
-                  value="new"
+                  [value]="true"
                 />
                 <label class="form-check-label" for="condition2">Mới</label>
               </div>
@@ -170,8 +149,9 @@
                   class="form-check-input"
                   type="radio"
                   name="condition"
-                  id="condition3"
-                  value="old"
+                  formControlName="condition"
+                  id="condition"
+                  [value]="false"
                 />
                 <label class="form-check-label" for="condition3">Cũ</label>
               </div>
@@ -181,11 +161,16 @@
             <div class="col-4">
               <p class="right-bottom">Diện tích:</p>
             </div>
-            <div class="col-8">
-              <select name="area" class="custom-select" id="areaSelect">
-                <option value="">Tất cả</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
+            <div class="col-md-8">
+              <select
+                name="area"
+                formControlName="area"
+                class="custom-select"
+                id="areaSelect"
+              >
+                <option [ngValue]="null">Tất cả</option>
+                <option [ngValue]="150">Dưới 150 m2</option>
+                <option [ngValue]="300">Dưới 300 m2</option>
               </select>
             </div>
           </div>
@@ -193,14 +178,20 @@
             <div class="col-4">
               <p class="right-top">Giá:</p>
             </div>
-            <div class="col-8">
-              <select name="price" class="custom-select" id="priceSelect">
-                <option value="">Tất cả</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
+            <div class="col-md-8">
+              <select
+                name="price"
+                formControlName="price"
+                class="custom-select"
+                id="priceSelect"
+              >
+                <option [ngValue]="null">Tất cả</option>
+                <option [ngValue]="20000000">Dưới 1,000,000,000 VNĐ</option>
+                <option [ngValue]="30000000">Dưới 3,000,000,000 VNĐ</option>
               </select>
               <div class="form-check form-check-inline">
                 <input
+                  formControlName="deal"
                   class="form-check-input"
                   type="checkbox"
                   id="bargainPrice"
@@ -219,19 +210,30 @@
             <div class="col-8">
               <select
                 name="direction"
+                formControlName="directionId"
                 class="custom-select"
                 id="directionSelect"
               >
-                <option value="">Tất cả</option>
-                <option value="1">A</option>
-                <option value="2">B</option>
+                <option [ngValue]="null">Tất cả</option>
+                <option
+                  *ngFor="let direction of directions"
+                  [ngValue]="direction.id"
+                  >{{ direction.name }}</option
+                >
               </select>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Tìm kiếm</button>
+        <button
+          type="button"
+          (click)="handleSearch()"
+          class="btn btn-primary"
+          data-dismiss="modal"
+        >
+          Tìm kiếm
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Đóng
         </button>

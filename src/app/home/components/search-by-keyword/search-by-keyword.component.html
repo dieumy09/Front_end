@@ -31,13 +31,22 @@
                 type="text"
                 class="input-group-text"
                 placeholder="Nhập từ khóa cần tìm"
+                [(ngModel)]="keyword"
+                name="keyword"
               />
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Tìm kiếm</button>
+        <button
+          type="button"
+          (click)="handleSearch()"
+          class="btn btn-primary"
+          data-dismiss="modal"
+        >
+          Tìm kiếm
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Đóng
         </button>

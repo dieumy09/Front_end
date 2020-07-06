@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Comment} from '../models/Comment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Comment } from '../models/comment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentService {
   private readonly API = 'http://localhost:8080/api/v1/comments';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getComments(): Observable<any> {
     return this.http.get<any>(this.API);

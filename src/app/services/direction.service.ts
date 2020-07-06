@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Direction} from '../models/Direction';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Direction } from '../models/direction';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DirectionService {
   private readonly API = 'http://localhost:8080/api/v1/directions';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getDirections(): Observable<any> {
     return this.http.get<any>(this.API);

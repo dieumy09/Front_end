@@ -10,16 +10,27 @@ import { SearchByKeywordComponent } from './components/search-by-keyword/search-
 import { ListAllComponent } from './components/list-posts/list-all/list-all.component';
 import { PostFormComponent } from './components/post/post-form/post-form.component';
 import { PostConfirmComponent } from './components/post/post-confirm/post-confirm.component';
-import {UserModule} from '../user/user.module';
-
+import { UserModule } from '../user/user.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [HomeComponent, PostDetailComponent, AdvanceSearchComponent, SearchByAgeComponent, SearchByKeywordComponent, ListAllComponent, PostFormComponent, PostConfirmComponent],
+  declarations: [
+    HomeComponent,
+    PostDetailComponent,
+    AdvanceSearchComponent,
+    SearchByAgeComponent,
+    SearchByKeywordComponent,
+    ListAllComponent,
+    PostFormComponent,
+    PostConfirmComponent,
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    UserModule
-  ]
+    UserModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}
