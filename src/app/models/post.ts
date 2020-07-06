@@ -4,6 +4,7 @@ import { Direction } from './direction';
 import { PostType } from './post-type';
 import { PostImage } from './post-image';
 import { Category } from './category';
+import {Region} from './region';
 export interface Post {
   id: number;
   title: string;
@@ -24,4 +25,6 @@ export interface Post {
   direction: Direction;
   createdAt: Date;
   updatedAt: Date;
+  region: Region;
+  customerType: boolean;
 }

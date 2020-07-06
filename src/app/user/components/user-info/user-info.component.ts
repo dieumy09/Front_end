@@ -23,6 +23,7 @@ export class UserInfoComponent implements OnInit {
   getUserById() {
     this.activatedRoute.params.subscribe((next) => {
       this.userService.getUserById(next.id).subscribe((data) => {
+        console.log('user: ' + data);
         this.user = data;
       });
     });

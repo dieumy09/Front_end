@@ -24,7 +24,7 @@ export class CommentService {
   }
 
   editComment(comment: Comment): Observable<Comment> {
-    return this.http.put<Comment>(`${this.API}/${comment.id}`, comment);
+    return this.http.patch<Comment>(`${this.API}/${comment.id}`, comment);
   }
 
   deleteComment(id: number): Observable<Comment> {

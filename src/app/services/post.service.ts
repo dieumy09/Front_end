@@ -20,8 +20,8 @@ export class PostService {
     return this.http.post<Post>(this.API, post);
   }
 
-  editPost(post: Post, id: number): Observable<Post> {
-    return this.http.put<Post>(`${this.API}/${id}`, post);
+  editPost(post: Post, postId: number): Observable<Post> {
+    return this.http.patch<Post>(`${this.API}/${postId}`, post);
   }
 
   deletePost(id: number): Observable<Post> {

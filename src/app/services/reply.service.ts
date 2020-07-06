@@ -20,7 +20,7 @@ export class ReplyService {
   }
 
   editReply(reply: Reply): Observable<Reply> {
-    return this.http.put<Reply>(`${this.API}/${reply.id}`, reply);
+    return this.http.patch<Reply>(`${this.API}/${reply.id}`, reply);
   }
 
   deleteReply(id: number): Observable<Reply> {

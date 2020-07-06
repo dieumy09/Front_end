@@ -20,7 +20,7 @@ export class PostTypeService {
   }
 
   editPostType(postType: PostType): Observable<PostType> {
-    return this.http.put<PostType>(`${this.API}/${postType.id}`, postType);
+    return this.http.patch<PostType>(`${this.API}/${postType.id}`, postType);
   }
 
   deletePostType(id: number): Observable<PostType> {
