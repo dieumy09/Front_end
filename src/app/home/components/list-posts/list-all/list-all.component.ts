@@ -41,6 +41,7 @@ export class ListAllComponent implements OnInit {
     this.searchService.searchAll({
       categoryId: this.selectedCategoryId,
       regionId: this.selectedRegionId,
+      keyword: this.keyword,
     });
   }
 }
