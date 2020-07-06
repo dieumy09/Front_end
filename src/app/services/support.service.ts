@@ -20,7 +20,7 @@ export class SupportService {
   }
 
   editSupport(support: Support): Observable<Support> {
-    return this.http.put<Support>(`${this.API}/${support.id}`, support);
+    return this.http.patch<Support>(`${this.API}/${support.id}`, support);
   }
 
   deleteSupport(id: number): Observable<Support> {

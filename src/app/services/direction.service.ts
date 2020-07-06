@@ -24,7 +24,7 @@ export class DirectionService {
   }
 
   editDirection(direction: Direction): Observable<Direction> {
-    return this.http.put<Direction>(`${this.API}/${direction.id}`, direction);
+    return this.http.patch<Direction>(`${this.API}/${direction.id}`, direction);
   }
 
   deleteDirection(id: number): Observable<Direction> {

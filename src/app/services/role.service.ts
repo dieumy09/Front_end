@@ -20,7 +20,7 @@ export class RoleService {
   }
 
   editRole(role: Role): Observable<Role> {
-    return this.http.put<Role>(`${this.API}/${role.id}`, role);
+    return this.http.patch<Role>(`${this.API}/${role.id}`, role);
   }
 
   deleteRole(id: number): Observable<Role> {

@@ -20,7 +20,7 @@ export class PostImageService {
   }
 
   editPostImage(postImage: PostImage): Observable<PostImage> {
-    return this.http.put<PostImage>(`${this.API}/${postImage.id}`, postImage);
+    return this.http.patch<PostImage>(`${this.API}/${postImage.id}`, postImage);
   }
 
   deletePostImage(id: number): Observable<PostImage> {

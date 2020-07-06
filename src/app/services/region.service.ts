@@ -24,7 +24,7 @@ export class RegionService {
   }
 
   editRegion(region: Region): Observable<Region> {
-    return this.http.put<Region>(`${this.API}/${region.id}`, region);
+    return this.http.patch<Region>(`${this.API}/${region.id}`, region);
   }
 
   deleteRegion(id: number): Observable<Region> {

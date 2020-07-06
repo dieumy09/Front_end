@@ -1,145 +1,159 @@
 <div class="app">
   <h3 class="font-weight-normal">Chỉnh Sửa Bài Đăng</h3>
-  <p>Thay đổi thông tin bài đăng: Cần bán một căn hộ thuộc khu chung cư</p>
+  <p>Thay đổi thông tin bài đăng: {{editPostForm.value.title}}</p>
   <hr>
-  <form [formGroup]="editPostForm">
+
+<!--  Edit Form-->
+  <form (ngSubmit)="onSubmit();" [formGroup]="editPostForm">
+
+    <!--    Category-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">
         <b>Danh mục sản phẩm:</b>
       </label>
       <div class="col-10">
-        <select class="form-control col-form-label">
-          <option value="Nhà Đất">Nhà Đất</option>
-          <option value="Căn hộ">Căn hộ</option>
-          <option value="Biệt thự">Biệt thự</option>
+        <select class="form-control col-form-label" formControlName="category">
+          <option *ngFor="let category of categories" [ngValue]="category">
+            {{category.name}}
+          </option>
         </select>
       </div>
     </div>
+
+<!--      Region-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">
         <b>Vùng miền:</b>
       </label>
       <div class="col-10">
-        <select class="form-control col-form-label">
-          <option value="Nhà Đất">TP Hồ Chí Minh</option>
-          <option value="Căn hộ">Hà Nội</option>
-          <option value="Biệt thự">Đà Nẵng</option>
+        <select class="form-control col-form-label" formControlName="region">
+          <option  *ngFor="let region of regions" [ngValue]="region">
+            {{region.name}}
+          </option>
         </select>
       </div>
-    </div>
+    </div><br>
+
+<!--      CustomerType-->
     <div class="row">
-      <legend class="col-form-label col-2 mr-3"><b>Bạn là:</b></legend>
-      <div class="col-2">
-        <input class="form-check-input" type="radio" checked>
-        <label class="form-check-label">
+      <legend class="col-form-label col-sm-2 mr-3"><b>Bạn là:</b></legend>
+      <div class="col-sm-3">
+        <input class="form-check-input" type="radio" formControlName="customerType" name="customerType" id="personal" value="true">
+        <label class="form-check-label" for="personal">
           Cá nhân
         </label>
       </div>
-      <div class="col-2">
-        <input class="form-check-input" type="radio">
-        <label class="form-check-label">
+      <div class="col-sm-3">
+        <input class="form-check-input" type="radio" formControlName="customerType" name="customerType" id="company" value="false">
+        <label class="form-check-label" for="company">
           Công ty
         </label>
       </div>
-    </div>
+    </div><br>
+
+<!--    Post Type-->
     <div class="row">
-      <legend class="col-form-label col-2 mr-3"><b>Bạn đăng tin:</b></legend>
-      <div class="col-2">
-        <input class="form-check-input" type="radio" checked>
-        <label class="form-check-label">
-          Cần bán
+      <legend class="col-form-label col-sm-2 mr-3"><b>Bạn đăng tin:</b></legend>
+      <div class="col-sm-2" *ngFor="let postType of postTypes">
+        <input class="form-check-input" type="radio" formControlName="postType" name="postType" id="{{postType.id}}" [value]="postType">
+        <label class="form-check-label" for="{{postType.id}}">
+          {{postType.name}}
         </label>
       </div>
-      <div class="col-2">
-        <input class="form-check-input" type="radio">
-        <label class="form-check-label">
-          Cần mua
-        </label>
-      </div>
-      <div class="col-2">
-        <input class="form-check-input" type="radio">
-        <label class="form-check-label">
-          Cho thuê
-        </label>
-      </div>
-      <div class="col-2">
-        <input class="form-check-input" type="radio">
-        <label class="form-check-label">
-          Cần thuê
-        </label>
-      </div>
-    </div>
+    </div><br>
+
+<!--    Condition-->
     <div class="row">
-      <legend class="col-form-label col-2 mr-3"><b>Tình trạng:</b></legend>
-      <div class="col-2">
-        <input class="form-check-input" type="radio" checked>
-        <label class="form-check-label">
+      <legend class="col-form-label col-sm-2 mr-3"><b>Tình trạng:</b></legend>
+      <div class="col-sm-2">
+        <input class="form-check-input" type="radio" formControlName="condition" name="condition" id="new" value="true">
+        <label class="form-check-label" for="new">
           Mới
         </label>
       </div>
-      <div class="col-2">
-        <input class="form-check-input" type="radio">
-        <label class="form-check-label">
+      <div class="col-sm-2">
+        <input class="form-check-input" type="radio" formControlName="condition" name="condition" id="used" value="false">
+        <label class="form-check-label" for="used">
           Đã sử dụng
         </label>
       </div>
-    </div>
+    </div><br>
+
+<!--      Address-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Địa chỉ:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
-        <input class="form-control" placeholder="Quận Gò Vấp, TP Hồ Chí Minh">
+        <input class="form-control" formControlName="address" placeholder="Vui lòng nhập địa chỉ.">
+        <p *ngIf="editPostForm.controls.address.errors?.required && editPostForm.controls.address.touched" class="text-danger">Vui lòng nhập địa chỉ!</p>
+        <p *ngIf="editPostForm.controls.address.errors?.maxlength && editPostForm.controls.address.touched" class="text-danger">Địa chỉ của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
       </div>
-    </div>
+    </div><br>
+
+<!--    Area-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Diện tích:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
-        <input class="form-control" placeholder="64">
+        <input class="form-control" formControlName="area" placeholder="Vui lòng nhập diện tích.">
+        <p *ngIf="editPostForm.controls.area.errors?.required && editPostForm.controls.area.errors?.touched" class="text-danger">Vui lòng nhập diện tích!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.pattern && editPostForm.controls.area.errors?.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.min && editPostForm.controls.area.errors?.touched" class="text-danger">Diện tích phải là số dương. Vui lòng nhập lại!</p>
       </div>
-    </div>
+    </div><br>
+
+<!--    Direction-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">
         <b>Hướng:</b>
       </label>
       <div class="col-10">
-        <select class="form-control col-form-label">
-          <option value="Nhà Đất">Đông Nam</option>
-          <option value="Căn hộ">Đông Bắc</option>
-          <option value="Biệt thự">Đông Tây</option>
+        <select class="form-control col-form-label" formControlName="direction">
+          <option *ngFor="let direction of directions" [ngValue]="direction">{{direction.name}}</option>
         </select>
       </div>
-    </div>
+    </div><br>
+
+<!--    Title-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Tiêu đề:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
-        <input class="form-control" placeholder="Cần bán một căn hộ thuộc khu chung cư">
+        <input class="form-control" formControlName="title" placeholder="Vui lòng nhập tiêu đề.">
+        <p *ngIf="editPostForm.controls.title.errors?.required && editPostForm.controls.title.touched" class="text-danger">Vui lòng nhập tiêu đề!</p>
+        <p *ngIf="editPostForm.controls.title.errors?.pattern && editPostForm.controls.title.errors?.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
       </div>
-    </div>
+    </div><br>
+
+<!--    Content-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Nội dung:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
-      <textarea class="w-100" placeholder="">
-        Nằm trung tâm thị trấn diên khánh, cách chợ thành và Khu đô thị #Nam_Sông_Cái
-       chỉ 350m, cách đường hà huy tập chỉ 200m, thông ra đường tỉnh lộ 8. Khu dân cư đông đúc, thuận tiện đi lại.
-       Trường chợ, quán xá, ngân hàng, trung tâm đều trong bán kính 500m. Giá nhẹ tênh : 660tr còn giảm
-      </textarea>
+      <textarea class="w-100" style="height: 200px" formControlName="content" placeholder="Vui lòng nhập nội dung."></textarea>
+        <p *ngIf="editPostForm.controls.content.errors?.required && editPostForm.controls.content.touched" class="text-danger">Vui lòng nhập nội dung!</p>
+        <p *ngIf="editPostForm.controls.content.errors?.maxlength && editPostForm.controls.content.touched" class="text-danger">Nội dung của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
       </div>
-    </div>
+    </div><br>
+
+<!--    Price-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Giá:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
-        <input class="form-control" placeholder="9000000000">
-        <input type="checkbox" checked>
+        <input class="form-control" formControlName="price" placeholder="Vui lòng nhập giá.">
+        <p *ngIf="editPostForm.controls.price.errors?.required && editPostForm.controls.price.errors?.touched" class="text-danger">Vui lòng nhập giá!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.pattern && editPostForm.controls.price.errors?.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.min && editPostForm.controls.price.errors?.touched" class="text-danger">Giá phải là số dương. Vui lòng nhập lại!</p>
+        <input type="checkbox"  [checked]="true">
         <label> Giá có thể thỏa thuận</label>
       </div>
     </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>
-      <div class="col-sm-10">
-        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>
-        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>
-        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>
-      </div>
-    </div>
+
+<!--    Image-->
+<!--    <div class="form-group row">-->
+<!--      <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>-->
+<!--      <div class="col-sm-10">-->
+<!--        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>-->
+<!--        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>-->
+<!--        <button class="img-btn"><img src="assets/img/user.jpg" class="product-img"></button>-->
+<!--      </div>-->
+<!--    </div>-->
     <button class="btn btn-primary btn-block ml-auto w-25"><i class="fa fa-check"></i>Hoàn thành</button>
   </form>
 </div>
