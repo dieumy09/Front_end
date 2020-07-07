@@ -32,7 +32,7 @@ export class UserService {
     return this.http.delete<User>(`${this.API}/${id}`);
   }
 
-  getPostsByUserId(id: number): Observable<Iterable<Post>> {
-    return this.http.get<Iterable<Post>>(`${this.API}/${id}/posts`);
+  getPostsByUserId(id: number, page: number, search: string): Observable<Iterable<Post>> {
+    return this.http.get<Iterable<Post>>(`${this.API}/${id}/posts?search=${search}&page=${page}`);
   }
 }

@@ -4,13 +4,12 @@ import { Direction } from './direction';
 import { PostType } from './post-type';
 import { PostImage } from './post-image';
 import { Category } from './category';
-import {Region} from './region';
+
 export interface Post {
   id: number;
   title: string;
   condition: boolean;
   address: string;
-  region: Region;
   area: number;
   price: number;
   deal: boolean;
