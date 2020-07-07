@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../../services/user.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
-import {PostEditComponent} from '../post-edit/post-edit.component';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {patchOnProperties} from 'zone.js/lib/common/utils';
 
 @Component({
   selector: 'app-post-list',
