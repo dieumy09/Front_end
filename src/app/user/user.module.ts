@@ -7,17 +7,19 @@ import { PostListComponent } from './components/post-list/post-list.component';
 import { PostEditComponent } from './components/post-edit/post-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from "@angular/material/select";
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
   declarations: [UserComponent, UserInfoComponent, PostListComponent, PostEditComponent],
-    imports: [
-        CommonModule,
-        UserRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatSelectModule
-    ],
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    NgbPaginationModule
+  ],
   exports: [UserComponent, UserInfoComponent, PostListComponent, PostEditComponent]
 })
 export class UserModule { }
