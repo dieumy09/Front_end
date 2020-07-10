@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
@@ -55,14 +55,26 @@ export class PostEditComponent implements OnInit {
       status: [''],
       approved: [''],
       user: [ ],
-      category: [''],
+      category: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
       postImage: [''],
-      postType: [''],
-      direction: [ ],
+      postType: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
+      direction: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      }) ],
       createdAt: [''],
       updatedAt: [''],
-      region: [''],
-      customerType: ['']
+      region: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
+      customerType: [ ]
     });
 
     this.getPost();
@@ -91,7 +103,6 @@ export class PostEditComponent implements OnInit {
     if (this.editPostForm.valid) {
       this.postService.editPost(this.editPostForm.value, this.postId).subscribe(data => {
         console.log(data);
-        alert('Bạn đã chỉnh sửa bài đăng thành công!');
         this.router.navigateByUrl(`/user/${data.user.id}`);
       });
     }

@@ -14,6 +14,10 @@ export class PostListComponent implements OnInit {
   page = 0;
   pages: number[];
   search = '';
+  totalElements: number;
+  pageSize: number;
+  first: boolean;
+  last: boolean;
 
   constructor(
     private postService: PostService,
@@ -30,7 +34,17 @@ export class PostListComponent implements OnInit {
       this.userService.getPostsByUserId(next.id, this.page, this.search).subscribe(data => {
         // @ts-ignore
         this.posts = data.content;
-        console.log(data);
+        // @ts-ignore
+        this.totalElements = data.totalElements;
+        // @ts-ignore
+        this.pageSize = data.size;
+        // @ts-ignore
+        this.page = data.number;
+        // @ts-ignore
+        this.first = data.first;
+        // @ts-ignore
+        this.last = data.last;
+        console.log('page:' + this.page);
         // @ts-ignore
         this.pages = new Array(data.totalPages);
         console.log('search is: ' + this.search);
@@ -39,7 +53,7 @@ export class PostListComponent implements OnInit {
   }
 
   setPage(i, event: any) {
-    event.preventDefault();
+    // event.preventDefault();
     this.page = i;
     this.getPostsByUser();
   }
