@@ -160,15 +160,47 @@
 <!--    Image-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>
-      <div class="col-sm-10 row">
-        <div class="col-sm-4 mb-5" *ngFor="let img of postImages">
-          <button class="img-btn" type="button" (click)="deletePostImage(img);"><img src="assets/img/{{img.image}}" class="product-img"></button>
+      <div class="col-sm-10 row" >
+        <ng-container *ngFor="let img of postImages" >
+          <ng-container *ngIf="img.status">
+            <div class="col-sm-4 mb-5" >
+              <!-- Button trigger modal -->
+              <button class="img-btn" type="button" (click)="openModal(deleteImageModal, img)">
+                <img src="assets/img/{{img.image}}" class="product-img" >
+              </button>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!-- Modal -->
+        <ng-template let-modal #deleteImageModal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa</h5>
+            <button type="button" class="close" (click)="modal.dismiss()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Bạn có muốn xóa ảnh {{image.image | uppercase}} không?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Hủy</button>
+            <button type="button" class="btn btn-primary" (click)="deletePostImage(image)">Đồng ý</button>
+          </div>
+        </ng-template>
+
+        <div class="col-sm-4 mb-5" *ngIf="imageUrl">
+          <img [src]="imageUrl" class="product-img">
         </div>
         <div class="col-sm-4 mb-5">
-          <button type="button" class="img-btn"><img src="assets/img/upload-img.png" class="product-img"></button>
+          <label for="upload">
+            <i class="fa fa-picture-o fa-6x"></i>
+            <input type="file" id="upload" (change)="handleFileInput($event)" hidden accept="image/*">
+          </label>
         </div>
       </div>
     </div>
+
     <button class="btn btn-primary btn-block ml-auto w-25"><i class="fa fa-check"></i>Hoàn thành</button>
   </form>
 </div>
