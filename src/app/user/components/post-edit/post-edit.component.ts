@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
@@ -13,6 +13,7 @@ import {Direction} from '../../../models/direction';
 import {DirectionService} from '../../../services/direction.service';
 import {PostImage} from '../../../models/post-image';
 import {PostImageService} from '../../../services/post-image.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-edit',
@@ -27,8 +28,12 @@ export class PostEditComponent implements OnInit {
   postTypes: PostType[];
   directions: Direction[];
   postImages: PostImage[];
+  postImage: FormGroup;
   postId: number;
   selectedDirection: Direction;
+  fileToUpload: File = null;
+  imageUrl = '';
+  image: PostImage;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +44,8 @@ export class PostEditComponent implements OnInit {
     private regionService: RegionService,
     private postTypeService: PostTypeService,
     private directionService: DirectionService,
-    private postImageService: PostImageService
+    private postImageService: PostImageService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -55,14 +61,26 @@ export class PostEditComponent implements OnInit {
       status: [''],
       approved: [''],
       user: [ ],
-      category: [''],
+      category: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
       postImage: [''],
-      postType: [''],
-      direction: [ ],
+      postType: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
+      direction: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      }) ],
       createdAt: [''],
       updatedAt: [''],
-      region: [''],
-      customerType: ['']
+      region: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
+      customerType: [ ]
     });
 
     this.getPost();
@@ -74,6 +92,9 @@ export class PostEditComponent implements OnInit {
 
     console.log(this.editPostForm);
   }
+
+  // CALLED IN HTML FILE
+// ***********************************************************************************
 
   getPost() {
     this.activatedRoute.params.subscribe(next => {
@@ -89,21 +110,52 @@ export class PostEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editPostForm.valid) {
+      this.postImage = this.formBuilder.group({
+        image: ['']
+      });
+      this.postImage.value.image = this.fileToUpload.name;
+      this.postImageService.createPostImage(this.postImage.value).subscribe(() => {
+        console.log(this.postImage.value);
+      });
       this.postService.editPost(this.editPostForm.value, this.postId).subscribe(data => {
         console.log(data);
-        alert('Bạn đã chỉnh sửa bài đăng thành công!');
         this.router.navigateByUrl(`/user/${data.user.id}`);
       });
     }
   }
 
   deletePostImage(image: PostImage) {
-    if (confirm('Bạn có muốn xóa ảnh này không?')) {
-      this.postImageService.deletePostImage(image.id).subscribe(() => {
-        this.postImages = this.postImages.filter(img => img !== image);
-      });
-    }
+    this.postImageService.getPostImageById(image.id).subscribe(data => {
+      image = data;
+    });
+    image.status = false;
+    this.postImageService.editPostImage(image).subscribe();
+    this.modalService.dismissAll();
   }
+
+  handleFileInput(event) {
+    this.fileToUpload = event.target.files[0];
+    console.log(this.fileToUpload);
+
+    // Show image preview
+    const reader = new FileReader();
+    reader.onload = (data: any) => {
+      this.imageUrl = data.target.result;
+    };
+    reader.readAsDataURL(this.fileToUpload);
+  }
+
+  openModal(targetModal, image) {
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static'
+    });
+    this.image = image;
+  }
+
+// ***********************************************************************************
+
+
 
   getAllCategories() {
     this.categoryService.getCategories().subscribe(data => {
