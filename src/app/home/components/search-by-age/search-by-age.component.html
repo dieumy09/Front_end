@@ -27,7 +27,12 @@
               <p class="right-bottom">Năm sinh(DL) <span>(*)</span></p>
             </div>
             <div class="col-8">
-              <select name="age" class="custom-select" id="age">
+              <select
+                name="age"
+                [(ngModel)]="year"
+                class="custom-select"
+                id="age"
+              >
                 <option value="1955">1955</option>
                 <option value="1956">1956</option>
               </select>
@@ -38,16 +43,28 @@
               <p class="right-bottom">Giới tính:</p>
             </div>
             <div class="col-8">
-              <select name="gender" class="custom-select" id="gender">
-                <option value="Nam">Nam</option>
-                <option value="Nu">Nữ</option>
+              <select
+                name="gender"
+                [(ngModel)]="gender"
+                class="custom-select"
+                id="gender"
+              >
+                <option [value]="true">Nam</option>
+                <option [value]="false">Nữ</option>
               </select>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Tìm kiếm</button>
+        <button
+          type="button"
+          (click)="handleSearchClick()"
+          class="btn btn-primary"
+          data-dismiss="modal"
+        >
+          Tìm kiếm
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Đóng
         </button>

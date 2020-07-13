@@ -1,4 +1,3 @@
-
 h5 {
   font-family: "Times New Roman";
   font-size: 24px;
@@ -12,7 +11,7 @@ h5 {
   overflow: hidden;
   padding: 0;
   border: none;
-  border-radius: .28571429rem;
+  border-radius: 0.28571429rem;
   box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
 }
 
@@ -22,7 +21,7 @@ h5 {
   margin: 0;
   padding: 1em;
   border: none;
-  border-top: 1px solid rgba(34, 36, 38, .1);
+  border-top: 1px solid rgba(34, 36, 38, 0.1);
   box-shadow: none;
 }
 
@@ -40,8 +39,8 @@ h5 {
 
 .card-text {
   clear: both;
-  margin-top: .5em;
-  color: rgba(0, 0, 0, .68);
+  margin-top: 0.5em;
+  color: rgba(0, 0, 0, 0.68);
 }
 
 .card-footer {
@@ -50,14 +49,14 @@ h5 {
   top: 0;
   left: 0;
   max-width: 100%;
-  padding: .75em 1em;
-  color: rgba(0, 0, 0, .4);
-  border-top: 1px solid rgba(0, 0, 0, .05) !important;
+  padding: 0.75em 1em;
+  color: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
   background: #fff;
 }
 
 .card-inverse .btn {
-  border: 1px solid rgba(0, 0, 0, .05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .profile {
@@ -98,18 +97,20 @@ h5 {
 
 .meta {
   font-size: 1em;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .meta a {
   text-decoration: none;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .meta a:hover {
-  color: rgba(0, 0, 0, .87);
+  color: rgba(0, 0, 0, 0.87);
 }
-body{margin:40px;}
+body {
+  margin: 40px;
+}
 
 .col-sm-5 h5 {
   font-family: "Times New Roman";
@@ -127,4 +128,16 @@ body{margin:40px;}
 }
 #button-list-all {
   padding: 15px;
+}
+
+.page-item a:hover {
+  cursor: pointer;
+}
+
+.page-item a {
+  color: #007bff;
+}
+
+.page-item.active a {
+  color: wheat;
 }
