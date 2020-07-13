@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-list',
@@ -11,6 +12,7 @@ import {Post} from '../../../models/post';
 })
 export class PostListComponent implements OnInit {
   posts: Post[];
+  post: Post;
   page = 0;
   pages: number[];
   search = '';
@@ -22,7 +24,8 @@ export class PostListComponent implements OnInit {
   constructor(
     private postService: PostService,
     private userService: UserService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -59,14 +62,21 @@ export class PostListComponent implements OnInit {
   }
 
   deletePost(post: Post): void {
-    if (confirm('Bạn có muốn xóa bài đăng này không?')) {
-      this.postService.getPostById(post.id).subscribe(data => {
-        post = data;
-      });
-      post.status = false;
-      this.postService.editPost(post, post.id).subscribe(data => {
-        console.log(data);
-      });
-    }
+    this.postService.getPostById(post.id).subscribe(data => {
+      post = data;
+    });
+    post.status = false;
+    this.postService.editPost(post, post.id).subscribe(data => {
+      console.log(data);
+    });
+    this.modalService.dismissAll();
+  }
+
+  openModal(targetModal, post) {
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static'
+    });
+    this.post = post;
   }
 }

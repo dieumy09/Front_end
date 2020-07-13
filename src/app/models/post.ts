@@ -19,7 +19,7 @@ export interface Post {
   approved: boolean;
   user: User;
   category: Category;
-  postImage: PostImage;
+  postImage: PostImage[];
   postType: PostType;
   direction: Direction;
   createdAt: Date;
