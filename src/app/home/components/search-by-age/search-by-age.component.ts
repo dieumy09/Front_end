@@ -14,5 +14,10 @@ export class SearchByAgeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  handleSearchClick() {}
+  handleSearchClick() {
+    this.searchService.searchAll({
+      year: this.year,
+      gender: this.gender,
+    });
+  }
 }
