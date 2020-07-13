@@ -14,12 +14,13 @@ import { Post } from 'src/app/models/post';
   styleUrls: ['./list-all.component.scss'],
 })
 export class ListAllComponent implements OnInit {
-  listPost$: Observable<List<Post>>;
   categories: Category[];
   regions: Region[];
   selectedRegionId: number = null;
   selectedCategoryId: number = null;
   keyword: string;
+  currentPage = 0;
+  listPost: List<Post>;
   constructor(
     private searchService: SearchService,
     private regionService: RegionService,
@@ -27,7 +28,9 @@ export class ListAllComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listPost$ = this.searchService.listPost$;
+    this.searchService.listPost$.subscribe((next) => {
+      this.listPost = next;
+    });
     this.searchService.searchAll();
     this.regionService.getRegions().subscribe((next) => {
       this.regions = next;
@@ -43,5 +46,25 @@ export class ListAllComponent implements OnInit {
       regionId: this.selectedRegionId,
       keyword: this.keyword,
     });
+  }
+
+  handleClickNext() {
+    if (this.listPost.number === this.listPost.totalPages - 1) {
+      this.searchService.jumpToPage(0);
+    } else {
+      this.searchService.jumpToPage(this.listPost.number + 1);
+    }
+  }
+
+  handleClickPrevious() {
+    if (this.listPost.number === 0) {
+      this.searchService.jumpToPage(this.listPost.totalPages - 1);
+    } else {
+      this.searchService.jumpToPage(this.listPost.number - 1);
+    }
+  }
+
+  jumpToPage(page) {
+    this.searchService.jumpToPage(page - 1);
   }
 }

@@ -46,7 +46,7 @@ export class AdvanceSearchComponent implements OnInit {
       this.directions = next;
     });
     this.searchForm = this.formBuilder.group({
-      categoryId: [null, []],
+      categoryId: [null],
       regionId: [null],
       postTypeId: [null],
       condition: [null],
@@ -54,6 +54,7 @@ export class AdvanceSearchComponent implements OnInit {
       price: [null],
       deal: [true],
       directionId: [null],
+      customerType: [null],
     });
   }
 
