@@ -15,12 +15,16 @@ export class ReplyService {
     return this.http.get<any>(this.API);
   }
 
+  getRepliesByCommentId(id: number): Observable<Iterable<Reply>> {
+    return this.http.get<Iterable<Reply>>(`${this.API}/${id}/comment`);
+  }
+
   createReply(reply: Reply): Observable<Reply> {
     return this.http.post<Reply>(this.API, reply);
   }
 
-  editReply(reply: Reply): Observable<Reply> {
-    return this.http.patch<Reply>(`${this.API}/${reply.id}`, reply);
+  editReply(reply: Reply, replyId: number): Observable<Reply> {
+    return this.http.patch<Reply>(`${this.API}/${replyId}`, reply);
   }
 
   deleteReply(id: number): Observable<Reply> {

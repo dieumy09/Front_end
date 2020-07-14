@@ -47,7 +47,6 @@ export class PostEditComponent implements OnInit {
     private postImageService: PostImageService,
     private modalService: NgbModal
   ) { }
-
   ngOnInit(): void {
     this.editPostForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
