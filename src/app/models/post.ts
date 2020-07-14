@@ -20,7 +20,7 @@ export interface Post {
   approved: boolean;
   user: User;
   category: Category;
-  postImages: PostImage[];
+  postImage: PostImage[];
   postType: PostType;
   direction: Direction;
   comments: Comment[];

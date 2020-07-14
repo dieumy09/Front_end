@@ -4,11 +4,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AuthModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, AuthModule, HttpClientModule, NoopAnimationsModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],
 })

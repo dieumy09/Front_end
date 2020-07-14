@@ -69,9 +69,10 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="poster"
+                  name="customerType"
+                  formControlName="customerType"
                   id="poster1"
-                  value="all"
+                  [value]="null"
                 />
                 <label class="form-check-label" for="poster1">Tất cả</label>
               </div>
@@ -79,9 +80,10 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="poster"
+                  name="customerType"
+                  formControlName="customerType"
                   id="poster2"
-                  value="individual"
+                  [value]="true"
                 />
                 <label class="form-check-label" for="poster2">Cá nhân</label>
               </div>
@@ -89,9 +91,10 @@
                 <input
                   class="form-check-input"
                   type="radio"
-                  name="poster"
+                  name="customerType"
+                  formControlName="customerType"
                   id="poster3"
-                  value="company"
+                  [value]="false"
                 />
                 <label class="form-check-label" for="poster3">Công ty</label>
               </div>

@@ -26,4 +26,8 @@ export class PostImageService {
   deletePostImage(id: number): Observable<PostImage> {
     return this.http.delete<PostImage>(`${this.API}/${id}`);
   }
+
+  getPostImageById(id: number): Observable<PostImage> {
+    return this.http.get<PostImage>(`${this.API}/${id}`);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
@@ -11,6 +11,9 @@ import {PostTypeService} from '../../../services/post-type.service';
 import {PostType} from '../../../models/post-type';
 import {Direction} from '../../../models/direction';
 import {DirectionService} from '../../../services/direction.service';
+import {PostImage} from '../../../models/post-image';
+import {PostImageService} from '../../../services/post-image.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-edit',
@@ -18,7 +21,19 @@ import {DirectionService} from '../../../services/direction.service';
   styleUrls: ['./post-edit.component.scss']
 })
 export class PostEditComponent implements OnInit {
-  selectedCategory: Category;
+  editPostForm: FormGroup;
+  post: Post;
+  categories: Category[];
+  regions: Region[];
+  postTypes: PostType[];
+  directions: Direction[];
+  postImages: PostImage[];
+  postImage: FormGroup;
+  postId: number;
+  selectedDirection: Direction;
+  fileToUpload: File = null;
+  imageUrl = '';
+  image: PostImage;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,16 +43,10 @@ export class PostEditComponent implements OnInit {
     private categoryService: CategoryService,
     private regionService: RegionService,
     private postTypeService: PostTypeService,
-    private directionService: DirectionService
+    private directionService: DirectionService,
+    private postImageService: PostImageService,
+    private modalService: NgbModal
   ) { }
-  editPostForm: FormGroup;
-  post: Post;
-  categories: Category[];
-  regions: Region[];
-  postTypes: PostType[];
-  directions: Direction[];
-  postId: number;
-
   ngOnInit(): void {
     this.editPostForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(50)]],
@@ -51,14 +60,26 @@ export class PostEditComponent implements OnInit {
       status: [''],
       approved: [''],
       user: [ ],
-      category: [''],
+      category: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
       postImage: [''],
-      postType: [''],
-      direction: [''],
+      postType: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
+      direction: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      }) ],
       createdAt: [''],
       updatedAt: [''],
-      region: [''],
-      customerType: ['']
+      region: [this.formBuilder.group({
+        id: [''],
+        name: ['']
+      })],
+      customerType: [ ]
     });
 
     this.getPost();
@@ -66,9 +87,13 @@ export class PostEditComponent implements OnInit {
     this.getAllDirections();
     this.getAllPostTypes();
     this.getAllRegions();
+    this.getAllPostImages();
 
     console.log(this.editPostForm);
   }
+
+  // CALLED IN HTML FILE
+// ***********************************************************************************
 
   getPost() {
     this.activatedRoute.params.subscribe(next => {
@@ -76,6 +101,7 @@ export class PostEditComponent implements OnInit {
       this.postService.getPostById(this.postId).subscribe(data => {
         this.post = data;
         console.log(data);
+        this.selectedDirection = data.direction;
         this.editPostForm.patchValue(data);
       });
     });
@@ -83,12 +109,52 @@ export class PostEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editPostForm.valid) {
+      this.postImage = this.formBuilder.group({
+        image: ['']
+      });
+      this.postImage.value.image = this.fileToUpload.name;
+      this.postImageService.createPostImage(this.postImage.value).subscribe(() => {
+        console.log(this.postImage.value);
+      });
       this.postService.editPost(this.editPostForm.value, this.postId).subscribe(data => {
-        console.log(this.editPostForm.value);
-        this.router.navigateByUrl('/');
+        console.log(data);
+        this.router.navigateByUrl(`/user/${data.user.id}`);
       });
     }
   }
+
+  deletePostImage(image: PostImage) {
+    this.postImageService.getPostImageById(image.id).subscribe(data => {
+      image = data;
+    });
+    image.status = false;
+    this.postImageService.editPostImage(image).subscribe();
+    this.modalService.dismissAll();
+  }
+
+  handleFileInput(event) {
+    this.fileToUpload = event.target.files[0];
+    console.log(this.fileToUpload);
+
+    // Show image preview
+    const reader = new FileReader();
+    reader.onload = (data: any) => {
+      this.imageUrl = data.target.result;
+    };
+    reader.readAsDataURL(this.fileToUpload);
+  }
+
+  openModal(targetModal, image) {
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static'
+    });
+    this.image = image;
+  }
+
+// ***********************************************************************************
+
+
 
   getAllCategories() {
     this.categoryService.getCategories().subscribe(data => {
@@ -111,6 +177,12 @@ export class PostEditComponent implements OnInit {
   getAllDirections() {
     this.directionService.getDirections().subscribe(data => {
       this.directions = data;
+    });
+  }
+
+  getAllPostImages() {
+    this.postImageService.getPostImages().subscribe(data => {
+      this.postImages = data.content;
     });
   }
 }
