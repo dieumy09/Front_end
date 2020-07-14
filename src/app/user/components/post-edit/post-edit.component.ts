@@ -84,7 +84,7 @@ export class PostEditComponent implements OnInit {
   onSubmit() {
     if (this.editPostForm.valid) {
       this.postService.editPost(this.editPostForm.value, this.postId).subscribe(data => {
-        console.log(data);
+        console.log(this.editPostForm.value);
         this.router.navigateByUrl('/');
       });
     }

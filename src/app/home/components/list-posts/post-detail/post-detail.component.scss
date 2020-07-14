@@ -1,0 +1,31 @@
+.dropdown-content {
+  display: none;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+._54nc{
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  font-size: 14px;
+  margin-left: 10px;
+  color: #385898;
+}
+
+._54nc:hover{
+  text-decoration: underline;
+}
+
+ngb-pagination li {
+  &:first-child a {
+    span {
+      display: none;
+    }
+    &:before {
+      /* provide your content here */
+    }
+  }
+}
