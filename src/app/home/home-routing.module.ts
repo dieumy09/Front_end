@@ -25,7 +25,7 @@ const routes: Routes = [
       {path: 'user/:id', component: UserComponent},
       {path: 'post-edit/:id', component: PostEditComponent},
       {path: '', component: ListAllComponent},
-      {path: 'post-detail', component: PostDetailComponent},
+      {path: 'post-detail/:id', component: PostDetailComponent},
       {path: 'post-form', component: PostFormComponent},
       {path: 'post-confirm', component: PostConfirmComponent}
     ]

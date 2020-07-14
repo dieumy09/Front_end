@@ -1,5 +1,5 @@
-import { List } from './../models/list';
-import { Post } from './../models/post';
+import { List } from '../models/list';
+import { Post } from '../models/post';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';

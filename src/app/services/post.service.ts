@@ -16,6 +16,10 @@ export class PostService {
     return this.http.get<List<Post>>(this.API + '?page=' + page);
   }
 
+  getPostById(id: number): Observable<Post> {
+    return this.http.get<Post>(`${this.API}/${id}`);
+  }
+
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.API, post);
   }
