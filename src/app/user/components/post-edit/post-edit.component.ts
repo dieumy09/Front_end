@@ -34,6 +34,7 @@ export class PostEditComponent implements OnInit {
   fileToUpload: File = null;
   imageUrl = '';
   image: PostImage;
+  category: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -109,15 +110,17 @@ export class PostEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editPostForm.valid) {
-      this.postImage = this.formBuilder.group({
-        image: ['']
-      });
-      this.postImage.value.image = this.fileToUpload.name;
-      this.postImageService.createPostImage(this.postImage.value).subscribe(() => {
-        console.log(this.postImage.value);
-      });
+      if (this.fileToUpload != null) {
+        this.postImage = this.formBuilder.group({
+          image: ['']
+        });
+        this.postImage.value.image = this.fileToUpload.name;
+        this.postImageService.createPostImage(this.postImage.value).subscribe(() => {
+          // console.log(this.postImage.value);
+        });
+      }
       this.postService.editPost(this.editPostForm.value, this.postId).subscribe(data => {
-        console.log(data);
+        console.log('post: ' + data.region.name);
         this.router.navigateByUrl(`/user/${data.user.id}`);
       });
     }
@@ -151,6 +154,10 @@ export class PostEditComponent implements OnInit {
     });
     this.image = image;
   }
+  changeCity(e) {
+   this.category = e.target.value;
+  }
+
 
 // ***********************************************************************************
 

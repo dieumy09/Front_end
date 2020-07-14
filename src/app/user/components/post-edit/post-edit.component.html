@@ -3,7 +3,7 @@
   <p>Thay đổi thông tin bài đăng: {{editPostForm.value.title}}</p>
   <hr>
 
-<!--  Edit Form-->
+  <!--  Edit Form-->
   <form (ngSubmit)="onSubmit();" [formGroup]="editPostForm">
 
     <!--    Category-->
@@ -12,130 +12,148 @@
         <b>Danh mục sản phẩm:</b>
       </label>
       <div class="col-10">
-        <select class="form-control col-form-label" formGroupName="category">
-          <option *ngFor="let category of categories" [ngValue]="category" [selected]="category.id === editPostForm.value.category.id">
-            {{category.name}}
-          </option>
-        </select>
+        <div formGroupName="category">
+          <select class="form-control col-form-label" formControlName="name" (change)="changeCity($event)">
+            <option *ngFor="let category of categories" [selected]="category.id === editPostForm.value.category.id" >
+              {{category.name}}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
 
-<!--      Region-->
+    <!--      Region-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">
         <b>Vùng miền:</b>
       </label>
       <div class="col-10">
         <select class="form-control col-form-label" formGroupName="region">
-          <option  *ngFor="let region of regions" [ngValue]="region" [selected]="region.id === editPostForm.value.region.id">
+          <option *ngFor="let region of regions" [ngValue]="region"
+                  [selected]="region.id === editPostForm.value.region.id">
             {{region.name}}
           </option>
         </select>
       </div>
     </div>
 
-<!--      CustomerType-->
+    <!--      CustomerType-->
     <div class="row">
       <legend class="col-form-label col-sm-2 mr-3"><b>Bạn là:</b></legend>
       <div class="col-sm-2">
-        <input class="form-check-input" type="radio" formControlName="customerType" name="customerType" id="personal" [value]="true">
+        <input class="form-check-input" type="radio" formControlName="customerType" name="customerType" id="personal"
+               [value]="true">
         <label class="form-check-label" for="personal">
           Cá nhân
         </label>
       </div>
       <div class="col-sm-2">
-        <input class="form-check-input" type="radio" formControlName="customerType" name="customerType" id="company" [value]="false">
+        <input class="form-check-input" type="radio" formControlName="customerType" name="customerType" id="company"
+               [value]="false">
         <label class="form-check-label" for="company">
           Công ty
         </label>
       </div>
     </div>
 
-<!--    Post Type-->
+    <!--    Post Type-->
     <div class="row">
       <legend class="col-form-label col-sm-2 mr-3"><b>Đăng tin:</b></legend>
       <div class="col-sm-2" *ngFor="let postType of postTypes">
         <input class="form-check-input" type="radio"
-          formGroupName="postType" name="postType"
-          id="{{postType.id}}" [value]="postType"
-          [checked]="postType.id === editPostForm.value.postType.id">
+               formGroupName="postType" name="postType"
+               id="{{postType.id}}" [value]="postType"
+               [checked]="postType.id === editPostForm.value.postType.id">
         <label class="form-check-label" for="{{postType.id}}">
           {{postType.name}}
         </label>
       </div>
     </div>
 
-<!--    Condition-->
+    <!--    Condition-->
     <div class="row">
       <legend class="col-form-label col-sm-2 mr-3"><b>Tình trạng:</b></legend>
       <div class="col-sm-2">
-        <input class="form-check-input" type="radio" formControlName="condition" name="condition" id="new" [value]="true">
+        <input class="form-check-input" type="radio" formControlName="condition" name="condition" id="new"
+               [value]="true">
         <label class="form-check-label" for="new">
           Mới
         </label>
       </div>
       <div class="col-sm-2">
-        <input class="form-check-input" type="radio" formControlName="condition" name="condition" id="used" [value]="false">
+        <input class="form-check-input" type="radio" formControlName="condition" name="condition" id="used"
+               [value]="false">
         <label class="form-check-label" for="used">
           Đã sử dụng
         </label>
       </div>
     </div>
 
-<!--      Address-->
+    <!--      Address-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Địa chỉ:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
         <input class="form-control" formControlName="address" placeholder="Vui lòng nhập địa chỉ.">
-        <p *ngIf="editPostForm.controls.address.errors?.required && editPostForm.controls.address.touched" class="text-danger">Vui lòng nhập địa chỉ!</p>
-        <p *ngIf="editPostForm.controls.address.errors?.maxlength && editPostForm.controls.address.touched" class="text-danger">Địa chỉ của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.address.errors?.required && editPostForm.controls.address.touched"
+           class="text-danger">Vui lòng nhập địa chỉ!</p>
+        <p *ngIf="editPostForm.controls.address.errors?.maxlength && editPostForm.controls.address.touched"
+           class="text-danger">Địa chỉ của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
       </div>
     </div>
 
-<!--    Area-->
+    <!--    Area-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Diện tích:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
         <input class="form-control" formControlName="area" placeholder="Vui lòng nhập diện tích.">
-        <p *ngIf="editPostForm.controls.area.errors?.required && editPostForm.controls.area.touched" class="text-danger">Vui lòng nhập diện tích!</p>
-        <p *ngIf="editPostForm.controls.area.errors?.pattern && editPostForm.controls.area.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
-        <p *ngIf="editPostForm.controls.area.errors?.min && editPostForm.controls.area.touched" class="text-danger">Diện tích phải là số dương. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.required && editPostForm.controls.area.touched"
+           class="text-danger">Vui lòng nhập diện tích!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.pattern && editPostForm.controls.area.touched" class="text-danger">
+          Sai định dạng số. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.area.errors?.min && editPostForm.controls.area.touched" class="text-danger">Diện
+          tích phải là số dương. Vui lòng nhập lại!</p>
       </div>
     </div>
 
-<!--    Direction-->
+    <!--    Direction-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">
         <b>Hướng:</b>
       </label>
       <div class="col-10">
         <select class="form-control col-form-label" formGroupName="direction">
-            <option *ngFor="let direction of directions" [ngValue]="direction" [selected]="direction.id === editPostForm.value.direction.id">{{direction.name}}</option>
+          <option *ngFor="let direction of directions" [ngValue]="direction"
+                  [selected]="direction.id === editPostForm.value.direction.id">{{direction.name}}</option>
         </select>
       </div>
     </div>
 
-<!--    Title-->
+    <!--    Title-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Tiêu đề:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
         <input class="form-control" formControlName="title" placeholder="Vui lòng nhập tiêu đề.">
-        <p *ngIf="editPostForm.controls.title.errors?.required && editPostForm.controls.title.touched" class="text-danger">Vui lòng nhập tiêu đề!</p>
-        <p *ngIf="editPostForm.controls.title.errors?.maxlength && editPostForm.controls.title.touched" class="text-danger">Tiêu đề của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.title.errors?.required && editPostForm.controls.title.touched"
+           class="text-danger">Vui lòng nhập tiêu đề!</p>
+        <p *ngIf="editPostForm.controls.title.errors?.maxlength && editPostForm.controls.title.touched"
+           class="text-danger">Tiêu đề của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
       </div>
     </div>
 
-<!--    Content-->
+    <!--    Content-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Nội dung:<span class="required">(*)</span></b></label>
       <div class="col-sm-10">
-      <textarea class="w-100" style="height: 200px" formControlName="content" placeholder="Vui lòng nhập nội dung."></textarea>
-        <p *ngIf="editPostForm.controls.content.errors?.required && editPostForm.controls.content.touched" class="text-danger">Vui lòng nhập nội dung!</p>
-        <p *ngIf="editPostForm.controls.content.errors?.maxlength && editPostForm.controls.content.touched" class="text-danger">Nội dung của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
+        <textarea class="w-100" style="height: 200px" formControlName="content"
+                  placeholder="Vui lòng nhập nội dung."></textarea>
+        <p *ngIf="editPostForm.controls.content.errors?.required && editPostForm.controls.content.touched"
+           class="text-danger">Vui lòng nhập nội dung!</p>
+        <p *ngIf="editPostForm.controls.content.errors?.maxlength && editPostForm.controls.content.touched"
+           class="text-danger">Nội dung của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
       </div>
     </div>
 
-<!--    Price-->
+    <!--    Price-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Giá:<span class="required">(*)</span></b></label>
       <div class="col-sm-10 input-group">
@@ -143,30 +161,33 @@
         <div class="input-group-append">
           <span class="input-group-text">VNĐ</span>
         </div>
-        <p *ngIf="editPostForm.controls.price.errors?.required && editPostForm.controls.price.touched" class="text-danger">Vui lòng nhập giá!</p>
-        <p *ngIf="editPostForm.controls.price.errors?.pattern && editPostForm.controls.price.touched" class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
-        <p *ngIf="editPostForm.controls.price.errors?.min && editPostForm.controls.price.touched" class="text-danger">Giá phải là số dương. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.required && editPostForm.controls.price.touched"
+           class="text-danger">Vui lòng nhập giá!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.pattern && editPostForm.controls.price.touched"
+           class="text-danger">Sai định dạng số. Vui lòng nhập lại!</p>
+        <p *ngIf="editPostForm.controls.price.errors?.min && editPostForm.controls.price.touched" class="text-danger">
+          Giá phải là số dương. Vui lòng nhập lại!</p>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-2"></div>
       <div class="col-10">
-        <input type="checkbox"  [checked]="true">
+        <input type="checkbox" [checked]="true">
         <label> Giá có thể thỏa thuận</label>
       </div>
     </div>
 
-<!--    Image-->
+    <!--    Image-->
     <div class="form-group row">
       <label class="col-sm-2 col-form-label"><b>Hình ảnh:<span class="required">(*)</span></b></label>
-      <div class="col-sm-10 row" >
-        <ng-container *ngFor="let img of postImages" >
+      <div class="col-sm-10 row">
+        <ng-container *ngFor="let img of postImages">
           <ng-container *ngIf="img.status">
-            <div class="col-sm-4 mb-5" >
+            <div class="col-sm-4 mb-5">
               <!-- Button trigger modal -->
               <button class="img-btn" type="button" (click)="openModal(deleteImageModal, img)">
-                <img src="assets/img/{{img.image}}" class="product-img" >
+                <img src="assets/img/{{img.image}}" class="product-img">
               </button>
             </div>
           </ng-container>

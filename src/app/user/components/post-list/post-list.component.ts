@@ -56,7 +56,7 @@ export class PostListComponent implements OnInit {
   }
 
   setPage(i, event: any) {
-    // event.preventDefault();
+    event.preventDefault();
     this.page = i;
     this.getPostsByUser();
   }
