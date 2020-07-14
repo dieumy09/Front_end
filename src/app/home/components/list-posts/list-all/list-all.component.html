@@ -1,123 +1,117 @@
-<!DOCTYPE html>
-<html lang="vi">
-  <head>
-    <meta charset="utf-8" />
-    <link
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <form class="content" (ngSubmit)="handleSubmit()">
-      <h5 id="text">Mua bán bất động sản</h5>
-      <div class="form-group-row px-0 mx-0 p-2">
-        <div class="col-sm-12">
-          <input
-            type="text"
-            class="form-control"
-            name="keyword"
-            placeholder="Search"
-            aria-label="Search"
-            aria-describedby="addon-wrapping"
-            [(ngModel)]="keyword"
-          />
-        </div>
-        <div class="row justify-content-between py-2 mx-3">
-          <div class="col-sm-5 px-0 mx-0">
-            <select
-              [(ngModel)]="selectedRegionId"
-              name="region"
-              class="form-control"
-            >
-              <option [ngValue]="null">--Toàn quốc--</option>
-              <option *ngFor="let region of regions" [ngValue]="region.id">
-                {{ region.name }}
-              </option>
-            </select>
-          </div>
-          <div class="col-sm-6 px-0 mx-0">
-            <select
-              [(ngModel)]="selectedCategoryId"
-              name="category"
-              class="form-control"
-            >
-              <option [ngValue]="null">--Chọn danh mục--</option>
-              <option
-                *ngFor="let category of categories"
-                [ngValue]="category.id"
-                >{{ category.name }}</option
-              >
-            </select>
-          </div>
-        </div>
-        <div class="row justify-content-between p-4">
-          <div class="col-sm-5">
-            <h5>Tất cả Cá nhân/Tổ chức.</h5>
-          </div>
-          <div class="col-sm-2 px-0 mx-0">
-            <button class="btn btn-warning btn-block">
-              <i class="fa fa-search"></i> Tìm kiếm
-            </button>
-          </div>
-        </div>
+<form class="content" (ngSubmit)="handleSubmit()">
+  <h5 id="text">Mua bán bất động sản</h5>
+  <div class="form-group-row px-0 mx-0 p-2">
+    <div class="col-sm-12">
+      <input
+        type="text"
+        class="form-control"
+        name="keyword"
+        placeholder="Search"
+        aria-label="Search"
+        aria-describedby="addon-wrapping"
+        [(ngModel)]="keyword"
+      />
+    </div>
+    <div class="row justify-content-between py-2 mx-3">
+      <div class="col-sm-6 px-lg-0 mx-lg-0 pl-2">
+        <select
+          [(ngModel)]="selectedRegionId"
+          name="region"
+          class="form-control"
+        >
+          <option [ngValue]="null">--Toàn quốc--</option>
+          <option *ngFor="let region of regions" [ngValue]="region.id">
+            {{ region.name }}
+          </option>
+        </select>
       </div>
-      <div class="col-sm 12 align-content-center">
-        <div class="row p-2">
-          <div class="col-sm-4 mx-8" *ngFor="let post of listPost?.content">
-            <div class="card" [routerLink]="['/post-detail', post.id]">
-              <img
-                class="card-img-top"
-                src="https://picsum.photos/200/150/?random"
-              />
-              <div class="card-block">
-                <label>[{{ post?.postType.name }}] {{ post.title }}</label
-                ><br />
-                <label>{{ post.price }} VNĐ</label>
-                <div class="meta">
-                  <label>tại {{ post?.region.name }}</label
-                  ><br />
-                  <label>{{ post.createdAt | date: "dd/MM/yyyy" }}</label
-                  ><br />
-                  <label>Lượt xem {{ post.viewCount }}</label>
-                  <label class="float-right">Cá nhân</label>
-                </div>
+      <div class="col-sm-6 px-lg-0 mx-lg-0">
+        <select
+          [(ngModel)]="selectedCategoryId"
+          name="category"
+          class="form-control"
+        >
+          <option [ngValue]="null">--Chọn danh mục--</option>
+          <option *ngFor="let category of categories" [ngValue]="category.id">{{
+            category.name
+          }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row justify-content-between p-4">
+      <div class="col-sm-5">
+        <h5>Tất cả Cá nhân/Tổ chức.</h5>
+      </div>
+      <div class="col-sm-2 px-0 mx-0">
+        <button class="btn btn-warning btn-block">
+          <i class="fa fa-search"></i> Tìm kiếm
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 align-content-center">
+    <div class="row">
+      <div
+        class="col-sm-12 col-md-6 col-lg-4 mb-2"
+        *ngFor="let post of listPost?.content"
+      >
+        <div class="card" [routerLink]="['/post-detail', post.id]">
+          <img
+            class="card-img-top"
+            src="https://picsum.photos/200/150/?random"
+          />
+          <div class="card-body">
+            <div class="p-title">
+              <a class="card-title">
+                [{{ post?.postType.name }}] {{ post.title }}
+              </a>
+            </div>
+            <p class="card-text post-price">
+              Giá: <strong>{{ post.price }}</strong> VNĐ
+            </p>
+            <div class="post-info">
+              <div>
+                <i class="fas fa-map-marker-alt"></i> tại
+                {{ post?.region.name }}
+              </div>
+              <div>Ngày đăng: {{ post.createdAt | date: "dd/MM/yyyy" }}</div>
+              <div>
+                <span>
+                  <i class="fas fa-eye"></i> Lượt xem {{ post.viewCount }}
+                </span>
+                <label class="float-right">Cá nhân</label>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <nav aria-label="List post pagination">
-        <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a
-              class="page-link"
-              (click)="handleClickPrevious()"
-              aria-label="Previous"
-            >
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li
-            *ngFor="
-              let item of [].constructor(listPost?.totalPages);
-              let i = index
-            "
-            class="page-item"
-            [class.active]="listPost?.number === i"
-          >
-            <a (click)="jumpToPage(i + 1)" class="page-link">{{ i + 1 }}</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" (click)="handleClickNext()" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </form>
-  </body>
-</html>
+    </div>
+  </div>
+  <nav aria-label="List post pagination">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a
+          class="page-link"
+          (click)="handleClickPrevious()"
+          aria-label="Previous"
+        >
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li
+        *ngFor="let item of [].constructor(listPost?.totalPages); let i = index"
+        class="page-item"
+        [class.active]="listPost?.number === i"
+      >
+        <a (click)="jumpToPage(i + 1)" class="page-link">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="handleClickNext()" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</form>
