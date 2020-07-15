@@ -23,18 +23,17 @@ th, td {
   padding-bottom: 5px;
   padding-right: 5px;
 }
-body {
-  font-family: "Times New Roman";
-}
-h3,h1,h5 {
-  font-family: "Times New Roman";
-  font-weight: bold;
 
-}
+//h3,h1,h5 {
+//  font-family: "Times New Roman", monospace;
+//  font-weight: bold;
+//
+//}
 .note {
   color: sandybrown;
   font-style: italic;
   font-size: small;
+  margin: 2px 0 9px 5px;
 }
 .col-form-label {
   font-weight: bold;
@@ -53,9 +52,6 @@ textarea {
 }
 .form-check-label {
   font-weight: normal;
-}
-body {
-  background: white;
 }
 #content {
   padding: 15px;

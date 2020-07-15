@@ -12,6 +12,7 @@ import { PostFormComponent } from './components/post/post-form/post-form.compone
 import { PostConfirmComponent } from './components/post/post-confirm/post-confirm.component';
 import { UserModule } from '../user/user.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
@@ -31,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UserModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
 })
 export class HomeModule {}

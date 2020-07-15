@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-</head>
-<body>
 <div id="content">
   <h3>Đăng tin</h3>
   <h5>Thông tin liên hệ</h5>
-  <hr  width="100%" size="10px" align="center" color="black" />
+  <hr style="background-color: black"/>
   <div class="col-md-11 ml-auto ">
     <table style="width:50%">
       <tr>
@@ -29,24 +22,29 @@
       </tr>
     </table>
   </div>
-  <hr  width="100%" size="10px" align="center" color="black"/><br>
-  <label><h5>Nội dung tin<a class="note">(vui lòng điền đầy đủ tất cả các mục)</a></h5></label>
-  <hr  width="100%" size="10px" align="center" color="black"/>
+  <hr style="background-color: black"/>
+  <div class="d-flex">
+    <h5>Nội dung tin</h5>
+    <a class="note">(vui lòng điền đầy đủ tất cả các mục)</a>
+  </div>
+  <hr style="background-color: black"/>
 </div>
 <form class="col-md-11 ml-auto">
   <div class="form-group row">
-    <label  class="col-sm-2 col-form-label">Danh Mục:</label>
+    <label  class="col-sm-2 col-form-label" for="ca">Danh Mục:</label>
     <div class="col-sm-10">
-      <select class="form-control" id="combobox">
+      <select class="form-control">
+        <option disabled selected>-- Chọn danh mục --</option>
         <option value="Nhà Đất">Nhà Đất</option>
         <option value="Đất Thổ Cư">Đất Thổ Cư </option>
       </select>
     </div>
   </div>
   <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Vùng Miền:</label>
+    <label class="col-sm-2 col-form-label" for="regions">Vùng Miền:</label>
     <div class="col-sm-10">
-      <select class="form-control">
+      <select class="form-control" id="regions">
+        <option disabled selected>-- Chọn vùng miền --</option>
         <option value="Hà Nội">Hà Nội</option>
         <option value="Hồ Chí Minh">Hồ Chí Minh</option>
         <option value="Đà Nẵng">Đà Nẵng</option>
@@ -102,12 +100,13 @@
   <div class="form-group row">
     <label  class="col-sm-2 col-form-label">Hướng:</label>
     <div class="col-sm-10">
-      <select class="form-control">
-        <option value="Đông">Đông</option>
-        <option value="Tây">Tây</option>
-        <option value="Nam">Nam</option>
-        <option value="Bắc">Bắc</option>
-      </select>
+        <select class="form-control">
+          <option disabled selected>-- Chọn hướng --</option>
+          <option value="Đông">Đông</option>
+          <option value="Tây">Tây</option>
+          <option value="Nam">Nam</option>
+          <option value="Bắc">Bắc</option>
+        </select>
     </div>
   </div>
   <div class="form-group row">
@@ -162,4 +161,3 @@
     </div>
   </div>
 </form>
-</body>

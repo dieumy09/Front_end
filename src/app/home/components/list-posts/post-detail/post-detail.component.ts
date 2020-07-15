@@ -9,6 +9,7 @@ import {UserService} from '../../../../services/user.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Reply} from '../../../../models/reply';
 import {ReplyService} from '../../../../services/reply.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-detail',
@@ -35,9 +36,13 @@ export class PostDetailComponent implements OnInit {
   isShowEditFormReply = false;
   isShowEditFormComment = false;
   edit: string;
-  collectionSize: number;
-  pageSize = 10;
-  page = 1;
+  paginateComment: any;
+  maxSize = 7;
+  responsive = true;
+  public  labels: any = {
+    previousLabel: '',
+    nextLabel: '',
+  };
 
   constructor(
     private postService: PostService,
@@ -46,7 +51,12 @@ export class PostDetailComponent implements OnInit {
     private replyService: ReplyService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal
   ) {
+    this.paginateComment = {
+      itemsPerPage: 7,
+      currentPage: 1,
+    };
   }
 
   ngOnInit(): void {
@@ -76,6 +86,11 @@ export class PostDetailComponent implements OnInit {
       this.commentService.getCommentsByPostId(next.id).subscribe(data => {
         // @ts-ignore
         this.comments = data.content;
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.comments.length; i++){
+          this.comments[i].replies.sort((a, b)  =>  a.id - b.id);
+        }
+        console.log(this.comments);
       });
     });
   }
@@ -93,6 +108,7 @@ export class PostDetailComponent implements OnInit {
         content: ['']
       });
     }
+    this.pageChanged(1);
   }
 
   replySubmit(comment: Comment) {
@@ -115,6 +131,7 @@ export class PostDetailComponent implements OnInit {
     this.edit = comment.content;
     this.indexComment = indexComment;
     this.isShowEditFormComment = true;
+    this.isShowEditFormReply = false;
   }
 
   editComment(comment: Comment) {
@@ -138,6 +155,7 @@ export class PostDetailComponent implements OnInit {
     this.commentService.deleteComment(id).subscribe(next => {
       this.getCommentsByPost();
     });
+    this.modalService.dismissAll();
   }
 
   showEditReply(indexComment: number, indexReply: number, comment: Comment, reply: Reply) {
@@ -145,6 +163,7 @@ export class PostDetailComponent implements OnInit {
     this.indexComment = indexComment;
     this.indexReply = indexReply;
     this.isShowEditFormReply = true;
+    this.isShowEditFormComment = false;
   }
 
   editReply(reply: Reply, comment: Comment) {
@@ -168,9 +187,17 @@ export class PostDetailComponent implements OnInit {
     this.replyService.deleteReply(id).subscribe(next => {
       this.getCommentsByPost();
     });
+    this.modalService.dismissAll();
   }
 
-  changePage() {
+  openModal(targetModal) {
+    this.modalService.open(targetModal, {
+      centered: true,
+      backdrop: 'static'
+    });
+  }
 
+  pageChanged(event){
+    this.paginateComment.currentPage = event;
   }
 }

@@ -6,26 +6,30 @@
   display: flex;
 }
 
-._54nc{
+.edit-cmt {
   display: flex;
   cursor: pointer;
-  align-items: center;
   font-size: 14px;
-  margin-left: 10px;
+  //font-style: unset;
+  margin: 4px 0 9px 10px;
   color: #385898;
 }
 
-._54nc:hover{
+.edit-cmt:hover {
   text-decoration: underline;
 }
 
-ngb-pagination li {
-  &:first-child a {
-    span {
-      display: none;
-    }
-    &:before {
-      /* provide your content here */
-    }
-  }
+.email-cmt{
+  font-weight: bold;
+  color: #385898;
+  font-size: 16px;
 }
+
+.date-cmt {
+  font-style: italic;
+  font-size: 13px;
+  font-weight: normal;
+  color: #999;
+  margin: 4px 0 9px 10px;
+}
+
