@@ -1,7 +1,14 @@
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
+<nav
+  class="navbar navbar-light sticky-top flex-md-nowrap p-0 shadow navbar-expand-lg"
+  style="background-color: #e3f2fd;"
+>
+  <img
+    class="navbar-brand col-md-3 col-lg-2 mr-0"
+    src="assets/img/logo.png"
+    alt="Logo"
+  />
   <button
-    class="navbar-toggler position-absolute d-md-none collapsed"
+    class="navbar-toggler"
     type="button"
     data-toggle="collapse"
     data-target="#sidebarMenu"
@@ -11,9 +18,27 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        href="#"
+        id="navbarDropdownMenuLink"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fas fa-user"></i>
+      </a>
+      <div
+        class="dropdown-menu dropdown-menu-right"
+        aria-labelledby="navbarDropdownMenuLink"
+      >
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
     </li>
   </ul>
 </nav>
