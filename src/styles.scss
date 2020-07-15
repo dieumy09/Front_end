@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -19,7 +18,11 @@ $front-end-accent: mat-palette($mat-pink, A200, A100, A400);
 $front-end-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$front-end-theme: mat-light-theme($front-end-primary, $front-end-accent, $front-end-warn);
+$front-end-theme: mat-light-theme(
+  $front-end-primary,
+  $front-end-accent,
+  $front-end-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -27,8 +30,15 @@ $front-end-theme: mat-light-theme($front-end-primary, $front-end-accent, $front-
 @include angular-material-theme($front-end-theme);
 
 /* You can add global styles to this file, and also import other style files */
+
 body {
+  font-size: 0.875rem;
   overflow-x: hidden;
+}
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
 }
 
 .right-bottom {
@@ -54,11 +64,17 @@ body {
   color: red;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
