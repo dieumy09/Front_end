@@ -23,8 +23,8 @@
         <td><label>{{user.phoneNumber}}</label></td>
       </tr>
       <tr>
-        <td><button class="btn btn-primary" [routerLink]="['info-edit']">Chỉnh Sửa Thông Tin</button></td>
-        <td><button class="btn btn-primary" [routerLink]="['password-edit']">Đổi Mật Khẩu</button></td>
+        <td><button class="btn btn-primary" [routerLink]="['/user-info-edit/'+user.id]">Chỉnh Sửa Thông Tin</button></td>
+        <td><button class="btn btn-primary" [routerLink]="['//password-edit/'+user.id]">Đổi Mật Khẩu</button></td>
       </tr>
     </table>
   </div>

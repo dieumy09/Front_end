@@ -7,10 +7,12 @@ import { PostListComponent } from './components/post-list/post-list.component';
 import { PostEditComponent } from './components/post-edit/post-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { UserInfoEditComponent } from './components/user-info-edit/user-info-edit.component';
+import { PasswordEditComponent } from './components/password-edit/password-edit.component';
 
 
 @NgModule({
-  declarations: [UserComponent, UserInfoComponent, PostListComponent, PostEditComponent],
+  declarations: [UserComponent, UserInfoComponent, PostListComponent, PostEditComponent, UserInfoEditComponent, PasswordEditComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

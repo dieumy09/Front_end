@@ -1,9 +1,11 @@
+import {Reason} from './reason';
+
 export interface Support {
   id: number;
-  title: string;
+  name: string;
   email: string;
   phoneNumber: string;
-  reason: string;
+  reason: Reason;
   content: string;
   status: boolean;
   createdAt: Date;
