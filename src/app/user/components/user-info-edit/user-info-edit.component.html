@@ -1,0 +1,29 @@
+<div class="info-edit">
+  <h3 class="font-weight-normal">Chỉnh sửa thông tin cá nhân</h3>
+  <form class="row mt-4" [formGroup]="infoEditForm">
+    <div class="col-4 text-center">
+      <img src="assets/img/{{infoEditForm.value.avatar}}" id="avatar">
+      <div class="file btn btn-primary mt-2" id="btn-upload">
+        Chọn ảnh đại diện
+        <input type="file" name="file" id="input-upload"/>
+      </div>
+
+    </div>
+    <div class= "vertical col-1"></div>
+    <div class="col-7">
+      <div class="form-group row">
+        <label class="col-form-label col-5"><b>Họ tên:<span class="required">*</span></b></label>
+        <input class="form-control col-7" formControlName="name">
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-5"><b>Địa chỉ:<span class="required">*</span></b></label>
+        <input class="form-control col-7" formControlName="address">
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-5"><b>Số điện thoại:<span class="required">*</span></b></label>
+        <input class="form-control col-7" formControlName="phoneNumber">
+      </div>
+    </div>
+    <button class="btn btn-primary ml-auto" [routerLink]="['/user/'+user.id]">Lưu lại</button>
+  </form>
+</div>

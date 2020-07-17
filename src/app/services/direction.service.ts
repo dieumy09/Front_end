@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Direction } from '../models/direction';
+import {List} from "../models/list";
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,8 @@ export class DirectionService {
 
   constructor(private http: HttpClient) {}
 
-  getDirections(): Observable<any> {
-    return this.http.get<any>(this.API);
+  getDirections(): Observable<Array<Direction>> {
+    return this.http.get<Array<Direction>>(this.API);
   }
 
   getDirectionById(id: number): Observable<Direction> {
