@@ -87,7 +87,7 @@
       </div>
     </div>
   </div>
-  <nav aria-label="List post pagination">
+  <nav *ngIf="listPost?.totalPages !== 1" aria-label="List post pagination">
     <ul class="pagination justify-content-center">
       <li class="page-item">
         <a
