@@ -13,7 +13,7 @@ import {SupportService} from '../services/support.service';
 })
 export class SupportComponent implements OnInit {
   supportForm: FormGroup;
-  reasons: List<Reason>;
+  reasons: Reason[];
 
   constructor(
     private modalService: NgbModal,
@@ -27,7 +27,11 @@ export class SupportComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^([a-zA-Z0-9]\\_?\\.?)+\\@([a-zA-Z0-9]\\-?)+(\\.([a-z0-9])+)+$')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^0{1}[0-9]{9}$')]],
-      reason: [''],
+      reason: this.formBuilder.group({
+        id: [''],
+        name: ['']
+      }),
+      // reason: [''],
       content: ['', [Validators.required, Validators.maxLength(65535)]],
       status: ['']
     });
@@ -47,16 +51,16 @@ export class SupportComponent implements OnInit {
   }
 
   openModal(targetModal, event) {
-    // if (this.supportForm.valid) {
+    if (this.supportForm.valid) {
       event.preventDefault();
       this.modalService.open(targetModal, {
         centered: true,
         backdrop: 'static'
       });
-    // }
-    // else {
-    //   this.modalService.dismissAll();
-    // }
+    }
+    else {
+      this.modalService.dismissAll();
+    }
   }
 
   getAllReasons() {

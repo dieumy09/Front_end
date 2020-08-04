@@ -25,7 +25,7 @@ const routes: Routes = [
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegistrationComponent},
       {path: 'verify', component: VerifyComponent},
-      {path: 'user/:id', component: UserComponent},
+      {path: 'user', component: UserComponent},
       {path: 'user-info-edit/:id', component: UserInfoEditComponent},
       {path: 'password-edit/:id', component: PasswordEditComponent},
       {path: 'post-edit/:id', component: PostEditComponent},

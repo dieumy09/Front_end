@@ -1,18 +1,17 @@
 <div class="support-form">
   <h3 class="font-weight-normal">Liên hệ với chúng tôi</h3>
   <hr>
-<!--  <form [formGroup]="supportForm" (ngSubmit)="onSubmit(); openModal(notificationModal, $event)">-->
-  <form [formGroup]="supportForm">
+  <form [formGroup]="supportForm" (ngSubmit)="onSubmit(); openModal(notificationModal, $event)">
 
 <!--    Name-->
     <div class="form-group">
       <label class="col-form-label"><b>Tên của bạn:<span class="required">*</span></b></label>
       <div>
         <input class="form-control" formControlName="name">
-<!--        <p *ngIf="supportForm.controls.name.errors?.required && supportForm.controls.name.touched"-->
-<!--           class="text-danger">Vui lòng nhập tên của bạn!</p>-->
-<!--        <p *ngIf="supportForm.controls.name.errors?.maxlength && supportForm.controls.name.touched"-->
-<!--           class="text-danger">Tên của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>-->
+        <p *ngIf="supportForm.controls.name.errors?.required && supportForm.controls.name.touched"
+           class="text-danger">Vui lòng nhập tên của bạn!</p>
+        <p *ngIf="supportForm.controls.name.errors?.maxlength && supportForm.controls.name.touched"
+           class="text-danger">Tên của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
       </div>
     </div>
 
@@ -21,12 +20,12 @@
       <label class="col-form-label"><b>Email:<span class="required">*</span></b></label>
       <div>
         <input class="form-control" formControlName="email">
-<!--        <p *ngIf="supportForm.controls.email.errors?.required && supportForm.controls.email.touched"-->
-<!--           class="text-danger">Vui lòng nhập email!</p>-->
-<!--        <p *ngIf="supportForm.controls.email.errors?.maxlength && supportForm.controls.email.touched"-->
-<!--           class="text-danger">Email của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>-->
-<!--        <p *ngIf="supportForm.controls.email.errors?.pattern && supportForm.controls.email.touched"-->
-<!--           class="text-danger">Email của bạn không đúng định dạng. Vui lòng nhập lại!</p>-->
+        <p *ngIf="supportForm.controls.email.errors?.required && supportForm.controls.email.touched"
+           class="text-danger">Vui lòng nhập email!</p>
+        <p *ngIf="supportForm.controls.email.errors?.maxlength && supportForm.controls.email.touched"
+           class="text-danger">Email của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
+        <p *ngIf="supportForm.controls.email.errors?.pattern && supportForm.controls.email.touched"
+           class="text-danger">Email của bạn không đúng định dạng. Vui lòng nhập lại!</p>
       </div>
     </div>
 
@@ -35,10 +34,10 @@
       <label class="col-form-label"><b>Số điện thoại:<span class="required">*</span></b></label>
       <div>
         <input class="form-control" formControlName="phoneNumber">
-<!--        <p *ngIf="supportForm.controls.phoneNumber.errors?.required && supportForm.controls.phoneNumber.touched"-->
-<!--           class="text-danger">Vui lòng nhập số điện thoại!</p>-->
-<!--        <p *ngIf="supportForm.controls.phoneNumber.errors?.pattern && supportForm.controls.phoneNumber.touched"-->
-<!--           class="text-danger">Số điện thoại của bạn không đúng định dạng. Vui lòng nhập lại!</p>-->
+        <p *ngIf="supportForm.controls.phoneNumber.errors?.required && supportForm.controls.phoneNumber.touched"
+           class="text-danger">Vui lòng nhập số điện thoại!</p>
+        <p *ngIf="supportForm.controls.phoneNumber.errors?.pattern && supportForm.controls.phoneNumber.touched"
+           class="text-danger">Số điện thoại của bạn không đúng định dạng. Vui lòng nhập lại!</p>
       </div>
     </div>
 
@@ -47,21 +46,28 @@
       <label class="col-form-label">
         <b>Lý do:</b>
       </label>
-<!--      <select class="form-control col-form-label" formControlName="reason">-->
-<!--        <option *ngFor="let reason of reasons" [ngValue]="reason">-->
-<!--          {{reason.name}}-->
-<!--        </option>-->
-<!--      </select>-->
+      <div formGroupName="reason">
+        <select class="form-control col-form-label" formControlName="id">
+<!--          <option disabled selected value="">Chọn lý do</option>-->
+          <option
+            *ngFor="let reason of reasons"
+            [value]="reason.id"
+            [selected]="reason.id === 1"
+          >
+            {{reason.name}}
+          </option>
+        </select>
+      </div>
     </div>
 
 <!--    Content-->
     <div class="form-group">
       <label class="col-form-label"><b>Nội dung:<span class="required">*</span></b></label>
         <textarea formControlName="content"></textarea>
-<!--      <p *ngIf="supportForm.controls.content.errors?.required && supportForm.controls.content.touched"-->
-<!--         class="text-danger">Vui lòng nhập nội dung!</p>-->
-<!--      <p *ngIf="supportForm.controls.content.errors?.maxlength && supportForm.controls.content.touched"-->
-<!--         class="text-danger">Nội dung của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>-->
+      <p *ngIf="supportForm.controls.content.errors?.required && supportForm.controls.content.touched"
+         class="text-danger">Vui lòng nhập nội dung!</p>
+      <p *ngIf="supportForm.controls.content.errors?.maxlength && supportForm.controls.content.touched"
+         class="text-danger">Nội dung của bạn đã vượt quá số ký tự cho phép. Vui lòng nhập lại!</p>
     </div>
 
 <!--    Button-->

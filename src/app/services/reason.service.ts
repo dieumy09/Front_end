@@ -12,8 +12,8 @@ export class ReasonService {
 
   constructor(private http: HttpClient) { }
 
-  getReasons(): Observable<List<Reason>> {
-    return this.http.get<List<Reason>>(this.API);
+  getReasons(): Observable<any> {
+    return this.http.get<any>(this.API);
   }
 
   getReasonById(id: number): Observable<Reason> {

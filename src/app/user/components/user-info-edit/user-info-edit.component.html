@@ -2,10 +2,11 @@
   <h3 class="font-weight-normal">Chỉnh sửa thông tin cá nhân</h3>
   <form class="row mt-4" [formGroup]="infoEditForm">
     <div class="col-4 text-center">
-      <img src="assets/img/{{infoEditForm.value.avatar}}" id="avatar">
+      <span *ngIf="!imageUrl"><img src="assets/img/{{infoEditForm.value.avatar}}" class="avatar"></span>
+      <span *ngIf="imageUrl"><img [src]="imageUrl" class="avatar"></span>
       <div class="file btn btn-primary mt-2" id="btn-upload">
         Chọn ảnh đại diện
-        <input type="file" name="file" id="input-upload"/>
+        <input type="file" name="file" id="input-upload" multiple (change)="detectFile($event)">
       </div>
 
     </div>
@@ -24,6 +25,6 @@
         <input class="form-control col-7" formControlName="phoneNumber">
       </div>
     </div>
-    <button class="btn btn-primary ml-auto" [routerLink]="['/user/'+user.id]">Lưu lại</button>
+    <button class="btn btn-primary ml-auto" (click)="uploadFile()">Lưu lại</button>
   </form>
 </div>
