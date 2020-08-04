@@ -17,6 +17,7 @@ import { UserDetailComponent } from './components/user/user-detail/user-detail.c
     SideBarComponent,
     UserListComponent,
     UserDetailComponent,
+    LoginAdminComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
 })
