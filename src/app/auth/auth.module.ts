@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { VerifyComponent } from './verify/verify.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -11,7 +12,9 @@ import { VerifyComponent } from './verify/verify.component';
   declarations: [LoginComponent, RegistrationComponent, VerifyComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [LoginComponent, RegistrationComponent, VerifyComponent
   ]

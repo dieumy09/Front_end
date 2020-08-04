@@ -3,6 +3,8 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { AdminComponent } from './admin.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {LoginAdminComponent} from './components/login-admin/login-admin.component';
+
 
 const routes: Routes = [
   {
@@ -19,10 +21,11 @@ const routes: Routes = [
       },
     ],
   },
+  {path: 'login', component: LoginAdminComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }
