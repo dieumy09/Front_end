@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,12 +10,15 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
 
-
 @NgModule({
-  declarations: [AdminComponent, NavBarComponent, SideBarComponent, UserListComponent, UserDetailComponent, LoginAdminComponent],
-  imports: [
-    CommonModule,
-    AdminRoutingModule
-  ]
+  declarations: [
+    AdminComponent,
+    NavBarComponent,
+    SideBarComponent,
+    UserListComponent,
+    UserDetailComponent,
+    LoginAdminComponent,
+  ],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
 })
-export class AdminModule { }
+export class AdminModule {}

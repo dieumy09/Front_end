@@ -5,29 +5,43 @@
 </div>
 <div class="row">
   <div class="col-md-5 col-sm-12 text-center p-4">
-    <img src="assets/img/avatar.png" width="250" alt="avatar" />
+    <img
+      *ngIf="!user?.avatar"
+      src="assets/img/avatar.png"
+      width="250"
+      alt="avatar"
+    />
+    <img
+      *ngIf="user?.avatar"
+      [src]="'assets/img/' + user?.avatar"
+      width="250"
+      alt="avatar"
+    />
   </div>
   <div class="col-md-7 col-sm-12 p-4">
     <div class="row p-1">
       <div class="col-sm-3">Họ tên:</div>
-      <div class="col-sm-9">Nguyễn Hữu Thọ</div>
+      <div class="col-sm-9">{{ user?.name }}</div>
     </div>
     <div class="row p-1">
       <div class="col-sm-3">Địa chỉ:</div>
-      <div class="col-sm-9">Kim long, Hải quế, Hải lăng, Quảng trị</div>
+      <div class="col-sm-9">{{ user?.address }}</div>
     </div>
     <div class="row p-1">
       <div class="col-sm-3">Email:</div>
-      <div class="col-sm-9">nghuutho74@gmail.com</div>
+      <div class="col-sm-9">{{ user?.email }}</div>
     </div>
     <div class="row p-1">
       <div class="col-sm-3">Số điện thoại:</div>
-      <div class="col-sm-9">01653374206</div>
+      <div class="col-sm-9">{{ user?.phoneNumber }}</div>
     </div>
     <div class="row p-1">
       <div class="col-sm-3">Trạng thái:</div>
-      <div class="col-sm-9">
+      <div class="col-sm-9" *ngIf="user?.status">
         <span class="account-status">Đang hoạt động</span>
+      </div>
+      <div class="col-sm-9" *ngIf="!user?.status">
+        <span style="color: gray;">Không hoạt động</span>
       </div>
     </div>
     <button
@@ -50,50 +64,43 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1,001</td>
-          <td>Lorem</td>
-          <td>ipsum</td>
-          <td>dolor</td>
-          <td>sit</td>
-        </tr>
-        <tr>
-          <td>1,002</td>
-          <td>amet</td>
-          <td>consectetur</td>
-          <td>adipiscing</td>
-          <td>elit</td>
-        </tr>
-        <tr>
-          <td>1,003</td>
-          <td>Integer</td>
-          <td>nec</td>
-          <td>odio</td>
-          <td>Praesent</td>
-        </tr>
-        <tr>
-          <td>1,003</td>
-          <td>libero</td>
-          <td>Sed</td>
-          <td>cursus</td>
-          <td>ante</td>
-        </tr>
-        <tr>
-          <td>1,004</td>
-          <td>dapibus</td>
-          <td>diam</td>
-          <td>Sed</td>
-          <td>nisi</td>
-        </tr>
-        <tr>
-          <td>1,005</td>
-          <td>Nulla</td>
-          <td>quis</td>
-          <td>sem</td>
-          <td>at</td>
+        <tr *ngFor="let post of posts?.content">
+          <td>{{ post?.id }}</td>
+          <td>{{ post?.postType?.name }}</td>
+          <td>{{ post?.category?.name }}</td>
+          <td>{{ post?.createdAt | date: "dd/MM/yyyy" }}</td>
+          <td *ngIf="post?.status" style="color: green;">On</td>
+          <td *ngIf="!post?.status" style="color: gray;">Off</td>
         </tr>
       </tbody>
     </table>
+    <nav *ngIf="posts?.totalPages !== 1" aria-label="List post pagination">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="posts?.first">
+          <a
+            class="page-link"
+            (click)="handleClickPrevious()"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li
+          *ngFor="let item of [].constructor(posts?.totalPages); let i = index"
+          class="page-item"
+          [class.active]="posts?.number === i"
+        >
+          <a (click)="jumpToPage(i)" class="page-link">{{ i + 1 }}</a>
+        </li>
+        <li class="page-item" [class.disabled]="posts?.last">
+          <a class="page-link" (click)="handleClickNext()" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
 <!-- Modal -->
@@ -123,15 +130,26 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form [formGroup]="blockUserForm">
           <div class="form-group">
             <label for="reason">Lý do</label>
-            <textarea class="form-control" id="reason" rows="5"></textarea>
+            <textarea
+              formControlName="reason"
+              class="form-control"
+              id="reason"
+              rows="5"
+            ></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">
+        <button
+          [disabled]="blockUserForm.invalid"
+          type="button"
+          (click)="handleSubmitBlock()"
+          class="btn btn-primary"
+          data-dismiss="modal"
+        >
           Đồng ý
         </button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">
