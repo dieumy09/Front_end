@@ -9,9 +9,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SupportComponent } from './support/support.component';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { FormDirective } from './directives/form.directive';
 
 @NgModule({
-  declarations: [AppComponent, SupportComponent],
+  declarations: [AppComponent, SupportComponent, FormDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,

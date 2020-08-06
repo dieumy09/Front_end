@@ -1,7 +1,7 @@
 <div class="support-form">
   <h3 class="font-weight-normal">Liên hệ với chúng tôi</h3>
   <hr>
-  <form [formGroup]="supportForm" (ngSubmit)="onSubmit(); openModal(notificationModal, $event)">
+  <form appFocusInvalidInput [formGroup]="supportForm" (ngSubmit)="onSubmit(); openModal(notificationModal, $event)">
 
 <!--    Name-->
     <div class="form-group">
@@ -48,11 +48,10 @@
       </label>
       <div formGroupName="reason">
         <select class="form-control col-form-label" formControlName="id">
-<!--          <option disabled selected value="">Chọn lý do</option>-->
           <option
             *ngFor="let reason of reasons"
-            [value]="reason.id"
-            [selected]="reason.id === 1"
+            [selected]="reason.id === supportForm.value.reason.id"
+            [ngValue]="reason.id"
           >
             {{reason.name}}
           </option>
@@ -71,7 +70,7 @@
     </div>
 
 <!--    Button-->
-    <button class="btn btn-primary btn-block ml-auto w-25" (click)="openModal(notificationModal, $event)">Gửi yêu cầu</button>
+    <button class="btn btn-primary btn-block ml-auto w-25">Gửi yêu cầu</button>
   </form>
 
   <!-- Modal -->

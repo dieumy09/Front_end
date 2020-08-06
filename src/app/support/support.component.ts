@@ -3,7 +3,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Reason} from '../models/reason';
 import {ReasonService} from '../services/reason.service';
-import {List} from '../models/list';
 import {SupportService} from '../services/support.service';
 
 @Component({
@@ -28,10 +27,9 @@ export class SupportComponent implements OnInit {
       email: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^([a-zA-Z0-9]\\_?\\.?)+\\@([a-zA-Z0-9]\\-?)+(\\.([a-z0-9])+)+$')]],
       phoneNumber: ['', [Validators.required, Validators.pattern('^0{1}[0-9]{9}$')]],
       reason: this.formBuilder.group({
-        id: [''],
+        id: [1],
         name: ['']
       }),
-      // reason: [''],
       content: ['', [Validators.required, Validators.maxLength(65535)]],
       status: ['']
     });
@@ -44,10 +42,11 @@ export class SupportComponent implements OnInit {
       this.supportService.createSupport(this.supportForm.value).subscribe(data => {
         console.log(data);
       });
+      console.log(this.supportForm);
     }
-    else {
-      alert('Điền đủ các trường bắt buộc trước khi gửi yêu cầu!');
-    }
+    // else {
+    //   alert('Điền đủ các trường bắt buộc trước khi gửi yêu cầu!');
+    // }
   }
 
   openModal(targetModal, event) {
