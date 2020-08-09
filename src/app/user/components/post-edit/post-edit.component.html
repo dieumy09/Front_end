@@ -31,7 +31,6 @@
       </label>
       <div class="col-10" formGroupName="region">
         <select class="form-control col-form-label" formControlName="id">
-<!--          <option disabled selected>Chon vung mien</option>-->
           <option
             *ngFor="let region of regions"
             [ngValue]="region.id"

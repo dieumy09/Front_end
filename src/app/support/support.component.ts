@@ -42,11 +42,7 @@ export class SupportComponent implements OnInit {
       this.supportService.createSupport(this.supportForm.value).subscribe(data => {
         console.log(data);
       });
-      console.log(this.supportForm);
     }
-    // else {
-    //   alert('Điền đủ các trường bắt buộc trước khi gửi yêu cầu!');
-    // }
   }
 
   openModal(targetModal, event) {

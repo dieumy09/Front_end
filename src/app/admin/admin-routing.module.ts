@@ -21,7 +21,7 @@ const routes: Routes = [
       },
     ],
   },
-  {path: 'login', component: LoginAdminComponent}
+  // {path: 'login-admin', component: LoginAdminComponent}
 ];
 
 @NgModule({

@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Role} from '../../../models/role';
-import {Post} from '../../../models/post';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
-import {ActivatedRoute} from '@angular/router';
 import {User} from '../../../models/user';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {TokenStorageService} from '../../../services/token-storage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user-info-edit',
@@ -21,22 +19,25 @@ export class UserInfoEditComponent implements OnInit {
   user: User;
   selectedFile: File = null;
   imageUrl = '';
-  downloadURL: Observable<string>;
+  fileRef;
+  task;
+  uploadPercent;
 
   constructor(
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
+    private tokenStorageService: TokenStorageService,
     private userService: UserService,
-    private storage: AngularFireStorage,
-    private angularFirestore: AngularFirestore
+    private angularFireStorage: AngularFireStorage,
+    private angularFirestore: AngularFirestore,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.infoEditForm = this.formBuilder.group({
       id: [''],
-      name: [''],
-      address: [''],
-      phoneNumber: [''],
+      name: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^([a-zA-Z]\\s?)+$')]],
+      address: ['', [Validators.required, Validators.maxLength(100)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^0[1-9]{2}[0-9]{7}$')]],
       email: [''],
       avatar: [''],
       status: [''],
@@ -51,12 +52,10 @@ export class UserInfoEditComponent implements OnInit {
   }
 
   getUserById() {
-    this.activatedRoute.params.subscribe(param => {
-      this.userId = param.id;
-      this.userService.getUserById(this.userId).subscribe(data => {
-        this.user = data;
-        this.infoEditForm.patchValue(this.user);
-      });
+    this.userId = this.tokenStorageService.getUser().id;
+    this.userService.getUserById(this.userId).subscribe(data => {
+      this.user = data;
+      this.infoEditForm.patchValue(this.user);
     });
   }
 
@@ -77,26 +76,34 @@ export class UserInfoEditComponent implements OnInit {
 
     const file = this.selectedFile;
     const filePath = `${myTest.id}`;
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, file);
+    this.fileRef = this.angularFireStorage.ref(filePath);
+    this.task = this.angularFireStorage.upload(filePath, file);
 
-    // this.uploadPercent = task.percentageChanges();
+    this.uploadPercent = this.task.percentageChanges();
+  }
 
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().toPromise().then( (url) => {
-          this.downloadURL = url;
-
-          // myTest.set({
-          //   categoria: this.forma.value.categoria,
-          //   imagenes : this.downloadURL,
-          //   myId : myTest.id
-          // })
-
-          console.log( this.downloadURL );
-        }).catch(err => { console.log(err); });
-      })
-    )
-      .subscribe();
+  onSubmit() {
+    if (this.infoEditForm.valid) {
+      if (this.selectedFile) {
+        this.uploadFile();
+        this.task.snapshotChanges().pipe(
+          finalize(() => {
+            this.fileRef.getDownloadURL().toPromise().then( (url) => {
+              this.infoEditForm.value.avatar = url;
+              this.userService.editUser(this.infoEditForm.value).subscribe(data => {
+                console.log(data);
+              });
+            }).catch(err => { console.log(err); });
+          })
+        )
+          .subscribe();
+      }
+      else {
+        this.userService.editUser(this.infoEditForm.value).subscribe(data => {
+          console.log(data);
+        });
+      }
+      this.router.navigateByUrl('/user');
+    }
   }
 }

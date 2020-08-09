@@ -5,7 +5,7 @@
 
 <!--    Name-->
     <div class="form-group">
-      <label class="col-form-label"><b>Tên của bạn:<span class="required">*</span></b></label>
+      <label class="col-form-label"><strong>Tên của bạn:<span class="required">*</span></strong></label>
       <div>
         <input class="form-control" formControlName="name">
         <p *ngIf="supportForm.controls.name.errors?.required && supportForm.controls.name.touched"
@@ -17,7 +17,7 @@
 
 <!--    Email-->
     <div class="form-group">
-      <label class="col-form-label"><b>Email:<span class="required">*</span></b></label>
+      <label class="col-form-label"><strong>Email:<span class="required">*</span></strong></label>
       <div>
         <input class="form-control" formControlName="email">
         <p *ngIf="supportForm.controls.email.errors?.required && supportForm.controls.email.touched"
@@ -31,7 +31,7 @@
 
 <!--    Phone Number-->
     <div class="form-group">
-      <label class="col-form-label"><b>Số điện thoại:<span class="required">*</span></b></label>
+      <label class="col-form-label"><strong>Số điện thoại:<span class="required">*</span></strong></label>
       <div>
         <input class="form-control" formControlName="phoneNumber">
         <p *ngIf="supportForm.controls.phoneNumber.errors?.required && supportForm.controls.phoneNumber.touched"
@@ -44,7 +44,7 @@
 <!--    Reason-->
     <div class="form-group">
       <label class="col-form-label">
-        <b>Lý do:</b>
+        <strong>Lý do:</strong>
       </label>
       <div formGroupName="reason">
         <select class="form-control col-form-label" formControlName="id">
@@ -61,7 +61,7 @@
 
 <!--    Content-->
     <div class="form-group">
-      <label class="col-form-label"><b>Nội dung:<span class="required">*</span></b></label>
+      <label class="col-form-label"><strong>Nội dung:<span class="required">*</span></strong></label>
         <textarea formControlName="content"></textarea>
       <p *ngIf="supportForm.controls.content.errors?.required && supportForm.controls.content.touched"
          class="text-danger">Vui lòng nhập nội dung!</p>
@@ -84,7 +84,7 @@
       <p>Chân thành cảm ơn!</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-warning text-light" routerLink="" (click)="modal.dismiss()"><i class="fa fa-angle-left"></i> Quay trở lại trang chủ</button>
+      <button type="button" class="btn btn-warning text-light" routerLink="" (click)="modal.dismiss()"><em class="fa fa-angle-left"></em> Quay trở lại trang chủ</button>
     </div>
   </ng-template>
 </div>

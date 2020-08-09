@@ -16,7 +16,6 @@ import {SupportComponent} from '../support/support.component';
 import {UserInfoEditComponent} from '../user/components/user-info-edit/user-info-edit.component';
 import {PasswordEditComponent} from '../user/components/password-edit/password-edit.component';
 
-
 const routes: Routes = [
   {
     path: '',
@@ -26,8 +25,13 @@ const routes: Routes = [
       {path: 'register', component: RegistrationComponent},
       {path: 'verify', component: VerifyComponent},
       {path: 'user', component: UserComponent},
-      {path: 'user-info-edit/:id', component: UserInfoEditComponent},
-      {path: 'password-edit/:id', component: PasswordEditComponent},
+      {path: 'update', children: [
+          {path: 'profile', component: UserInfoEditComponent},
+          {path: 'password', component: PasswordEditComponent}
+        ]
+      },
+      // {path: 'user-info-edit/:id', component: UserInfoEditComponent},
+      // {path: 'password-edit/:id', component: PasswordEditComponent},
       {path: 'post-edit/:id', component: PostEditComponent},
       {path: '', component: ListAllComponent},
       {path: 'post-detail/:id', component: PostDetailComponent},
