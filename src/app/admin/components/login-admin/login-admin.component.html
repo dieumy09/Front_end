@@ -1,17 +1,26 @@
 <div class="admin-login">
-  <form class="login">
+  <form class="login" [formGroup]="loginAdminForm" (ngSubmit)="onSubmit()">
     <div class="form-group text-center mt-3">
       <img src="assets/img/logo.png" id="logo" class="w-50 h-50">
     </div>
     <div class="text-center mx-3">
       <div class="form-group">
-        <input class="form-control" placeholder="Email">
+        <input class="form-control" placeholder="Email" formControlName="email">
       </div>
       <div class="form-group">
-        <input class="form-control" placeholder="Mật khẩu">
+        <input class="form-control" placeholder="Mật khẩu" formControlName="password" type="password">
       </div>
       <div class="form-group">
-        <button class="btn btn-block" style="background-color: #055699; color: white" routerLink="/admin">Đăng nhập</button>
+        <button class="btn btn-block" style="background-color: #055699; color: white">Đăng nhập</button>
+      </div>
+      <div class="form-group">
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="isLoginFailed"
+        >
+          Login failed: {{ errorMessage }}
+        </div>
       </div>
     </div>
   </form>

@@ -19,9 +19,9 @@ export class RoleService {
     return this.http.post<Role>(this.API, role);
   }
 
-  editRole(role: Role): Observable<Role> {
-    return this.http.patch<Role>(`${this.API}/${role.id}`, role);
-  }
+  // editRole(role: Role): Observable<Role> {
+  //   return this.http.patch<Role>(`${this.API}/${role.id}`, role);
+  // }
 
   deleteRole(id: number): Observable<Role> {
     return this.http.delete<Role>(`${this.API}/${id}`);
