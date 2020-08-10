@@ -18,19 +18,26 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
-  declarations: [UserComponent, UserInfoComponent, PostListComponent, PostEditComponent, UserInfoEditComponent, PasswordEditComponent],
-    imports: [
-        CommonModule,
-        UserRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgbPaginationModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        HttpClientModule,
-        NgbProgressbarModule
-    ],
+  declarations: [
+    UserComponent,
+    UserInfoComponent,
+    PostListComponent,
+    PostEditComponent,
+    UserInfoEditComponent,
+    PasswordEditComponent,
+  ],
+  imports: [
+      CommonModule,
+      UserRoutingModule,
+      ReactiveFormsModule,
+      FormsModule,
+      NgbPaginationModule,
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFirestoreModule,
+      AngularFireStorageModule,
+      HttpClientModule,
+      NgbProgressbarModule
+  ],
   exports: [UserComponent, UserInfoComponent, PostListComponent, PostEditComponent, UserInfoEditComponent]
 })
 export class UserModule { }

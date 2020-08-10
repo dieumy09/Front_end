@@ -35,6 +35,7 @@ import {RouterModule} from '@angular/router';
     ReactiveFormsModule,
     AdminModule,
     RouterModule
-  ]
+  ],
+  exports: []
 })
 export class HomeModule {}
