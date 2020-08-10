@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserService } from '../../../services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import {TokenStorageService} from '../../../services/token-storage.service';
 
 @Component({
   selector: 'app-user-info',
@@ -10,22 +10,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserInfoComponent implements OnInit {
   user: User;
+  userId: number;
 
   constructor(
     private userService: UserService,
-    private activatedRoute: ActivatedRoute
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit(): void {
-    this.getUserById();
+    this.getUser();
   }
 
-  getUserById() {
-    this.activatedRoute.params.subscribe((next) => {
-      this.userService.getUserById(next.id).subscribe((data) => {
-        console.log('user: ' + data);
-        this.user = data;
-      });
+  getUser() {
+    this.userId = this.tokenStorageService.getUser().id;
+    this.userService.getUserById(this.userId).subscribe(data => {
+      this.user = data;
     });
   }
 }

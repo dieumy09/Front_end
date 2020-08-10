@@ -1,10 +1,7 @@
 .support-form {
   padding: 20px;
-  margin-left:80px;
-  margin-right:80px;
-}
-.required {
-  color: red;
+  //margin-left:40px;
+  //margin-right: -60px;
 }
 
 textarea {
@@ -15,4 +12,8 @@ textarea {
 .modal-header {
   background-color: #055699;
   color: white;
+}
+
+.required {
+  color: red;
 }

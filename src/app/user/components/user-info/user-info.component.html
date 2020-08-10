@@ -2,31 +2,33 @@
 <hr>
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-12">
-    <img src="assets/img/{{user.avatar}}" style="border-radius: 50%; width: 200px; height: 200px">
+    <img *ngIf="user" [src]="user.avatar" alt="avatar" style="border-radius: 50%; width: 200px; height: 200px">
   </div>
-  <div class="col-lg-8 col-md-8 col-sm-12">
-    <table>
-      <tr>
-        <td><label>Họ và tên: </label></td>
-        <td><label>{{user.name}}</label></td>
-      </tr>
-      <tr>
-        <td><label>Email: </label></td>
-        <td><label>{{user.email}}</label></td>
-      </tr>
-      <tr>
-        <td><label>Địa chỉ: </label></td>
-        <td><label>{{user.address}}</label></td>
-      </tr>
-      <tr>
-        <td><label>Số điện thoại: </label></td>
-        <td><label>{{user.phoneNumber}}</label></td>
-      </tr>
-      <tr>
-        <td><button class="btn btn-primary" [routerLink]="['/user-info-edit/'+user.id]">Chỉnh Sửa Thông Tin</button></td>
-        <td><button class="btn btn-primary" [routerLink]="['//password-edit/'+user.id]">Đổi Mật Khẩu</button></td>
-      </tr>
-    </table>
+  <div class="col-lg-8 col-md-8 col-sm-12" *ngIf="user">
+    <div class="row">
+      <div class="col-4">Họ và tên:</div>
+      <div class="col-8">{{user.name}}</div>
+    </div>
+    <div class="row">
+      <div class="col-4">Email:</div>
+      <div class="col-8">{{user.email}}</div>
+    </div>
+    <div class="row">
+      <div class="col-4">Địa chỉ:</div>
+      <div class="col-8">{{user.address}}</div>
+    </div>
+    <div class="row">
+      <div class="col-4">Số điện thoại:</div>
+      <div class="col-8">{{user.phoneNumber}}</div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-6">
+        <button class="btn btn-block btn-primary" [routerLink]="['/update/profile']">Chỉnh Sửa Thông Tin</button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-block btn-primary" [routerLink]="['/update/password']">Đổi Mật Khẩu</button>
+      </div>
+    </div>
   </div>
 </div>
 <router-outlet></router-outlet>

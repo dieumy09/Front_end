@@ -20,5 +20,6 @@ import { UserDetailComponent } from './components/user/user-detail/user-detail.c
     LoginAdminComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
+  exports: [LoginAdminComponent]
 })
 export class AdminModule {}

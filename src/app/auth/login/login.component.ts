@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import {TokenStorageService} from "../../services/token-storage.service";
-import {Route, Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {TokenStorageService} from '../../services/token-storage.service';
+import {Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,20 +18,20 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private tokenStorageService: TokenStorageService,
-              private route:Router
+              private route: Router
   ) {
 
   }
 
   ngOnInit() {
     if (this.tokenStorageService.getToken()) {
-      this.route.navigateByUrl("/");
-    };
-    this.loginForm=this.fb.group({
+      this.route.navigateByUrl('/');
+    }
+    this.loginForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
-        password:['',[Validators.required]],
+        password: ['', [Validators.required]],
       }
-    )
+    );
   }
 
   onSubmit(): void {
@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
         this.tokenStorageService.saveUser(data);
 
         this.isLoginFailed = false;
-        this.route.navigateByUrl("/")
+        // this.route.navigateByUrl("/")
+        window.location.assign('/');
       },
       err => {
         this.errorMessage = err.error.message;

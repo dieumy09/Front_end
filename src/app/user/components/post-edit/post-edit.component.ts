@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
@@ -14,7 +14,6 @@ import {DirectionService} from '../../../services/direction.service';
 import {PostImage} from '../../../models/post-image';
 import {PostImageService} from '../../../services/post-image.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {List} from '../../../models/list';
 
 @Component({
   selector: 'app-post-edit',

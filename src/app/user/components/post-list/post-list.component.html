@@ -16,16 +16,17 @@
 </div>
 <br />
 <table class="table table-striped table-hover table-responsive-sm">
+  <caption hidden>Post list</caption>
   <thead>
     <tr>
-      <th>Post ID</th>
-      <th>Tiêu đề</th>
-      <th>Loại bài viết</th>
-      <th>Danh mục</th>
-      <th>Ngày đăng</th>
-      <th>Trạng thái</th>
-      <th></th>
-      <th></th>
+      <th id="id">Post ID</th>
+      <th id="title">Tiêu đề</th>
+      <th id="post_type">Loại bài viết</th>
+      <th id="category">Danh mục</th>
+      <th id="post_date">Ngày đăng</th>
+      <th id="status">Trạng thái</th>
+      <th id="edit"></th>
+      <th id="delete"></th>
     </tr>
   </thead>
   <tbody>
@@ -55,7 +56,7 @@
             class="btn btn-light"
             [routerLink]="['/post-edit/' + post.id]"
           >
-            <i class="fa fa-edit"></i>
+            <em class="fa fa-edit"></em>
           </button>
         </td>
         <td>
@@ -64,7 +65,7 @@
             class="btn btn-light"
             (click)="openModal(deletePostModal, post)"
           >
-            <i class="fa fa-times"></i>
+            <em class="fa fa-times"></em>
           </button>
         </td>
       </ng-container>
@@ -98,12 +99,12 @@
   <ul class="pagination">
     <li class="page-item" [hidden]="first">
       <a class="page-link" href="" (click)="setPage(0, $event)">
-        <i class="fa fa-angle-double-left"></i>
+        <em class="fa fa-angle-double-left"></em>
       </a>
     </li>
     <li class="page-item" [hidden]="first">
       <a class="page-link" href="" (click)="setPage(page - 1, $event)">
-        <i class="fa fa-angle-left"></i>
+        <em class="fa fa-angle-left"></em>
       </a>
     </li>
     <li
@@ -115,12 +116,12 @@
     </li>
     <li class="page-item" [hidden]="last">
       <a class="page-link" href="" (click)="setPage(page + 1, $event)">
-        <i class="fa fa-angle-right"></i>
+        <em class="fa fa-angle-right"></em>
       </a>
     </li>
     <li class="page-item" [hidden]="last">
       <a class="page-link" href="" (click)="setPage(pages.length - 1, $event)">
-        <i class="fa fa-angle-double-right"></i>
+        <em class="fa fa-angle-double-right"></em>
       </a>
     </li>
   </ul>

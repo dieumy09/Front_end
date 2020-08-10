@@ -1,9 +1,10 @@
 import { List } from './../models/list';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {observable, Observable} from 'rxjs';
 import { User } from '../models/user';
 import { Post } from '../models/post';
+import {Password} from '../models/password';
 
 @Injectable({
   providedIn: 'root',
@@ -51,5 +52,9 @@ export class UserService {
     return this.http.post<List<User>>(this.API + '/search?page=' + page, {
       keyword,
     });
+  }
+
+  changePassword(userId: number, password: Password): Observable<User> {
+    return this.http.patch<User>(`${this.API}/${userId}/changePassword`, password);
   }
 }
