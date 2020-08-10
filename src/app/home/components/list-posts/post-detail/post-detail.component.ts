@@ -86,11 +86,9 @@ export class PostDetailComponent implements OnInit {
       this.commentService.getCommentsByPostId(next.id).subscribe(data => {
         // @ts-ignore
         this.comments = data.content;
-        // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < this.comments.length; i++){
-          this.comments[i].replies.sort((a, b)  =>  a.id - b.id);
+        for (const comment of this.comments){
+          comment.replies.sort((a, b)  =>  a.id - b.id);
         }
-        console.log(this.comments);
       });
     });
   }

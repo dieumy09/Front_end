@@ -112,6 +112,7 @@ export class PostEditComponent implements OnInit {
     if (this.editPostForm.valid) {
       if (this.fileToUpload != null) {
         this.postImage = this.formBuilder.group({
+          post: this.post,
           image: ['']
         });
         this.postImage.value.image = this.fileToUpload.name;
