@@ -57,7 +57,7 @@
       </div>
       <div class="row">
         <label class="col-4">Giá:</label>
-        <label class="col-8">{{post.price}} VNĐ</label>
+        <label class="col-8">{{post.price | number}} VNĐ</label>
       </div>
       <div class="row">
         <label class="col-4">Lượt xem:</label>
@@ -112,7 +112,7 @@
         <button class="btn btn-outline-success">Bình luận</button>
       </div>
     </form>
-    <div *ngFor="let comment of comments; index as i">
+    <div *ngFor="let comment of comments | paginate: paginateComment; index as i">
       <ng-container *ngIf="comment.status">
         <div class="row my-2">
           <div class="col-1">
@@ -123,19 +123,31 @@
           <div class="col-11 dropdown">
             <ng-container *ngIf="!isShowEditFormComment">
               <div class="mb-3 pl-2" style="border: 1px solid #d8d8d8">
-                <label>{{comment.user.email}}</label>
-                <label style="font-style: italic; font-size: smaller; margin-left: 1%">Đã bình luận
-                  vào: {{comment.createdAt | date: "dd/MM/yyyy"}}</label>
                 <div class="d-flex">
-                  <div>{{comment.content}}</div>
+                  <label class="email-cmt">{{comment.user.email}}</label>
+                  <label class="date-cmt"><i class="fa fa-clock-o"></i>{{comment.createdAt | date: "dd/MM/yyyy"}}</label>
                   <ng-container *ngIf="comment.user.id == user.id">
                     <div class="dropdown-content">
-                      <span class="_54nc" (click)="showEditComment(i, comment)">Sửa</span>
-                      <span class="_54nc" (click)="deleteComment(comment.id)">Xóa</span>
+                      <span class="edit-cmt" (click)="showEditComment(i, comment)">Sửa</span>
+                      <span class="edit-cmt" (click)="openModal(deleteCommentModal)">Xóa</span>
                     </div>
                   </ng-container>
                 </div>
+                <div>{{comment.content}}</div>
               </div>
+              <ng-template let-modal #deleteCommentModal>
+                <div class="modal-header">
+                  <h5 style="color: #fa3e3e">Xác nhận xóa</h5>
+                  <span style="cursor: pointer" class="close" (click)="modal.dismiss()">&times;</span>
+                </div>
+                <div class="modal-body">
+                  Bạn có chắc chắn xóa bình luận này không?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Hủy</button>
+                  <button type="button" class="btn btn-outline-success" (click)="deleteComment(comment.id)">Đồng ý</button>
+                </div>
+              </ng-template>
             </ng-container>
             <ng-container *ngIf="isShowEditFormComment && indexComment == i">
               <textarea rows="3" style="width: 100%" [(ngModel)]="edit"></textarea>
@@ -146,15 +158,12 @@
             </ng-container>
             <ng-container *ngIf="isShowEditFormComment && indexComment != i">
               <div style="border: 1px solid #d8d8d8">
-                <label>{{comment.user.email}}</label>
-                <label style="font-style: italic; font-size: smaller; margin-left: 1%">Đã bình luận
-                  vào: {{comment.createdAt | date: "dd/MM/yyyy"}}</label>
-                <div class="d-flex">
-                  <div>{{comment.content}}</div>
-                </div>
+                <label class="email-cmt">{{comment.user.email}}</label>
+                <label class="date-cmt"><i class="fa fa-clock-o"></i>{{comment.createdAt | date: "dd/MM/yyyy"}}</label>
+                <div>{{comment.content}}</div>
               </div>
             </ng-container>
-            <div *ngIf="isShowReply && i == indexComment">
+            <ng-container *ngIf="isShowReply && i == indexComment">
               <form [formGroup]="reply">
                 <div class="row">
                   <div class="col-1">
@@ -170,78 +179,74 @@
                   <button class="mx-2 btn btn-outline-success btn-sm" (click)="replySubmit(comment)">Trả lời</button>
                 </div>
               </form>
+            </ng-container>
+            <div *ngFor="let reply of comment.replies; index as y">
+              <ng-container *ngIf="reply.status">
+                <div class="row my-2">
+                      <div class="col-1">
+                        <img src="../../../../../assets/img/{{reply.user.avatar}}"
+                             style="width: 50px; height: 50px; border-radius: 50%">
+                      </div>
+                      <div class="col-11 dropdown">
+                        <ng-container *ngIf="!isShowEditFormReply">
+                          <div class="pl-2" style="border: 1px solid #d8d8d8">
+                            <div class="d-flex">
+                              <label class="email-cmt">{{reply.user.email}}</label>
+                              <label class="date-cmt"><i class="fa fa-clock-o"></i>{{reply.createdAt | date: "dd/MM/yyyy"}}</label>
+                              <ng-container *ngIf="reply.user.id == user.id">
+                                <div class="dropdown-content">
+                                  <span class="edit-cmt" (click)="showEditReply(i, y, comment, reply)">Sửa</span>
+                                  <span class="edit-cmt" (click)="openModal(deleteReplyModal)">Xóa</span>
+                                </div>
+                              </ng-container>
+                            </div>
+                            <div>{{reply.content}}</div>
+                          </div>
+                          <ng-template let-modal #deleteReplyModal>
+                            <div class="modal-header">
+                              <h5 style="color: #fa3e3e">Xác nhận xóa</h5>
+                              <span style="cursor: pointer" class="close" (click)="modal.dismiss()">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                              Bạn có chắc chắn xóa bình luận này không?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Hủy</button>
+                              <button type="button" class="btn btn-outline-success" (click)="deleteReply(reply.id)">Đồng ý</button>
+                            </div>
+                          </ng-template>
+                        </ng-container>
+                        <ng-container *ngIf="isShowEditFormReply && indexReply == y && indexComment == i">
+                          <textarea rows="3" style="width: 100%" [(ngModel)]="edit"></textarea>
+                          <div class="d-flex justify-content-end">
+                            <button class="mx-2 btn btn-outline-dark btn-sm" (click)="isShowEditFormReply = false">Hủy</button>
+                            <button class="mx-2 btn btn-outline-success btn-sm" (click)="editReply(reply, comment)">Sửa</button>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="isShowEditFormReply && (indexReply != y || indexComment != i)">
+                          <div style="border: 1px solid #d8d8d8">
+                            <label class="email-cmt">{{reply.user.email}}</label>
+                            <label class="date-cmt"><i class="fa fa-clock-o"></i>{{reply.createdAt | date: "dd/MM/yyyy"}}</label>
+                            <div>{{reply.content}}</div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+              </ng-container>
             </div>
-              <div *ngFor="let reply of comment.replies; index as y">
-                <ng-container *ngIf="reply.status">
-                  <div class="row my-2">
-                    <div class="col-1">
-                      <img src="../../../../../assets/img/{{reply.user.avatar}}"
-                           style="width: 50px; height: 50px; border-radius: 50%">
-                    </div>
-                    <div class="col-11 dropdown">
-                      <ng-container *ngIf="!isShowEditFormReply">
-                        <div class="pl-2" style="border: 1px solid #d8d8d8">
-                          <label>{{reply.user.email}}</label>
-                          <label style="font-style: italic; font-size: smaller; margin-left: 1%">Đã bình luận
-                            vào: {{reply.createdAt | date: "dd/MM/yyyy"}}</label>
-                          <div class="d-flex">
-                            <div>{{reply.content}}</div>
-                            <ng-container *ngIf="reply.user.id == user.id">
-                              <div class="dropdown-content">
-                                <span class="_54nc" (click)="showEditReply(i, y, comment, reply)">Sửa</span>
-                                <span class="_54nc" (click)="deleteReply(reply.id)">Xóa</span>
-                              </div>
-                            </ng-container>
-                          </div>
-                        </div>
-                      </ng-container>
-                      <ng-container *ngIf="isShowEditFormReply && indexReply == y && indexComment == i">
-                        <textarea rows="3" style="width: 100%" [(ngModel)]="edit"></textarea>
-                        <div class="d-flex justify-content-end">
-                          <button class="mx-2 btn btn-outline-dark btn-sm" (click)="isShowEditFormReply = false">Hủy
-                          </button>
-                          <button class="mx-2 btn btn-outline-success btn-sm" (click)="editReply(reply, comment)">Sửa
-                          </button>
-                        </div>
-                      </ng-container>
-                      <ng-container *ngIf="isShowEditFormReply && (indexReply != y || indexComment != i)">
-                        <div style="border: 1px solid #d8d8d8">
-                          <label>{{reply.user.email}}</label>
-                          <label style="font-style: italic; font-size: smaller; margin-left: 1%">Đã bình luận
-                            vào: {{reply.createdAt | date: "dd/MM/yyyy"}}</label>
-                          <div class="d-flex">
-                            <div>{{reply.content}}</div>
-                          </div>
-                        </div>
-                      </ng-container>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
           </div>
         </div>
       </ng-container>
     </div>
     <div class="d-flex justify-content-center">
-      <!--      <ngb-pagination   [(page)]="page"-->
-      <!--                        [pageSize]="pageSize"-->
-      <!--                        [collectionSize]="comments.length">-->
-      <!--        <button class="btn btn-outline-info">Previous</button>-->
-      <!--        <button class="btn btn-outline-info">1</button>-->
-      <!--        <button class="btn btn-outline-info">Next</button>-->
-
-      <!--        <ng-template ngbPaginationFirst>First</ng-template>-->
-      <!--        <ng-template ngbPaginationLast>Last</ng-template>-->
-      <!--        <ng-template ngbPaginationPrevious>Prev</ng-template>-->
-      <!--        <ng-template ngbPaginationNext>Next</ng-template>-->
-      <!--        <ng-template ngbPaginationEllipsis>...</ng-template>-->
-      <!--        <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>-->
-      <!--        <a th:href="@{'/khuyen-mai'(page=${khuyenMais.number - 1})}" th:if="${khuyenMais.hasPrevious()}" class="badge badge-primary">Previous</a>-->
-      <!--        <span th:if="${khuyenMais.hasContent()}">-->
-      <!--        <span th:text="${khuyenMais.number + 1}"></span>/<span th:text="${khuyenMais.totalPages}"></span>-->
-      <!--    </span>-->
-      <!--        <a th:href="@{'/khuyen-mai'(page=${khuyenMais.number + 1})}" th:if="${khuyenMais.hasNext()}" class="badge badge-primary">Next</a>-->
-      <!--      </ngb-pagination>-->
+      <pagination-controls
+        [maxSize]="maxSize"
+        [responsive]="responsive"
+        [previousLabel]="labels.previousLabel"
+        [nextLabel]="labels.nextLabel"
+        (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
   </div>
 </div>
+
+

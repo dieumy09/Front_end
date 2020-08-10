@@ -12,6 +12,7 @@ import { PostFormComponent } from './components/post/post-form/post-form.compone
 import { PostConfirmComponent } from './components/post/post-confirm/post-confirm.component';
 import { UserModule } from '../user/user.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 import {AdminModule} from '../admin/admin.module';
 import {RouterModule} from '@angular/router';
 
@@ -33,6 +34,7 @@ import {RouterModule} from '@angular/router';
     UserModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     AdminModule,
     RouterModule
   ],
