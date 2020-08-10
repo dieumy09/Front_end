@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
@@ -61,25 +61,25 @@ export class PostEditComponent implements OnInit {
       status: [''],
       approved: [''],
       user: [ ],
-      category: [this.formBuilder.group({
+      category: this.formBuilder.group({
         id: [''],
         name: ['']
-      })],
-      postImage: [''],
-      postType: [this.formBuilder.group({
+      }),
+      postImages: [''],
+      postType: this.formBuilder.group({
         id: [''],
         name: ['']
-      })],
-      direction: [this.formBuilder.group({
+      }),
+      direction: this.formBuilder.group({
         id: [''],
         name: ['']
-      }) ],
+      }),
       createdAt: [''],
       updatedAt: [''],
-      region: [this.formBuilder.group({
+      region: this.formBuilder.group({
         id: [''],
         name: ['']
-      })],
+      }),
       customerType: [ ]
     });
 
@@ -110,16 +110,15 @@ export class PostEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editPostForm.valid) {
-      if (this.fileToUpload != null) {
-        this.postImage = this.formBuilder.group({
-          post: this.post,
-          image: ['']
-        });
-        this.postImage.value.image = this.fileToUpload.name;
-        this.postImageService.createPostImage(this.postImage.value).subscribe(() => {
-          // console.log(this.postImage.value);
-        });
-      }
+      // if (this.fileToUpload != null) {
+      //   this.postImage = this.formBuilder.group({
+      //     image: ['']
+      //   });
+      //   this.postImage.value.image = this.fileToUpload.name;
+      //   this.postImageService.createPostImage(this.postImage.value).subscribe(() => {
+      //
+      //   });
+      // }
       this.postService.editPost(this.editPostForm.value, this.postId).subscribe(data => {
         console.log('post: ' + data.region.name);
         this.router.navigateByUrl(`/user/${data.user.id}`);
@@ -163,6 +162,7 @@ export class PostEditComponent implements OnInit {
 // ***********************************************************************************
 
 
+// ***********************************************************************************
 
   getAllCategories() {
     this.categoryService.getCategories().subscribe(data => {

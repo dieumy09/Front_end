@@ -1,4 +1,4 @@
-export interface Role {
-  id: number;
-  role: string;
+export enum Role {
+  USER = 0,
+  ADMIN = 1
 }

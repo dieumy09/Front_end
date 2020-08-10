@@ -7,18 +7,20 @@
   <form (ngSubmit)="onSubmit();" [formGroup]="editPostForm">
 
     <!--    Category-->
-    <div class="form-group row" style="margin-bottom: -5px">
+    <div class="form-group row">
       <label class="col-sm-2 col-form-label">
-        <b>Danh mục sản phẩm:</b>
+        <b>Danh mục:</b>
       </label>
-      <div class="col-10">
-        <div formGroupName="category">
-          <select class="form-control col-form-label" formControlName="name" (change)="changeCity($event)">
-            <option *ngFor="let category of categories" [selected]="category.id === editPostForm.value.category.id" >
-              {{category.name}}
-            </option>
-          </select>
-        </div>
+      <div class="col-10" formGroupName="category">
+        <select class="form-control col-form-label" formControlName="id">
+          <option
+            *ngFor="let category of categories"
+            [selected]="category.id === editPostForm.value.category.id"
+            [ngValue]="category.id"
+          >
+            {{category.name}}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -27,10 +29,13 @@
       <label class="col-sm-2 col-form-label">
         <b>Vùng miền:</b>
       </label>
-      <div class="col-10">
-        <select class="form-control col-form-label" formGroupName="region">
-          <option *ngFor="let region of regions" [ngValue]="region"
-                  [selected]="region.id === editPostForm.value.region.id">
+      <div class="col-10" formGroupName="region">
+        <select class="form-control col-form-label" formControlName="id">
+          <option
+            *ngFor="let region of regions"
+            [ngValue]="region.id"
+            [selected]="region.id === editPostForm.value.region.id"
+          >
             {{region.name}}
           </option>
         </select>
@@ -59,10 +64,12 @@
     <!--    Post Type-->
     <div class="row">
       <legend class="col-form-label col-sm-2 mr-3"><b>Đăng tin:</b></legend>
-      <div class="col-sm-2" *ngFor="let postType of postTypes">
+      <div class="col-sm-2" *ngFor="let postType of postTypes" formGroupName="postType">
         <input class="form-check-input" type="radio"
-               formGroupName="postType" name="postType"
-               id="{{postType.id}}" [value]="postType"
+               formControlName="id"
+               name="id"
+               id="{{postType.id}}"
+               [value]="postType.id"
                [checked]="postType.id === editPostForm.value.postType.id">
         <label class="form-check-label" for="{{postType.id}}">
           {{postType.name}}
@@ -120,9 +127,9 @@
       <label class="col-sm-2 col-form-label">
         <b>Hướng:</b>
       </label>
-      <div class="col-10">
-        <select class="form-control col-form-label" formGroupName="direction">
-          <option *ngFor="let direction of directions" [ngValue]="direction"
+      <div class="col-10" formGroupName="direction">
+        <select class="form-control col-form-label" formControlName="id">
+          <option *ngFor="let direction of directions" [ngValue]="direction.id"
                   [selected]="direction.id === editPostForm.value.direction.id">{{direction.name}}</option>
         </select>
       </div>
@@ -193,35 +200,32 @@
           </ng-container>
         </ng-container>
 
-        <!-- Modal -->
-        <ng-template let-modal #deleteImageModal>
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa</h5>
-            <button type="button" class="close" (click)="modal.dismiss()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Bạn có muốn xóa ảnh {{image.image | uppercase}} không?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Hủy</button>
-            <button type="button" class="btn btn-primary" (click)="deletePostImage(image)">Đồng ý</button>
-          </div>
-        </ng-template>
+<!--        <div class="col-sm-4 mb-5" *ngIf="imageUrl">-->
+<!--          <img [src]="imageUrl" class="product-img">-->
+<!--        </div>-->
+<!--        <div class="col-sm-4 mb-5">-->
 
-        <div class="col-sm-4 mb-5" *ngIf="imageUrl">
-          <img [src]="imageUrl" class="product-img">
-        </div>
-        <div class="col-sm-4 mb-5">
-          <label for="upload">
-            <i class="fa fa-picture-o fa-6x"></i>
-            <input type="file" id="upload" (change)="handleFileInput($event)" hidden accept="image/*">
-          </label>
-        </div>
+<!--        </div>-->
       </div>
     </div>
 
     <button class="btn btn-primary btn-block ml-auto w-25"><i class="fa fa-check"></i>Hoàn thành</button>
   </form>
+
+  <!-- Modal -->
+  <ng-template let-modal #deleteImageModal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle">Xác nhận xóa</h5>
+      <button type="button" class="close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Bạn có muốn xóa ảnh {{image.image | uppercase}} không?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Hủy</button>
+      <button type="button" class="btn btn-primary" (click)="deletePostImage(image)">Đồng ý</button>
+    </div>
+  </ng-template>
 </div>

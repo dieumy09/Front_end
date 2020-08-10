@@ -1,19 +1,21 @@
+import { List } from './../models/list';
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {User} from '../models/user';
-import {Post} from '../models/post';
+import { HttpClient } from '@angular/common/http';
+import {observable, Observable} from 'rxjs';
+import { User } from '../models/user';
+import { Post } from '../models/post';
+import {Password} from '../models/password';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private readonly API = 'http://localhost:8080/api/v1/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<any> {
-    return this.http.get<any>(this.API);
+  getUsers(): Observable<List<User>> {
+    return this.http.get<List<User>>(this.API);
   }
 
   getUserById(id: number): Observable<User> {
@@ -32,7 +34,27 @@ export class UserService {
     return this.http.delete<User>(`${this.API}/${id}`);
   }
 
-  getPostsByUserId(id: number, page: number, search: string): Observable<Iterable<Post>> {
-    return this.http.get<Iterable<Post>>(`${this.API}/${id}/posts?search=${search}&page=${page}`);
+  getPostsByUserId(
+    id: number,
+    page: number,
+    search: string
+  ): Observable<Iterable<Post>> {
+    return this.http.get<Iterable<Post>>(
+      `${this.API}/${id}/posts?search=${search}&page=${page}`
+    );
+  }
+
+  blockUserById(id: number, reason: string): Observable<any> {
+    return this.http.post<any>(`${this.API}/${id}/block`, { reason });
+  }
+
+  searchUsers(keyword: string, page = 0): Observable<List<User>> {
+    return this.http.post<List<User>>(this.API + '/search?page=' + page, {
+      keyword,
+    });
+  }
+
+  changePassword(userId: number, password: Password): Observable<User> {
+    return this.http.patch<User>(`${this.API}/${userId}/changePassword`, password);
   }
 }
