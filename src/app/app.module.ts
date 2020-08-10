@@ -24,5 +24,6 @@ import { FormDirective } from './directives/form.directive';
     ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [FormDirective]
 })
 export class AppModule {}
