@@ -102,17 +102,6 @@
     <ul *ngIf="listPost?.totalPages > 7" class="pager">
       <li *ngIf="listPost?.number !== 0" class="pager__item">
         <span class="pager__link" (click)="handleClickFirst()"><<</span>
-  <nav *ngIf="listPost?.totalPages !== 1" aria-label="List post pagination">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a
-          class="page-link"
-          (click)="handleClickPrevious()"
-          aria-label="Previous"
-        >
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
       </li>
       <li *ngIf="listPost?.number !== 0" class="pager__item">
         <span class="pager__link" (click)="handleClickPrevious()"><</span>
@@ -145,5 +134,4 @@
       </li>
     </ul>
   </nav>
-
 </form>
