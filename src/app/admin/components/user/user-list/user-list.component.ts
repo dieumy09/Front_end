@@ -1,3 +1,4 @@
+import { PagerService } from './../../../../services/pager.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from './../../../../models/user';
 import { List } from './../../../../models/list';
@@ -13,14 +14,17 @@ export class UserListComponent implements OnInit {
   users: List<User>;
   searchForm: FormGroup;
   currentKeyword = '';
+  pager: any = {};
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private pagerService: PagerService
   ) {}
 
   ngOnInit(): void {
     this.userService.searchUsers(this.currentKeyword).subscribe((users) => {
       this.users = users;
+      this.jumpToPage(1);
     });
     this.searchForm = this.formBuilder.group({
       keyword: [''],
@@ -37,27 +41,16 @@ export class UserListComponent implements OnInit {
     this.searchForm.reset();
   }
 
-  handleClickNext() {
-    this.userService
-      .searchUsers(this.searchForm.value.keyword, this.users.number + 1)
-      .subscribe((users) => {
-        this.users = users;
-      });
-  }
-
-  handleClickPrevious() {
-    this.userService
-      .searchUsers(this.searchForm.value.keyword, this.users.number - 1)
-      .subscribe((users) => {
-        this.users = users;
-      });
-  }
-
   jumpToPage(page) {
     this.userService
-      .searchUsers(this.searchForm.value.keyword, page)
+      .searchUsers(this.searchForm.value.keyword, page - 1)
       .subscribe((users) => {
         this.users = users;
+        this.pager = this.pagerService.getPager(
+          users.totalElements,
+          page,
+          users.size
+        );
       });
   }
 }

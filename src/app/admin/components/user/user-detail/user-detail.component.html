@@ -79,7 +79,7 @@
         <li class="page-item" [class.disabled]="posts?.first">
           <a
             class="page-link"
-            (click)="handleClickPrevious()"
+            (click)="jumpToPage(pager.currentPage - 1)"
             aria-label="Previous"
           >
             <span aria-hidden="true">&laquo;</span>
@@ -87,14 +87,18 @@
           </a>
         </li>
         <li
-          *ngFor="let item of [].constructor(posts?.totalPages); let i = index"
+          *ngFor="let page of pager.pages"
           class="page-item"
-          [class.active]="posts?.number === i"
+          [class.active]="posts?.number === page - 1"
         >
-          <a (click)="jumpToPage(i)" class="page-link">{{ i + 1 }}</a>
+          <a (click)="jumpToPage(page)" class="page-link">{{ page }}</a>
         </li>
         <li class="page-item" [class.disabled]="posts?.last">
-          <a class="page-link" (click)="handleClickNext()" aria-label="Next">
+          <a
+            class="page-link"
+            (click)="jumpToPage(pager.currentPage + 1)"
+            aria-label="Next"
+          >
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>
