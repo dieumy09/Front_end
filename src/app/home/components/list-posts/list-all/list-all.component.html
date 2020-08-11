@@ -34,7 +34,7 @@
           <option [ngValue]="null">--Chọn danh mục--</option>
           <option *ngFor="let category of categories" [ngValue]="category.id">{{
             category.name
-          }}</option>
+            }}</option>
         </select>
       </div>
     </div>
@@ -56,22 +56,24 @@
         *ngFor="let post of listPost?.content"
       >
         <div class="card" [routerLink]="['/post-detail', post.id]">
-            <img *ngIf="post.postImages.length !== 0"
-                 class="card-img-top"
-                 [src]="'../../../../../assets/img/' + post.postImages[0].image"
-                 height="230"
-            />
+          <img *ngIf="post.postImages.length !== 0"
+               class="card-img-top"
+               [src]="'../../../../../assets/img/' + post.postImages[0].image"
+               height="200"
+          />
           <img *ngIf="post.postImages.length === 0"
-                 class="card-img-top"
-                 [src]="'../../../../../assets/img/no-image.jpg'"
-                 height="230"
-            />
+               class="card-img-top"
+               [src]="'../../../../../assets/img/no-image.jpg'"
+               height="200"
+          />
           <div class="card-body">
-            <div class="p-title d-flex">
-              <p class="card-title" *ngIf="post.postType !== null">[{{ post?.postType.name }}]</p>
+            <div class="p-title">
+              <p class="card-title" *ngIf="post.postType !== null">[{{ post?.postType.name }}]&nbsp;</p>
+            </div>
+            <div class="p-title">
               <p class="card-title">{{ post.title }}</p>
             </div>
-            <p class="card-text post-price">
+            <p class="post-price">
               Giá: <strong>{{ post.price | number}}</strong> VNĐ
             </p>
             <div class="post-info">
@@ -102,17 +104,6 @@
     <ul *ngIf="listPost?.totalPages > 7" class="pager">
       <li *ngIf="listPost?.number !== 0" class="pager__item">
         <span class="pager__link" (click)="handleClickFirst()"><<</span>
-  <nav *ngIf="listPost?.totalPages !== 1" aria-label="List post pagination">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a
-          class="page-link"
-          (click)="handleClickPrevious()"
-          aria-label="Previous"
-        >
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
       </li>
       <li *ngIf="listPost?.number !== 0" class="pager__item">
         <span class="pager__link" (click)="handleClickPrevious()"><</span>
@@ -126,7 +117,8 @@
       >
         <a (click)="jumpToPage(i + 1)" class="pager__link">{{ i + 1 }}</a>
       </li>
-      <li class="pager__item" [hidden]="listPost?.totalPages - listPost?.number < 5"><span class="pager__link">...</span></li>
+      <li class="pager__item" [hidden]="listPost?.totalPages - listPost?.number < 5"><span
+        class="pager__link">...</span></li>
       <li *ngIf="listPost?.number !== listPost?.totalPages - 1" class="pager__item">
         <span class="pager__link" (click)="handleClickNext()">></span>
       </li>
@@ -145,5 +137,4 @@
       </li>
     </ul>
   </nav>
-
 </form>
