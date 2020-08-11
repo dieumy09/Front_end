@@ -1,3 +1,4 @@
+import { PagerService } from './../../../../services/pager.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostService } from './../../../../services/post.service';
 import { User } from './../../../../models/user';
@@ -16,11 +17,13 @@ export class UserDetailComponent implements OnInit {
   user: User;
   posts: List<Post>;
   blockUserForm: FormGroup;
+  pager: any = {};
   constructor(
     private userService: UserService,
     private postService: PostService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private pagerService: PagerService
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +38,7 @@ export class UserDetailComponent implements OnInit {
       .getPostsByUserId(0, parseInt(id, 10))
       .subscribe((posts) => {
         this.posts = posts;
+        this.jumpToPage(1);
       });
     this.blockUserForm = this.formBuilder.group({
       reason: ['', [Validators.required]],
@@ -49,26 +53,16 @@ export class UserDetailComponent implements OnInit {
       });
   }
 
-  handleClickNext() {
-    this.postService
-      .getPostsByUserId(this.posts.number + 1, this.user.id)
-      .subscribe((posts) => {
-        this.posts = posts;
-      });
-  }
-
-  handleClickPrevious() {
-    this.postService
-      .getPostsByUserId(this.posts.number - 1, this.user.id)
-      .subscribe((posts) => {
-        this.posts = posts;
-      });
-  }
-
   jumpToPage(page) {
-    console.log(page);
-    this.postService.getPostsByUserId(page, this.user.id).subscribe((posts) => {
-      this.posts = posts;
-    });
+    this.postService
+      .getPostsByUserId(page - 1, this.user.id)
+      .subscribe((posts) => {
+        this.posts = posts;
+        this.pager = this.pagerService.getPager(
+          posts.totalElements,
+          page,
+          posts.size
+        );
+      });
   }
 }
