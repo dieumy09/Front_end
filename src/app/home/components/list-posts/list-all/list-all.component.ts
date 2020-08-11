@@ -30,8 +30,6 @@ export class ListAllComponent implements OnInit {
   ngOnInit(): void {
     this.searchService.listPost$.subscribe((next) => {
       this.listPost = next;
-      console.log(this.listPost);
-
     });
     this.searchService.searchAll();
     this.regionService.getRegions().subscribe((next) => {
@@ -41,6 +39,8 @@ export class ListAllComponent implements OnInit {
       this.categories = next;
     });
   }
+
+
 
   handleSubmit() {
     this.searchService.searchAll({
