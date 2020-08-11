@@ -92,6 +92,7 @@ export class UserInfoEditComponent implements OnInit {
               this.infoEditForm.value.avatar = url;
               this.userService.editUser(this.infoEditForm.value).subscribe(data => {
                 console.log(data);
+                this.router.navigateByUrl('/user');
               });
             }).catch(err => { console.log(err); });
           })
@@ -104,6 +105,7 @@ export class UserInfoEditComponent implements OnInit {
         });
       }
       this.router.navigateByUrl('/user');
+      // window.location.assign('/user');
     }
   }
 }

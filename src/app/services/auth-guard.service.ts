@@ -16,6 +16,9 @@ export class AuthGuardService implements CanActivate{
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const currentUser = this.tokenStorageService.getUser();
+    if (currentUser === null) {
+      this.router.navigateByUrl('/login');
+    }
     const userRoles = currentUser.roles;
     if (currentUser) {
       for (const roleIndex in userRoles) {
@@ -30,7 +33,7 @@ export class AuthGuardService implements CanActivate{
       return false;
     }
     // not logged in so redirect to login page with the return url
-    this.router.navigate(['/login-admin'], { queryParams: { returnUrl: state.url }});
-    return false;
+    // this.router.navigateByUrl('/login-admin');
+    // return false;
   }
 }
