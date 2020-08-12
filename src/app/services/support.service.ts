@@ -26,4 +26,8 @@ export class SupportService {
   deleteSupport(id: number): Observable<Support> {
     return this.http.delete<Support>(`${this.API}/${id}`);
   }
+
+  getSupportById(id: number): Observable<Support> {
+    return this.http.get<Support>(`${this.API}/${id}`);
+  }
 }
