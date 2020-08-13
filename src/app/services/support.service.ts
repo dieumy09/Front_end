@@ -30,4 +30,8 @@ export class SupportService {
   getSupportById(id: number): Observable<Support> {
     return this.http.get<Support>(`${this.API}/${id}`);
   }
+
+  getSupportsByReasonId(reasonId: number, page: number): Observable<Array<Support>> {
+    return this.http.get<Array<Support>>(`${this.API}/?reasonId=${reasonId}&page=${page}`);
+  }
 }

@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -24,7 +24,7 @@ import { SettingComponent } from './components/setting/setting.component';
     SupportListComponent,
     SettingComponent,
   ],
-    imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule, NgbPaginationModule],
+    imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule, NgbPaginationModule, FormsModule],
   exports: [LoginAdminComponent]
 })
 export class AdminModule {}

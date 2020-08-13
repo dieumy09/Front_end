@@ -35,13 +35,8 @@ export class UserService {
   }
 
   getPostsByUserId(
-    id: number,
-    page: number,
-    search: string
-  ): Observable<Iterable<Post>> {
-    return this.http.get<Iterable<Post>>(
-      `${this.API}/${id}/posts?search=${search}&page=${page}`
-    );
+    id: number, page: number, search: string): Observable<Iterable<Post>> {
+    return this.http.get<Iterable<Post>>(`${this.API}/${id}/posts?search=${search}&page=${page}`);
   }
 
   blockUserById(id: number, reason: string): Observable<any> {

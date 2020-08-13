@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {List} from '../models/list';
 import {Reason} from '../models/reason';
+import {Support} from '../models/support';
 
 @Injectable({
   providedIn: 'root'

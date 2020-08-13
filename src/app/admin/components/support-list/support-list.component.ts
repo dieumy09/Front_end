@@ -16,6 +16,15 @@ export class SupportListComponent implements OnInit {
   supports: Support[];
   support: Support;
   supportId: number;
+  reasonId: number;
+
+  page = 0;
+  pages: number[];
+  totalElements: number;
+  pageSize: number;
+  first: boolean;
+  last: boolean;
+  userId: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,12 +41,6 @@ export class SupportListComponent implements OnInit {
   getReasons() {
     this.reasonService.getReasons().subscribe(data => {
       this.reasons = data;
-    });
-  }
-
-  getSupports() {
-    this.supportService.getSupports().subscribe(data => {
-      this.supports = data.content;
     });
   }
 
@@ -58,4 +61,32 @@ export class SupportListComponent implements OnInit {
     this.support = support;
   }
 
+  getSupports() {
+    // @ts-ignore
+    this.reasonId = document.getElementById('selectReasonId').value;
+    console.log(this.reasonId);
+
+    this.supportService.getSupportsByReasonId(this.reasonId, this.page).subscribe(data => {
+      // @ts-ignore
+      this.supports = data.content;
+      // @ts-ignore
+      this.totalElements = data.totalElements;
+      // @ts-ignore
+      this.pageSize = data.size;
+      // @ts-ignore
+      this.page = data.number;
+      // @ts-ignore
+      this.first = data.first;
+      // @ts-ignore
+      this.last = data.last;
+      // @ts-ignore
+      this.pages = new Array(data.totalPages);
+      });
+  }
+
+  setPage(i, event: any) {
+    event.preventDefault();
+    this.page = i;
+    this.getSupports();
+  }
 }

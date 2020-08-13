@@ -48,10 +48,8 @@ export class PostListComponent implements OnInit {
       this.first = data.first;
       // @ts-ignore
       this.last = data.last;
-      // console.log('page:' + this.page);
       // @ts-ignore
       this.pages = new Array(data.totalPages);
-      // console.log('search is: ' + this.search);
     });
   }
 
