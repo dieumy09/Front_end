@@ -9,6 +9,9 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
+import { SupportListComponent } from './components/support-list/support-list.component';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { SettingComponent } from './components/setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +21,10 @@ import { UserDetailComponent } from './components/user/user-detail/user-detail.c
     UserListComponent,
     UserDetailComponent,
     LoginAdminComponent,
+    SupportListComponent,
+    SettingComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
+    imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule, NgbPaginationModule],
   exports: [LoginAdminComponent]
 })
 export class AdminModule {}
