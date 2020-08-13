@@ -25,8 +25,9 @@ export class AuthGuardService implements CanActivate {
   ): boolean {
     const currentUser = this.tokenStorageService.getUser();
     if (currentUser === null) {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/login-admin');
     }
+
     const userRoles = currentUser.roles;
     for (const roleIndex in userRoles) {
       if (route.data.role === userRoles[roleIndex]) {

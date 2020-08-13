@@ -1,0 +1,147 @@
+<div class="container mt-5">
+  <h4 class="font-weight-normal"><i class="fa fa-pencil-square-o"></i>Thiết lập</h4>
+  <hr>
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+          Danh mục Bất động sản
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-10">
+              <input class="form-control" placeholder="Tên danh mục">
+            </div>
+            <div class="col-2">
+              <button class="btn btn-outline-secondary">Lưu</button>
+            </div>
+          </div>
+
+          <div class="table-responsive  mt-3">
+            <table class="table table-hover">
+              <caption hidden>Category list</caption>
+              <thead>
+              <tr>
+                <th>Mã</th>
+                <th>Tên danh mục</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let category of categories">
+                <td>
+                  <label>DM000{{ category.id | number: '2.'}}</label>
+                </td>
+                <td>
+                  <label>{{ category.name }}</label>
+                </td>
+                <td>
+                  <button class="btn btn-light"><i class="fas fa-pen"></i></button>
+                </td>
+                <td>
+                  <button class="btn btn-light"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header">
+          Loại tin
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-10">
+              <input class="form-control" placeholder="Tên loại tin">
+            </div>
+            <div class="col-2">
+              <button class="btn btn-outline-secondary">Lưu</button>
+            </div>
+          </div>
+
+          <div class="table-responsive text-nowrap mt-3">
+            <table class="table table-hover">
+              <caption hidden>Post Type list</caption>
+              <thead>
+              <tr>
+                <th>Mã</th>
+                <th>Tên loại tin</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let postType of postTypes">
+                <td>
+                  <label>LT000{{ postType.id | number: '2.'}}</label>
+                </td>
+                <td>
+                  <label>{{ postType.name }}</label>
+                </td>
+                <td>
+                  <button class="btn btn-light"><i class="fas fa-pen"></i></button>
+                </td>
+                <td>
+                  <button class="btn btn-light"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+          Vùng miền
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-10">
+              <input class="form-control" placeholder="Tên vùng miền">
+            </div>
+            <div class="col-2">
+              <button class="btn btn-outline-secondary">Lưu</button>
+            </div>
+          </div>
+
+          <div class="table-responsive  mt-3">
+            <table class="table table-hover">
+              <caption hidden>Region list</caption>
+              <thead>
+              <tr>
+                <th>Mã</th>
+                <th>Tên vùng miền</th>
+                <th></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let region of regions">
+                <td>
+                  <label>LT000{{ region.id | number: '2.'}}</label>
+                </td>
+                <td>
+                  <label>{{ region.name }}</label>
+                </td>
+                <td>
+                  <button class="btn btn-light"><i class="fas fa-pen"></i></button>
+                </td>
+                <td>
+                  <button class="btn btn-light"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
