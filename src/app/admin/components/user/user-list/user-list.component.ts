@@ -37,8 +37,9 @@ export class UserListComponent implements OnInit {
       .searchUsers(this.searchForm.value.keyword)
       .subscribe((users) => {
         this.users = users;
+        this.jumpToPage(1);
+        this.searchForm.reset();
       });
-    this.searchForm.reset();
   }
 
   jumpToPage(page) {

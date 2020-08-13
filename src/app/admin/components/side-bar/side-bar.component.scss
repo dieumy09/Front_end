@@ -57,3 +57,10 @@
   font-size: 0.75rem;
   text-transform: uppercase;
 }
+
+.nav-link[data-toggle].collapsed:before {
+  content: " ▾";
+}
+.nav-link[data-toggle]:not(.collapsed):before {
+  content: " ▴";
+}

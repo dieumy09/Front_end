@@ -10,6 +10,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Reply} from '../../../../models/reply';
 import {ReplyService} from '../../../../services/reply.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TokenStorageService} from '../../../../services/token-storage.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -19,6 +20,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class PostDetailComponent implements OnInit {
   post: Post;
   user: User;
+  userId: number;
   comment = this.formBuilder.group({
     content: ['', [Validators.required]],
     user: [],
@@ -47,6 +49,7 @@ export class PostDetailComponent implements OnInit {
   constructor(
     private postService: PostService,
     private userService: UserService,
+    private tokenStorageService: TokenStorageService,
     private commentService: CommentService,
     private replyService: ReplyService,
     private activatedRoute: ActivatedRoute,
@@ -66,7 +69,8 @@ export class PostDetailComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUserById(3).subscribe(data => {
+    this.userId = this.tokenStorageService.getUser().id;
+    this.userService.getUserById(this.userId).subscribe(data => {
       this.user = data;
     });
   }
