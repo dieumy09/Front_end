@@ -34,6 +34,7 @@ export class PostConfirmComponent implements OnInit {
     this.post = this.postDataService.postData;
     this.listImages = this.postDataService.listImages;
     this.fileImages = this.postDataService.fileImages;
+    console.log(this.post);
   }
 
   submit() {
@@ -51,6 +52,11 @@ export class PostConfirmComponent implements OnInit {
       }
     });
   }
+
+  backToPostForm() {
+    this.router.navigateByUrl('/post-form');
+  }
+
 
   backToHome() {
     this.postDataService.postData = undefined;

@@ -8,9 +8,19 @@ import {TokenStorageService} from '../services/token-storage.service';
 })
 export class HomeComponent implements OnInit {
   public user: any;
+
   constructor(private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser();
   }
+
+  goToPostForm(content) {
+    if (this.user === null) {
+        this.modalService.open(content);
+    } else {
+      this.router.navigateByUrl('/post-form');
+    }
+  }
+
 }

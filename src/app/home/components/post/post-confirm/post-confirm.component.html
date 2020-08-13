@@ -1,5 +1,5 @@
 <div class="container-fluid px-5">
-  <form class="col-md-12 ml-auto" style="background: white">
+  <form class="col-md-12 ml-auto" style="background: white" (ngSubmit)="backToPostForm()">
     <div id="title-post-confirm">
       <h3 class="col-sm-12" style="font-family: 'Times New Roman'; font-size: 24px; font-weight: bold; padding: 5px">Nội dung tin</h3>
       <hr style="background-color: black"/>
@@ -77,18 +77,18 @@
         <label  class="col-sm-3 col-form-label" style="font-weight: bold">Hình ảnh:</label>
         <div class="col-sm-9 col-form-label">
           <div class="row">
-            <div *ngFor="let image of listImages" class="d-flex m-2">
-              <img [src]="image" height="150" width="150">
+            <div *ngFor="let image of listImages" class="d-flex m-1">
+              <img [src]="image" height="130" width="150">
             </div>
           </div>
         </div>
       </div>
       <div class="row d-flex justify-content-center" id="button-post-confirm">
         <div class="col-3">
-          <button class="btn btn-warning btn-block" [routerLink]="['/post-form']"><i class="fa fa-chevron-left"></i> Quay lại</button>
+          <button type="submit" class="btn btn-warning btn-block"><i class="fa fa-chevron-left"></i> Quay lại</button>
         </div>
         <div class="col-3">
-          <button class="btn btn-info btn-block" (click)="submit()" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-check"></i> Xác nhận</button>
+          <button type="button" class="btn btn-info btn-block" (click)="submit()" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-check"></i> Xác nhận</button>
         </div>
       </div>
     </div>
@@ -110,7 +110,7 @@
       </div>
       <div class="modal-footer">
         <div class="col-sm-6 ml-auto">
-          <button class="btn btn-warning btn-block" data-dismiss="modal" (click)="backToHome()"><i class="fa fa-chevron-left"> Quay lại trang chủ </i></button>
+          <button type="button" class="btn btn-warning btn-block" data-dismiss="modal" (click)="backToHome()"><i class="fa fa-chevron-left"> Quay lại trang chủ </i></button>
         </div>
       </div>
     </div>

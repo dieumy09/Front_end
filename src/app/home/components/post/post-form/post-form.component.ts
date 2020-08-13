@@ -14,6 +14,7 @@ import {PostService} from '../../../../services/post.service';
 import {PostDataService} from '../post-data.service';
 import {Router} from '@angular/router';
 import {Post} from '../../../../models/post';
+import {TokenStorageService} from '../../../../services/token-storage.service';
 
 @Component({
   selector: 'app-post-form',
@@ -22,6 +23,7 @@ import {Post} from '../../../../models/post';
 })
 export class PostFormComponent implements OnInit {
   user: User;
+  userId: number;
   categories: Category[];
   regions: Region[];
   postTypes: PostType[];
@@ -30,6 +32,7 @@ export class PostFormComponent implements OnInit {
   listImages = [];
   fileImages = [];
   checkValidPostImage = false;
+  isFocus = false;
 
   postForm = this.formBuilder.group({
     title: ['', [Validators.required, Validators.maxLength(50)]],
@@ -51,6 +54,7 @@ export class PostFormComponent implements OnInit {
   constructor(
     private postService: PostService,
     private userService: UserService,
+    private tokenStorageService: TokenStorageService,
     private categoryService: CategoryService,
     private regionService: RegionService,
     private postTypeService: PostTypeService,
@@ -71,7 +75,8 @@ export class PostFormComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUserById(1).subscribe(data => {
+    this.userId = this.tokenStorageService.getUser().id;
+    this.userService.getUserById(this.userId).subscribe(data => {
       this.user = data;
     });
   }
@@ -131,6 +136,24 @@ export class PostFormComponent implements OnInit {
       });
       this.postDataService.addPostData(this.postForm.value, this.listImages, this.fileImages);
       this.router.navigateByUrl(`/post-confirm`);
+    } else {
+      switch (true) {
+        case this.postForm.controls.address.invalid:
+          document.getElementById('address').focus();
+          break;
+        case this.postForm.controls.area.invalid:
+          document.getElementById('area').focus();
+          break;
+        case this.postForm.controls.title.invalid:
+          document.getElementById('title').focus();
+          break;
+        case this.postForm.controls.content.invalid:
+          document.getElementById('postContent').focus();
+          break;
+        case this.postForm.controls.price.invalid:
+          document.getElementById('price').focus();
+          break;
+      }
     }
   }
 

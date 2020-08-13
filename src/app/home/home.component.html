@@ -4,7 +4,7 @@
     style="background-color: #f3c623;"
   >
     <a class="navbar-brand" href="/">
-      <img src="assets/img/logo.png" height="50" width="150" />
+      <img src="assets/img/logo.png" height="50" width="150"/>
     </a>
     <button
       class="navbar-toggler d-lg-none"
@@ -54,7 +54,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/post-form"
+          <a class="nav-link" (click)="goToPostForm(checkUser)"
           ><i class="fa fa-bullhorn"></i> Đăng tin</a
           >
         </li>
@@ -91,5 +91,21 @@
   <app-advance-search></app-advance-search>
   <app-search-by-age></app-search-by-age>
   <app-search-by-keyword></app-search-by-keyword>
+
+  <ng-template let-modal #checkUser>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Đăng nhập</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Vui lòng đăng nhập để tiếp tục!</p>
+      <p>Đăng nhập <a routerLink="/login" (click)="modal.close()">tại đây</a></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-outline-dark" (click)="modal.close()">Quay lại</button>
+    </div>
+  </ng-template>
   <!--  <footer style="background-color: #f3c623; height: 20%; z-index: 1"></footer>-->
 </div>
