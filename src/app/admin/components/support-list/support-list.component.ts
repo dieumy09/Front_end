@@ -64,7 +64,6 @@ export class SupportListComponent implements OnInit {
   getSupports() {
     // @ts-ignore
     this.reasonId = document.getElementById('selectReasonId').value;
-    console.log(this.reasonId);
 
     this.supportService.getSupportsByReasonId(this.reasonId, this.page).subscribe(data => {
       // @ts-ignore

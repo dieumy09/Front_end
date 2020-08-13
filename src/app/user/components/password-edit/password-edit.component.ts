@@ -39,7 +39,6 @@ export class PasswordEditComponent implements OnInit {
     if (this.passwordEditForm.valid) {
       this.userId = this.tokenStorageService.getUser().id;
       this.userService.changePassword(this.userId, this.passwordEditForm.value).subscribe(data => {
-        console.log(data);
         this.router.navigateByUrl('/user');
       }, () => {
         this.isWrongPassword = true;
