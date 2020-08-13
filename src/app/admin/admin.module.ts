@@ -14,7 +14,7 @@ import { ApprovedPostListComponent } from './components/post/approved-post-list/
 import { AuthorizationComponent } from './components/authorization/authorization.component';
 import { InfoComponent } from './components/info/info.component';
 import { SupportListComponent } from './components/support-list/support-list.component';
-import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { SettingComponent } from './components/setting/setting.component';
 
 @NgModule({

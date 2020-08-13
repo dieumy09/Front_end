@@ -8,14 +8,16 @@
           Danh mục Bất động sản
         </div>
         <div class="card-body">
-          <div class="row">
+          <form class="row" [formGroup]="categoryForm" (ngSubmit)="onSubmitCategoryForm()">
             <div class="col-10">
-              <input class="form-control" placeholder="Tên danh mục">
+              <input class="form-control" placeholder="Tên danh mục" formControlName="name">
+              <p *ngIf="categoryForm.controls.name.errors?.required && categoryForm.controls.name.touched"
+                 class="text-danger">Vui lòng nhập tên danh mục!</p>
             </div>
             <div class="col-2">
               <button class="btn btn-outline-secondary">Lưu</button>
             </div>
-          </div>
+          </form>
 
           <div class="table-responsive  mt-3">
             <table class="table table-hover">
@@ -37,10 +39,10 @@
                   <label>{{ category.name }}</label>
                 </td>
                 <td>
-                  <button class="btn btn-light"><i class="fas fa-pen"></i></button>
+                  <button class="btn btn-light" (click)="updateCategory(category.id)"><i class="fas fa-pen"></i></button>
                 </td>
                 <td>
-                  <button class="btn btn-light"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-light" (click)="deleteCategory(category.id)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
               </tbody>
@@ -54,14 +56,16 @@
           Loại tin
         </div>
         <div class="card-body">
-          <div class="row">
+          <form class="row" [formGroup]="postTypeForm" (ngSubmit)="onSubmitPostTypeForm()">
             <div class="col-10">
-              <input class="form-control" placeholder="Tên loại tin">
+              <input class="form-control" placeholder="Tên loại tin" formControlName="name">
+              <p *ngIf="postTypeForm.controls.name.errors?.required && postTypeForm.controls.name.touched"
+                 class="text-danger">Vui lòng nhập tên loại tin!</p>
             </div>
             <div class="col-2">
               <button class="btn btn-outline-secondary">Lưu</button>
             </div>
-          </div>
+          </form>
 
           <div class="table-responsive text-nowrap mt-3">
             <table class="table table-hover">
@@ -83,10 +87,10 @@
                   <label>{{ postType.name }}</label>
                 </td>
                 <td>
-                  <button class="btn btn-light"><i class="fas fa-pen"></i></button>
+                  <button class="btn btn-light" (click)="updatePostType(postType.id)"><i class="fas fa-pen"></i></button>
                 </td>
                 <td>
-                  <button class="btn btn-light"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-light" (click)="deletePostType(postType.id)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
               </tbody>
@@ -101,14 +105,16 @@
           Vùng miền
         </div>
         <div class="card-body">
-          <div class="row">
+          <form class="row" [formGroup]="regionForm" (ngSubmit)="onSubmitRegionForm()">
             <div class="col-10">
-              <input class="form-control" placeholder="Tên vùng miền">
+              <input class="form-control" placeholder="Tên vùng miền" formControlName="name">
+              <p *ngIf="regionForm.controls.name.errors?.required && regionForm.controls.name.touched"
+                 class="text-danger">Vui lòng nhập tên vùng miền!</p>
             </div>
             <div class="col-2">
               <button class="btn btn-outline-secondary">Lưu</button>
             </div>
-          </div>
+          </form>
 
           <div class="table-responsive  mt-3">
             <table class="table table-hover">
@@ -130,10 +136,10 @@
                   <label>{{ region.name }}</label>
                 </td>
                 <td>
-                  <button class="btn btn-light"><i class="fas fa-pen"></i></button>
+                  <button class="btn btn-light" (click)="updateRegion(region.id)"><i class="fas fa-pen"></i></button>
                 </td>
                 <td>
-                  <button class="btn btn-light"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-light" (click)="deleteRegion(region.id)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
               </tbody>
