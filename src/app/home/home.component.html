@@ -3,8 +3,8 @@
     class="navbar navbar-expand-lg navbar-light"
     style="background-color: #f3c623;"
   >
-    <a class="navbar-brand" href="/">
-      <img src="assets/img/logo.png" height="50" width="150"/>
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/img/logo.png" height="50" width="150" />
     </a>
     <button
       class="navbar-toggler d-lg-none"
@@ -27,7 +27,7 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          ><i class="fa fa-search"></i> Tìm bất động sản</a
+            ><i class="fa fa-search"></i> Tìm bất động sản</a
           >
           <div class="dropdown-menu" aria-labelledby="dropdownId">
             <button
@@ -55,23 +55,28 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" (click)="goToPostForm(checkUser)"
-          ><i class="fa fa-bullhorn"></i> Đăng tin</a
+            ><i class="fa fa-bullhorn"></i> Đăng tin</a
           >
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/support"
-          ><i class="fa fa-phone-square"></i> Trợ giúp</a
+            ><i class="fa fa-phone-square"></i> Trợ giúp</a
           >
         </li>
         <li *ngIf="!user" class="nav-item">
           <a class="nav-link" routerLink="/login"
-          ><i class="fa fa-user" aria-hidden="true"></i> Đăng nhập </a
-          >
+            ><i class="fa fa-user" aria-hidden="true"></i> Đăng nhập
+          </a>
         </li>
-        <li *ngIf="user" class="nav-item">
+        <li *ngIf="user && !isAdmin()" class="nav-item">
           <a class="nav-link" routerLink="/user"
-          ><i class="fa fa-user" aria-hidden="true"></i> {{user.name}} </a
-          >
+            ><i class="fa fa-user" aria-hidden="true"></i> {{ user.name }}
+          </a>
+        </li>
+        <li *ngIf="user && isAdmin()" class="nav-item">
+          <a class="nav-link" routerLink="/admin"
+            ><i class="fa fa-user" aria-hidden="true"></i> {{ user.name }}
+          </a>
         </li>
       </ul>
     </div>
@@ -95,17 +100,29 @@
   <ng-template let-modal #checkUser>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Đăng nhập</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss()"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <p>Vui lòng đăng nhập để tiếp tục!</p>
-      <p>Đăng nhập <a routerLink="/login" (click)="modal.close()">tại đây</a></p>
+      <p>
+        Đăng nhập <a routerLink="/login" (click)="modal.close()">tại đây</a>
+      </p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-sm btn-outline-dark" (click)="modal.close()">Quay lại</button>
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-dark"
+        (click)="modal.close()"
+      >
+        Quay lại
+      </button>
     </div>
   </ng-template>
-  <!--  <footer style="background-color: #f3c623; height: 20%; z-index: 1"></footer>-->
 </div>

@@ -5,37 +5,66 @@
   <div class="sidebar-sticky pt-3">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" routerLink="/admin">
+        <a class="nav-link" routerLinkActive="active" routerLink="/admin/users">
           <i class="fas fa-user"></i>
-          Thành viên <span class="sr-only">(current)</span>
+          Thành viên
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a
+          class="nav-link"
+          href="#submenu1"
+          data-toggle="collapse"
+          data-target="#submenu1"
+        >
           <i class="fas fa-bullhorn"></i>
           Bài đăng
         </a>
+        <div class="collapse" id="submenu1" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLinkActive="active"
+                routerLink="/admin/pending-posts"
+                ><span>Chờ phê duyệt</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLinkActive="active"
+                routerLink="/admin/approved-posts"
+                ><span>Đã phê duyệt</span></a
+              >
+            </li>
+          </ul>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="supports">
+        <a class="nav-link" routerLinkActive="active" routerLink="supports">
           <i class="fas fa-info-circle"></i>
           Hỗ trợ
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" routerLinkActive="active" href="#">
           <i class="fas fa-chart-pie"></i>
           Thống kê
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="setting">
+        <a class="nav-link" routerLinkActive="active" routerLink="setting">
           <i class="fas fa-cog"></i>
           Thiết lập
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/admin/authorization"
+        >
           <i class="fas fa-tasks"></i>
           Phân quyền
         </a>

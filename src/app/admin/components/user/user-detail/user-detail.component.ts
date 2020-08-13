@@ -38,6 +38,7 @@ export class UserDetailComponent implements OnInit {
       .getPostsByUserId(0, parseInt(id, 10))
       .subscribe((posts) => {
         this.posts = posts;
+        console.log(posts);
         this.jumpToPage(1);
       });
     this.blockUserForm = this.formBuilder.group({
