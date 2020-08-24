@@ -1,7 +1,8 @@
+import { TokenStorageService } from './../services/token-storage.service';
+import { AuthService } from './../services/auth.service';
 import { Role } from './../models/role';
 import { User } from './../models/user';
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../services/token-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
@@ -13,13 +14,17 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public user: User;
   constructor(
-    private tokenStorageService: TokenStorageService,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   ngOnInit(): void {
-    this.user = this.tokenStorageService.getUser();
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
+    this.authService.getCurrentUser();
   }
 
   goToPostForm(content): void {
@@ -33,10 +38,15 @@ export class HomeComponent implements OnInit {
   isAdmin(): boolean {
     let isAdmin = false;
     this.user.roles.forEach((role) => {
-      if (role === Role.ADMIN) {
+      if (role.roleName === Role.ADMIN) {
         isAdmin = true;
       }
     });
     return isAdmin;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.authService.getCurrentUser();
   }
 }

@@ -1,9 +1,10 @@
+import { SearchService } from './../../../../services/search.service';
 import { Component, OnInit } from '@angular/core';
 import { List } from 'src/app/models/list';
 import { Post } from 'src/app/models/post';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PagerService } from 'src/app/services/pager.service';
-import { PostService } from 'src/app/services/post.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pending-post-list',
@@ -19,12 +20,40 @@ export class PendingPostListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pagerService: PagerService,
-    private postService: PostService
+    private searchService: SearchService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.searchForm = this.formBuilder.group({
+      keyword: [''],
+    });
+    this.searchService.listPost$
+      .pipe(
+        tap((posts) => {
+          if (posts) {
+            this.pager = this.pagerService.getPager(
+              posts.totalElements,
+              posts.number + 1,
+              posts.size
+            );
+          }
+        })
+      )
+      .subscribe((posts) => {
+        this.posts = posts;
+      });
+    this.jumpToPage(1);
+  }
 
-  handleSearchClick() {}
+  handleSearchClick() {
+    this.currentKeyword = this.searchForm.value.keyword;
+    this.jumpToPage(1);
+  }
 
-  jumpToPage(page) {}
+  jumpToPage(page) {
+    this.searchService.searchPendingPosts(
+      { keyword: this.currentKeyword },
+      page - 1
+    );
+  }
 }

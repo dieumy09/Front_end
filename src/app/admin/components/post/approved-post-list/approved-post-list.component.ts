@@ -1,9 +1,10 @@
+import { tap } from 'rxjs/operators';
 import { Post } from 'src/app/models/post';
-import { PostService } from './../../../../services/post.service';
 import { PagerService } from './../../../../services/pager.service';
 import { Component, OnInit } from '@angular/core';
 import { List } from 'src/app/models/list';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-approved-post-list',
@@ -19,12 +20,40 @@ export class ApprovedPostListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pagerService: PagerService,
-    private postService: PostService
+    private searchService: SearchService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.searchForm = this.formBuilder.group({
+      keyword: [''],
+    });
+    this.searchService.listPost$
+      .pipe(
+        tap((posts) => {
+          if (posts) {
+            this.pager = this.pagerService.getPager(
+              posts.totalElements,
+              posts.number + 1,
+              posts.size
+            );
+          }
+        })
+      )
+      .subscribe((posts) => {
+        this.posts = posts;
+      });
+    this.jumpToPage(1);
+  }
 
-  handleSearchClick() {}
+  handleSearchClick() {
+    this.currentKeyword = this.searchForm.value.keyword;
+    this.jumpToPage(1);
+  }
 
-  jumpToPage(page) {}
+  jumpToPage(page) {
+    this.searchService.searchApprovedPosts(
+      { keyword: this.currentKeyword },
+      page - 1
+    );
+  }
 }

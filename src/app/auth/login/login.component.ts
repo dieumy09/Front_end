@@ -32,19 +32,25 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.authService.login(this.loginForm.value).subscribe(
       (data) => {
         this.tokenStorageService.saveToken(data.accessToken);
         this.tokenStorageService.saveUser(data);
-
+        this.authService.getCurrentUser();
         this.isLoginFailed = false;
-        // this.route.navigateByUrl("/")
-        window.location.assign('/');
+        this.route.navigateByUrl('/');
       },
       (err) => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     );
+  }
+
+  get form() {
+    return this.loginForm.controls;
   }
 }

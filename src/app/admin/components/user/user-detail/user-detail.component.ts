@@ -38,7 +38,6 @@ export class UserDetailComponent implements OnInit {
       .getPostsByUserId(0, parseInt(id, 10))
       .subscribe((posts) => {
         this.posts = posts;
-        console.log(posts);
         this.jumpToPage(1);
       });
     this.blockUserForm = this.formBuilder.group({
@@ -52,6 +51,12 @@ export class UserDetailComponent implements OnInit {
       .subscribe((res) => {
         this.ngOnInit();
       });
+  }
+
+  handleUnblock() {
+    this.userService.unblockUserById(this.user.id).subscribe((res) => {
+      this.ngOnInit();
+    });
   }
 
   jumpToPage(page) {

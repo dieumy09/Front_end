@@ -55,7 +55,7 @@ const routes: Routes = [
       },
     ],
     canActivate: [AuthGuardService],
-    data: { role: Role.ADMIN },
+    data: { roles: [Role.ADMIN, Role.MOD] },
   },
 ];
 
