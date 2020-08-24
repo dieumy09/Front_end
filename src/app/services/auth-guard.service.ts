@@ -7,15 +7,14 @@ import {
 } from '@angular/router';
 import { AuthService } from './auth.service';
 import { TokenStorageService } from './token-storage.service';
-import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-  user: User;
   constructor(
     private tokenStorageService: TokenStorageService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -23,18 +22,18 @@ export class AuthGuardService implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const currentUser = this.tokenStorageService.getUser();
-    if (currentUser === null) {
-      this.router.navigateByUrl('/login-admin');
+    let isActivated = false;
+    const user = this.tokenStorageService.getUser();
+    if (user) {
+      user.roles.forEach((role) => {
+        if (route.data.roles.includes(role.roleName)) {
+          isActivated = true;
+        }
+      });
     }
-
-    const userRoles = currentUser.roles;
-    for (const roleIndex in userRoles) {
-      if (route.data.role === userRoles[roleIndex]) {
-        return true;
-      }
+    if (!isActivated) {
+      this.router.navigateByUrl('login-admin');
     }
-    this.router.navigateByUrl('/');
-    return false;
+    return isActivated;
   }
 }

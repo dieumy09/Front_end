@@ -26,6 +26,26 @@ export class SearchService {
       });
   }
 
+  searchPendingPosts(option = {}, page): void {
+    this.currentOption = option;
+    this.http
+      .post<List<Post>>(`${this.API}/searchPending?page=${page}`, option)
+      .subscribe((postList) => {
+        this.postList = postList;
+        this.updatePostList();
+      });
+  }
+
+  searchApprovedPosts(option = {}, page): void {
+    this.currentOption = option;
+    this.http
+      .post<List<Post>>(`${this.API}/searchApproved?page=${page}`, option)
+      .subscribe((postList) => {
+        this.postList = postList;
+        this.updatePostList();
+      });
+  }
+
   jumpToPage(page) {
     this.http
       .post<List<Post>>(

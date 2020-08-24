@@ -1,10 +1,12 @@
+import { Role } from './../models/role';
 import { List } from './../models/list';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { observable, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { Post } from '../models/post';
 import { Password } from '../models/password';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -35,8 +37,17 @@ export class UserService {
   }
 
   getPostsByUserId(
-    id: number, page: number, search: string): Observable<Iterable<Post>> {
-    return this.http.get<Iterable<Post>>(`${this.API}/${id}/posts?search=${search}&page=${page}`);
+    id: number,
+    page: number,
+    search: string
+  ): Observable<Iterable<Post>> {
+    return this.http.get<Iterable<Post>>(
+      `${this.API}/${id}/posts?search=${search}&page=${page}`
+    );
+  }
+
+  unblockUserById(id: number): Observable<any> {
+    return this.http.post<any>(`${this.API}/${id}/unblock`, {});
   }
 
   blockUserById(id: number, reason: string): Observable<any> {

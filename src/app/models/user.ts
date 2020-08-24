@@ -9,7 +9,7 @@ export interface User {
   avatar: string;
   status: boolean;
   activated: boolean;
-  roles: string[];
+  roles: any[];
   createdAt: Date;
   updatedAt: Date;
   posts: Post[];

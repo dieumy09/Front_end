@@ -55,7 +55,11 @@
         class="col-sm-12 col-md-6 col-lg-4 mb-2"
         *ngFor="let post of listPost?.content"
       >
-        <div class="card" [routerLink]="['/post-detail', post.id]">
+        <div
+          class="card"
+          *ngIf="post.approved"
+          [routerLink]="['/post-detail', post.id]"
+        >
           <img
             *ngIf="post.postImages.length !== 0"
             class="card-img-top"
