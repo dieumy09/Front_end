@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ReasonService} from '../../../services/reason.service';
 import {Reason} from '../../../models/reason';
 import {SupportService} from '../../../services/support.service';
@@ -12,26 +12,32 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./support-list.component.scss']
 })
 export class SupportListComponent implements OnInit {
-  reasons: Reason[];
-  supports: Support[];
-  support: Support;
-  supportId: number;
-  reasonId: number;
-
-  page = 0;
-  pages: number[];
-  totalElements: number;
-  pageSize: number;
-  first: boolean;
-  last: boolean;
-  userId: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private reasonService: ReasonService,
     private supportService: SupportService
-  ) { }
+  ) {
+  }
+
+  reasons: Reason[];
+  supports: Support[];
+  support: Support;
+  supportId: number;
+  reasonId: number;
+
+
+  page = 0;
+  pages: number[];
+  currentPages: number[];
+  totalElements: number;
+  totalPages: number;
+  pageSize: number;
+  first: boolean;
+  last: boolean;
+  userId: number;
+  isShown = false;
 
   ngOnInit(): void {
     this.getReasons();
@@ -73,19 +79,19 @@ export class SupportListComponent implements OnInit {
       // @ts-ignore
       this.pageSize = data.size;
       // @ts-ignore
-      this.page = data.number;
-      // @ts-ignore
       this.first = data.first;
       // @ts-ignore
       this.last = data.last;
       // @ts-ignore
       this.pages = new Array(data.totalPages);
-      });
+      // @ts-ignore
+      this.totalPages = data.totalPages;
+    });
   }
 
-  setPage(i, event: any) {
+  setPage(page, event: any) {
     event.preventDefault();
-    this.page = i;
+    this.page = page;
     this.getSupports();
   }
 }
