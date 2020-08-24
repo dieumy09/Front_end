@@ -78,6 +78,11 @@
             ><i class="fa fa-user" aria-hidden="true"></i> {{ user.name }}
           </a>
         </li>
+        <li *ngIf="user" class="nav-item">
+          <a class="nav-link" (click)="logout()" routerLink="/login"
+            ><i class="fas fa-sign-out-alt"></i> Đăng xuất
+          </a>
+        </li>
       </ul>
     </div>
   </nav>

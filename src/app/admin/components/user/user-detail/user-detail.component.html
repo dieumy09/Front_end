@@ -45,11 +45,19 @@
       </div>
     </div>
     <button
+      *ngIf="user?.status"
       class="btn btn-primary mt-2"
       data-toggle="modal"
       data-target="#lockReasonModel"
     >
       Khóa tài khoản
+    </button>
+    <button
+      class="btn btn-primary mt-2"
+      (click)="handleUnblock()"
+      *ngIf="!user?.status"
+    >
+      Mở tài tài khoản
     </button>
   </div>
   <div class="table-responsive">

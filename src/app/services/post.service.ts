@@ -37,4 +37,12 @@ export class PostService {
   deletePost(id: number): Observable<Post> {
     return this.http.delete<Post>(`${this.API}/${id}`);
   }
+
+  blockPost(id: number): Observable<any> {
+    return this.http.post(`${this.API}/${id}/block`, {});
+  }
+
+  unblockPost(id: number): Observable<any> {
+    return this.http.post(`${this.API}/${id}/unblock`, {});
+  }
 }

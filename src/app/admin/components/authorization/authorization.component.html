@@ -3,44 +3,70 @@
 >
   <h3><i class="fas fa-edit"></i> Cấp quyền Admin</h3>
 </div>
-<div class="card">
-  <div class="card-body">
-    <form formGroup>
-      <div class="form-group">
-        <label for="formGroupExampleInput">Email</label>
-        <input
-          type="text"
-          class="form-control"
-          id="email"
-          placeholder="Nhập vào email"
-        />
-      </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput2">Họ tên</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          placeholder="Nhập vào họ tên"
-        />
-      </div>
-      <div class="form-group">
-        <label for="inputGrant">Quyền</label>
-        <select id="inputGrant" class="form-control">
-          <option selected>Choose...</option>
-          <option>...</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary float-right">
-        Tạo tài khoản
-      </button>
-    </form>
+<div class="row justify-content-center">
+  <div class="card col-6">
+    <div class="card-body">
+      <form [formGroup]="formAdminInput" (submit)="handleCreateAccount()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            [class.is-invalid]="
+              formAdminInput.get('email').touched &&
+              formAdminInput.get('email').invalid
+            "
+            class="form-control"
+            formControlName="email"
+            id="email"
+            placeholder="Nhập vào email"
+          />
+          <div class="invalid-feedback">
+            Email không đúng định dạng!
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name">Họ tên</label>
+          <input
+            type="text"
+            [class.is-invalid]="
+              formAdminInput.get('name').touched &&
+              formAdminInput.get('name').invalid
+            "
+            class="form-control"
+            formControlName="name"
+            id="name"
+            placeholder="Nhập vào họ tên"
+          />
+          <div class="invalid-feedback">
+            Ít nhất từ 6 ký tự!
+          </div>
+        </div>
+        <div class="form-group" formGroupName="role">
+          <label for="inputGrant">Quyền</label>
+          <select formControlName="id" id="inputGrant" class="form-control">
+            <option *ngFor="let role of roles" [value]="role.id">{{
+              role.roleName
+            }}</option>
+          </select>
+        </div>
+        <div *ngIf="isCreated" class="alert alert-success">
+          {{ message }}
+        </div>
+        <button
+          type="submit"
+          [disabled]="formAdminInput.invalid"
+          class="btn btn-primary float-right"
+        >
+          Tạo tài khoản
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 
 <div class="card mt-3">
   <div class="card-header">
-    Danh sách admin
+    <h3>Danh sách admin</h3>
   </div>
   <div class="card-body">
     <table class="table table-striped table-sm">
@@ -50,13 +76,72 @@
           <th>Email</th>
           <th>Họ và tên</th>
           <th>Quyền hạn</th>
-          <th>Xem</th>
         </tr>
       </thead>
       <tbody>
-        <p>Chưa có thành viên nào</p>
-        <tr></tr>
+        <p *ngIf="admins?.empty">Không tìm thấy admin nào!</p>
+        <tr *ngFor="let admin of admins?.content">
+          <td>{{ admin?.id }}</td>
+          <td>{{ admin?.email }}</td>
+          <td>{{ admin?.name }}</td>
+          <td>{{ (admin?.roles)[admin?.roles.length - 1].roleName }}</td>
+          <td>
+            <button
+              *ngIf="admin?.status"
+              (click)="handleBlock(admin.id)"
+              class="btn btn-info"
+            >
+              Khóa
+            </button>
+            <button
+              *ngIf="!admin?.status"
+              (click)="handleUnblock(admin.id)"
+              class="btn btn-info"
+            >
+              Mở
+            </button>
+          </td>
+          <td>
+            <button (click)="handleDelete(admin.id)" class="btn btn-danger">
+              Xóa
+            </button>
+          </td>
+        </tr>
       </tbody>
     </table>
+    <nav
+      *ngIf="admins?.totalPages !== 1 && !admins?.empty"
+      class="d-flex justify-content-center"
+    >
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ disabled: admins?.first }">
+          <span class="page-link" (click)="jumpToPage(1)">
+            <em class="fa fa-angle-double-left"></em>
+          </span>
+        </li>
+        <li class="page-item" [ngClass]="{ disabled: admins?.first }">
+          <span class="page-link" (click)="jumpToPage(pager.currentPage - 1)">
+            <em class="fa fa-angle-left"></em>
+          </span>
+        </li>
+        <li
+          *ngFor="let page of pager.pages"
+          class="page-item"
+          [class.active]="admins?.number === page - 1"
+        >
+          <span class="page-link" (click)="jumpToPage(page)">{{ page }}</span>
+        </li>
+        <li class="page-item" [ngClass]="{ disabled: admins?.last }">
+          <span class="page-link" (click)="jumpToPage(pager.currentPage + 1)">
+            <em class="fa fa-angle-right"></em>
+          </span>
+        </li>
+        <li class="page-item" [ngClass]="{ disabled: admins?.last }">
+          <span class="page-link" (click)="jumpToPage(pager.totalPages)">
+            <em class="fa fa-angle-double-right"></em>
+          </span>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
