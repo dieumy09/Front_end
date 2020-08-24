@@ -47,7 +47,22 @@
         <td>{{ post?.postType?.name }}</td>
         <td>{{ post?.createdAt | date: "dd/MM/yyyy" }}</td>
         <td><a [routerLink]="['/admin/post-detail', post?.id]">Chi tiết</a></td>
-        <td><button class="btn btn-info">Gỡ bài</button></td>
+        <td>
+          <button
+            *ngIf="post?.status"
+            (click)="handleBlock(post.id)"
+            class="btn btn-info"
+          >
+            Gỡ bài
+          </button>
+          <button
+            *ngIf="!post?.status"
+            (click)="handleUnblock(post.id)"
+            class="btn btn-info"
+          >
+            Mở bài
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

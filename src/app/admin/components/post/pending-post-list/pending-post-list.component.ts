@@ -1,3 +1,4 @@
+import { PostService } from './../../../../services/post.service';
 import { SearchService } from './../../../../services/search.service';
 import { Component, OnInit } from '@angular/core';
 import { List } from 'src/app/models/list';
@@ -20,7 +21,8 @@ export class PendingPostListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pagerService: PagerService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private postService: PostService
   ) {}
 
   ngOnInit(): void {
@@ -55,5 +57,17 @@ export class PendingPostListComponent implements OnInit {
       { keyword: this.currentKeyword },
       page - 1
     );
+  }
+
+  handleBlock(id: number): void {
+    this.postService.blockPost(id).subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+  handleUnblock(id: number): void {
+    this.postService.unblockPost(id).subscribe(() => {
+      this.ngOnInit();
+    });
   }
 }

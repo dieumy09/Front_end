@@ -1,3 +1,4 @@
+import { PostService } from './../../../../services/post.service';
 import { tap } from 'rxjs/operators';
 import { Post } from 'src/app/models/post';
 import { PagerService } from './../../../../services/pager.service';
@@ -20,7 +21,8 @@ export class ApprovedPostListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private pagerService: PagerService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private postService: PostService
   ) {}
 
   ngOnInit(): void {
@@ -45,15 +47,27 @@ export class ApprovedPostListComponent implements OnInit {
     this.jumpToPage(1);
   }
 
-  handleSearchClick() {
+  handleSearchClick(): void {
     this.currentKeyword = this.searchForm.value.keyword;
     this.jumpToPage(1);
   }
 
-  jumpToPage(page) {
+  jumpToPage(page): void {
     this.searchService.searchApprovedPosts(
       { keyword: this.currentKeyword },
       page - 1
     );
+  }
+
+  handleBlock(id: number): void {
+    this.postService.blockPost(id).subscribe(() => {
+      this.ngOnInit();
+    });
+  }
+
+  handleUnblock(id: number): void {
+    this.postService.unblockPost(id).subscribe(() => {
+      this.ngOnInit();
+    });
   }
 }
