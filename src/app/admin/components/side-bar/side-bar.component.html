@@ -5,21 +5,47 @@
   <div class="sidebar-sticky pt-3">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" routerLink="/admin">
+        <a class="nav-link" routerLinkActive="active" routerLink="/admin/users">
           <i class="fas fa-user"></i>
-          Thành viên <span class="sr-only">(current)</span>
+          Thành viên
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#submenu1"
+          data-target="#submenu1"
+          data-toggle="collapse"
+          aria-expanded="false"
+        >
           <i class="fas fa-bullhorn"></i>
           Bài đăng
         </a>
+        <div class="collapse" id="submenu1" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLinkActive="active"
+                routerLink="/admin/pending-posts"
+                ><span>Chờ phê duyệt</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                routerLinkActive="active"
+                routerLink="/admin/approved-posts"
+                ><span>Đã phê duyệt</span></a
+              >
+            </li>
+          </ul>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" routerLinkActive="active" routerLink="supports">
           <i class="fas fa-info-circle"></i>
-          Hổ trợ
+          Hỗ trợ
         </a>
       </li>
       <li class="nav-item">
@@ -29,23 +55,25 @@
         </a>
         <ul class="collapse list-unstyled pl-3" id="statisticMenuLink">
           <li>
-            <a class="nav-link" routerLink="/admin/view-count-statistic">Số lượt truy cập</a>
+            <a class="nav-link" routerLinkActive="active" routerLink="/admin/view-count-statistic">Số lượt truy cập</a>
           </li>
           <li>
-            <a class="nav-link" routerLink="/admin/most-view-count-statistic">Bài đăng xem nhiều nhất</a>
+            <a class="nav-link" routerLinkActive="active" routerLink="/admin/most-view-count-statistic">Bài đăng xem nhiều nhất</a>
           </li>
         </ul>
       </li>
-
-
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-tasks"></i>
+        <a class="nav-link" routerLinkActive="active" routerLink="setting">
+          <i class="fas fa-cog"></i>
           Thiết lập
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/admin/authorization"
+        >
           <i class="fas fa-tasks"></i>
           Phân quyền
         </a>

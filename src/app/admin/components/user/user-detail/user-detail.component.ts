@@ -53,6 +53,12 @@ export class UserDetailComponent implements OnInit {
       });
   }
 
+  handleUnblock() {
+    this.userService.unblockUserById(this.user.id).subscribe((res) => {
+      this.ngOnInit();
+    });
+  }
+
   jumpToPage(page) {
     this.postService
       .getPostsByUserId(page - 1, this.user.id)

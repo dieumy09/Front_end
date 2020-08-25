@@ -26,4 +26,8 @@ export class PostTypeService {
   deletePostType(id: number): Observable<PostType> {
     return this.http.delete<PostType>(`${this.API}/${id}`);
   }
+
+  getPostTypeById(id: number): Observable<PostType> {
+    return this.http.get<PostType>(`${this.API}/${id}`);
+  }
 }

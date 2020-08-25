@@ -1,5 +1,5 @@
 import { Role } from './role';
-import {Post} from './post';
+import { Post } from './post';
 export interface User {
   id: number;
   name: string;
@@ -9,7 +9,7 @@ export interface User {
   avatar: string;
   status: boolean;
   activated: boolean;
-  role: Role[];
+  roles: any[];
   createdAt: Date;
   updatedAt: Date;
   posts: Post[];

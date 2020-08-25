@@ -13,6 +13,17 @@ import { PostDetailComponent } from './components/post/post-detail/post-detail.c
 import { ViewCountStatisticComponent } from './components/statistic/view-count-statistic/view-count-statistic.component';
 import { MostViewCountStatisticComponent } from './components/statistic/most-view-count-statistic/most-view-count-statistic.component';
 import {ChartsModule} from 'ng2-charts';
+import { PendingPostListComponent } from './components/post/pending-post-list/pending-post-list.component';
+import { ApprovedPostListComponent } from './components/post/approved-post-list/approved-post-list.component';
+import { AuthorizationComponent } from './components/authorization/authorization.component';
+import { InfoComponent } from './components/info/info.component';
+import { SupportListComponent } from './components/support-list/support-list.component';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { SettingComponent } from './components/setting/setting.component';
+import { CategoryManagementComponent } from './components/setting/category-management/category-management.component';
+import { PostTypeManagementComponent } from './components/setting/post-type-management/post-type-management.component';
+import { RegionManagementComponent } from './components/setting/region-management/region-management.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,8 +36,25 @@ import {ChartsModule} from 'ng2-charts';
     PostDetailComponent,
     ViewCountStatisticComponent,
     MostViewCountStatisticComponent,
+    SupportListComponent,
+    SettingComponent,
+    PendingPostListComponent,
+    ApprovedPostListComponent,
+    AuthorizationComponent,
+    InfoComponent,
+    CategoryManagementComponent,
+    PostTypeManagementComponent,
+    RegionManagementComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule, ChartsModule, FormsModule],
-  exports: [LoginAdminComponent]
+    imports: [
+      CommonModule,
+      AdminRoutingModule,
+      ReactiveFormsModule,
+      NgbPaginationModule,
+      NgxPaginationModule,
+      ChartsModule,
+      FormsModule,
+    ],
+  exports: [LoginAdminComponent],
 })
 export class AdminModule {}

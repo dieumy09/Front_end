@@ -45,11 +45,19 @@
       </div>
     </div>
     <button
+      *ngIf="user?.status"
       class="btn btn-primary mt-2"
       data-toggle="modal"
       data-target="#lockReasonModel"
     >
       Khóa tài khoản
+    </button>
+    <button
+      class="btn btn-primary mt-2"
+      (click)="handleUnblock()"
+      *ngIf="!user?.status"
+    >
+      Mở tài tài khoản
     </button>
   </div>
   <div class="table-responsive">
@@ -64,6 +72,7 @@
         </tr>
       </thead>
       <tbody>
+        <p *ngIf="posts?.empty">Thành viên chưa có bài đăng nào</p>
         <tr *ngFor="let post of posts?.content">
           <td>{{ post?.id }}</td>
           <td>{{ post?.postType?.name }}</td>
@@ -74,7 +83,10 @@
         </tr>
       </tbody>
     </table>
-    <nav *ngIf="posts?.totalPages !== 1" aria-label="List post pagination">
+    <nav
+      *ngIf="posts?.totalPages !== 1 && !posts?.empty"
+      aria-label="List post pagination"
+    >
       <ul class="pagination justify-content-center">
         <li class="page-item" [class.disabled]="posts?.first">
           <a

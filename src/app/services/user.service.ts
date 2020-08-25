@@ -1,10 +1,12 @@
+import { Role } from './../models/role';
 import { List } from './../models/list';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {observable, Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { Post } from '../models/post';
-import {Password} from '../models/password';
+import { Password } from '../models/password';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +46,10 @@ export class UserService {
     );
   }
 
+  unblockUserById(id: number): Observable<any> {
+    return this.http.post<any>(`${this.API}/${id}/unblock`, {});
+  }
+
   blockUserById(id: number, reason: string): Observable<any> {
     return this.http.post<any>(`${this.API}/${id}/block`, { reason });
   }
@@ -55,6 +61,9 @@ export class UserService {
   }
 
   changePassword(userId: number, password: Password): Observable<User> {
-    return this.http.patch<User>(`${this.API}/${userId}/changePassword`, password);
+    return this.http.patch<User>(
+      `${this.API}/${userId}/changePassword`,
+      password
+    );
   }
 }

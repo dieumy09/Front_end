@@ -1,36 +1,39 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {AuthService} from './auth.service';
-import {TokenStorageService} from './token-storage.service';
-import {User} from '../models/user';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { AuthService } from './auth.service';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthGuardService implements CanActivate{
-  user: User;
+export class AuthGuardService implements CanActivate {
   constructor(
     private tokenStorageService: TokenStorageService,
+    private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const currentUser = this.tokenStorageService.getUser();
-    const userRoles = currentUser.roles;
-    if (currentUser) {
-      for (const roleIndex in userRoles) {
-        // tslint:disable-next-line:triple-equals
-        if (route.data.roles == roleIndex) {
-          console.log(roleIndex);
-          return true;
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    let isActivated = false;
+    const user = this.tokenStorageService.getUser();
+    if (user) {
+      user.roles.forEach((role) => {
+        if (route.data.roles.includes(role.roleName)) {
+          isActivated = true;
         }
-      }
-      this.router.navigateByUrl('/');
-      console.log(userRoles);
-      return false;
+      });
     }
-    // not logged in so redirect to login page with the return url
-    this.router.navigate(['/login-admin'], { queryParams: { returnUrl: state.url }});
-    return false;
+    if (!isActivated) {
+      this.router.navigateByUrl('login-admin');
+    }
+    return isActivated;
   }
 }

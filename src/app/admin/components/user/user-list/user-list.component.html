@@ -39,6 +39,7 @@
       </tr>
     </thead>
     <tbody>
+      <p *ngIf="users?.empty">Không tìm thấy thành viên nào!</p>
       <tr *ngFor="let user of users?.content">
         <td>{{ user?.email }}</td>
         <td>{{ user?.name }}</td>
@@ -48,34 +49,37 @@
       </tr>
     </tbody>
   </table>
-  <nav *ngIf="users?.totalPages !== 1" aria-label="List post pagination">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" [class.disabled]="users?.first">
-        <a
-          class="page-link"
-          (click)="jumpToPage(pager.currentPage - 1)"
-          aria-label="Previous"
-        >
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
+  <nav
+    *ngIf="users?.totalPages !== 1 && !users?.empty"
+    class="d-flex justify-content-center"
+  >
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{ disabled: users?.first }">
+        <span class="page-link" (click)="jumpToPage(1)">
+          <em class="fa fa-angle-double-left"></em>
+        </span>
+      </li>
+      <li class="page-item" [ngClass]="{ disabled: users?.first }">
+        <span class="page-link" (click)="jumpToPage(pager.currentPage - 1)">
+          <em class="fa fa-angle-left"></em>
+        </span>
       </li>
       <li
         *ngFor="let page of pager.pages"
         class="page-item"
         [class.active]="users?.number === page - 1"
       >
-        <a (click)="jumpToPage(page)" class="page-link">{{ page }}</a>
+        <span class="page-link" (click)="jumpToPage(page)">{{ page }}</span>
       </li>
-      <li class="page-item" [class.disabled]="users?.last">
-        <a
-          class="page-link"
-          (click)="jumpToPage(pager.currentPage + 1)"
-          aria-label="Next"
-        >
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
+      <li class="page-item" [ngClass]="{ disabled: users?.last }">
+        <span class="page-link" (click)="jumpToPage(pager.currentPage + 1)">
+          <em class="fa fa-angle-right"></em>
+        </span>
+      </li>
+      <li class="page-item" [ngClass]="{ disabled: users?.last }">
+        <span class="page-link" (click)="jumpToPage(pager.totalPages)">
+          <em class="fa fa-angle-double-right"></em>
+        </span>
       </li>
     </ul>
   </nav>
