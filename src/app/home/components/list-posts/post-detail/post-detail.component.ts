@@ -11,11 +11,15 @@ import {Reply} from '../../../../models/reply';
 import {ReplyService} from '../../../../services/reply.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TokenStorageService} from '../../../../services/token-storage.service';
+import {ViewCountStatisticService} from '../../../../services/view-count-statistic.service';
+import {ViewCountStatistic} from '../../../../models/view-count-statistic';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.scss']
+  styleUrls: ['./post-detail.component.scss'],
+  providers: [DatePipe],
 })
 export class PostDetailComponent implements OnInit {
   post: Post;
@@ -45,6 +49,11 @@ export class PostDetailComponent implements OnInit {
     previousLabel: '',
     nextLabel: '',
   };
+  viewCountStatistic: ViewCountStatistic;
+  viewCountStatisticForm = this.formBuilder.group({
+    dateStatistic: this.datePipe.transform(new Date().toLocaleDateString(), 'MM/dd/yyyy'),
+    viewCount: [1]
+  });
 
   constructor(
     private postService: PostService,
@@ -54,7 +63,9 @@ export class PostDetailComponent implements OnInit {
     private replyService: ReplyService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal
+    private viewCountStatisticService: ViewCountStatisticService,
+    private modalService: NgbModal,
+    private datePipe: DatePipe,
   ) {
     this.paginateComment = {
       itemsPerPage: 7,
@@ -66,13 +77,16 @@ export class PostDetailComponent implements OnInit {
     this.getUser();
     this.getPostById();
     this.getCommentsByPost();
+    this.updateViewCountStatistic();
   }
 
   getUser() {
-    this.userId = this.tokenStorageService.getUser().id;
-    this.userService.getUserById(this.userId).subscribe(data => {
-      this.user = data;
-    });
+    if (this.tokenStorageService.getUser() !== null) {
+      this.userId = this.tokenStorageService.getUser().id;
+      this.userService.getUserById(this.userId).subscribe(data => {
+        this.user = data;
+      });
+    }
   }
 
   getPostById() {
@@ -82,6 +96,24 @@ export class PostDetailComponent implements OnInit {
         this.post.viewCount += 1;
         this.postService.editPost(this.post, next.id).subscribe();
       });
+    });
+  }
+
+  updateViewCountStatistic() {
+    this.viewCountStatisticService.getLastViewCountStatistic().subscribe(data => {
+      if (data === null) {
+        this.viewCountStatisticService.createViewCountStatistic(this.viewCountStatisticForm.value).subscribe();
+      } else {
+        const lastDate = new Date(data.dateStatistic + ' 23:59:59');
+        const currentDate = new Date();
+        if (lastDate < currentDate) {
+          this.viewCountStatisticService.createViewCountStatistic(this.viewCountStatisticForm.value).subscribe();
+        } else {
+          this.viewCountStatistic = data;
+          this.viewCountStatistic.viewCount += 1;
+          this.viewCountStatisticService.editViewCountStatistic(this.viewCountStatistic).subscribe();
+        }
+      }
     });
   }
 
