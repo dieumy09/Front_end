@@ -12,10 +12,11 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link"
+          class="nav-link dropdown-toggle"
           href="#submenu1"
-          data-toggle="collapse"
           data-target="#submenu1"
+          data-toggle="collapse"
+          aria-expanded="false"
         >
           <i class="fas fa-bullhorn"></i>
           Bài đăng
@@ -48,10 +49,18 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" href="#">
+        <a href="#statisticMenuLink" data-toggle="collapse" aria-expanded="false" class="nav-link dropdown-toggle">
           <i class="fas fa-chart-pie"></i>
           Thống kê
         </a>
+        <ul class="collapse list-unstyled pl-3" id="statisticMenuLink">
+          <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="/admin/view-count-statistic">Số lượt truy cập</a>
+          </li>
+          <li>
+            <a class="nav-link" routerLinkActive="active" routerLink="/admin/most-view-count-statistic">Bài đăng xem nhiều nhất</a>
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active" routerLink="setting">
