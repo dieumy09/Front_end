@@ -32,7 +32,6 @@ export class PostFormComponent implements OnInit {
   listImages = [];
   fileImages = [];
   checkValidPostImage = false;
-  isFocus = false;
 
   postForm = this.formBuilder.group({
     title: ['', [Validators.required, Validators.maxLength(50)]],

@@ -7,6 +7,9 @@ import {LoginAdminComponent} from './components/login-admin/login-admin.componen
 import {AuthGuardService} from '../services/auth-guard.service';
 import {RoleService} from '../services/role.service';
 import {Role} from '../models/role';
+import {PostDetailComponent} from './components/post/post-detail/post-detail.component';
+import {ViewCountStatisticComponent} from "./components/statistic/view-count-statistic/view-count-statistic.component";
+import {MostViewCountStatisticComponent} from "./components/statistic/most-view-count-statistic/most-view-count-statistic.component";
 
 
 const routes: Routes = [
@@ -21,6 +24,18 @@ const routes: Routes = [
       {
         path: 'user-detail/:id',
         component: UserDetailComponent,
+      },
+      {
+        path: 'post-detail/:id',
+        component: PostDetailComponent,
+      },
+      {
+        path: 'view-count-statistic',
+        component: ViewCountStatisticComponent,
+      },
+      {
+        path: 'most-view-count-statistic',
+        component: MostViewCountStatisticComponent,
       },
     ],
     canActivate: [AuthGuardService],
