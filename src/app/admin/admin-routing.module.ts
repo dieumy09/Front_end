@@ -7,6 +7,9 @@ import { UserListComponent } from './components/user/user-list/user-list.compone
 import { AdminComponent } from './admin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {PostDetailComponent} from './components/post/post-detail/post-detail.component';
+import {ViewCountStatisticComponent} from "./components/statistic/view-count-statistic/view-count-statistic.component";
+import {MostViewCountStatisticComponent} from "./components/statistic/most-view-count-statistic/most-view-count-statistic.component";
 import { AuthGuardService } from '../services/auth-guard.service';
 import { Role } from '../models/role';
 import { SupportListComponent } from './components/support-list/support-list.component';
@@ -28,6 +31,18 @@ const routes: Routes = [
       {
         path: 'user-detail/:id',
         component: UserDetailComponent,
+      },
+      {
+        path: 'post-detail/:id',
+        component: PostDetailComponent,
+      },
+      {
+        path: 'view-count-statistic',
+        component: ViewCountStatisticComponent,
+      },
+      {
+        path: 'most-view-count-statistic',
+        component: MostViewCountStatisticComponent,
       },
       {
         path: 'pending-posts',

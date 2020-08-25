@@ -26,6 +26,10 @@ export class PostService {
     return this.http.get<Post>(`${this.API}/${id}`);
   }
 
+  getPostsByViewCount(): Observable<Post[]> {
+    return this.http.get<Post[]>(this.API + '/mostViewCount');
+  }
+
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.API, post);
   }

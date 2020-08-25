@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,6 +9,10 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
+import { PostDetailComponent } from './components/post/post-detail/post-detail.component';
+import { ViewCountStatisticComponent } from './components/statistic/view-count-statistic/view-count-statistic.component';
+import { MostViewCountStatisticComponent } from './components/statistic/most-view-count-statistic/most-view-count-statistic.component';
+import {ChartsModule} from 'ng2-charts';
 import { PendingPostListComponent } from './components/post/pending-post-list/pending-post-list.component';
 import { ApprovedPostListComponent } from './components/post/approved-post-list/approved-post-list.component';
 import { AuthorizationComponent } from './components/authorization/authorization.component';
@@ -29,6 +33,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     UserListComponent,
     UserDetailComponent,
     LoginAdminComponent,
+    PostDetailComponent,
+    ViewCountStatisticComponent,
+    MostViewCountStatisticComponent,
     SupportListComponent,
     SettingComponent,
     PendingPostListComponent,
@@ -40,11 +47,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
     RegionManagementComponent,
   ],
     imports: [
-        CommonModule,
-        AdminRoutingModule,
-        ReactiveFormsModule,
-        NgbPaginationModule,
-        NgxPaginationModule,
+      CommonModule,
+      AdminRoutingModule,
+      ReactiveFormsModule,
+      NgbPaginationModule,
+      NgxPaginationModule,
+      ChartsModule,
+      FormsModule,
     ],
   exports: [LoginAdminComponent],
 })
