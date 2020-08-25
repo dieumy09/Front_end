@@ -1,0 +1,62 @@
+<div class="card mt-3">
+  <div class="card-header">
+    <a data-toggle="collapse"
+       href="#postType-control"
+       aria-expanded="true"
+       aria-controls="postType-control"
+       id="heading-postType"
+       class="collapsed d-block text-dark"
+    >
+      <i class="fa fa-chevron-down pull-right"></i>
+      Loại tin
+    </a>
+  </div>
+  <div id="postType-control" class="collapse" aria-labelledby="heading-postType">
+    <div class="card-body">
+      <form class="row" [formGroup]="postTypeForm" (ngSubmit)="onSubmitPostTypeForm()">
+        <div class="col-10">
+          <input class="form-control" placeholder="Tên loại tin" formControlName="name">
+          <p *ngIf="postTypeForm.controls.name.errors?.required && postTypeForm.controls.name.touched"
+             class="text-danger">Vui lòng nhập tên loại tin!</p>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-outline-secondary">Lưu</button>
+        </div>
+      </form>
+
+      <div class="table-responsive text-nowrap mt-3">
+        <table class="table table-hover">
+          <caption hidden>Post Type list</caption>
+          <thead>
+          <tr>
+            <th>Mã</th>
+            <th>Tên loại tin</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let postType of postTypes | paginate: {currentPage: page, itemsPerPage: 5}">
+            <td>
+              <label>LT000{{ postType.id | number: '2.'}}</label>
+            </td>
+            <td>
+              <label>{{ postType.name }}</label>
+            </td>
+            <td>
+              <button class="btn btn-light" (click)="updatePostType(postType.id)"><i class="fas fa-pen"></i></button>
+            </td>
+            <td>
+              <button class="btn btn-light" (click)="deletePostType(postType.id)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-center mr-5">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
