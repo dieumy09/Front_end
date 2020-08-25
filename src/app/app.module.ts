@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SupportComponent } from './support/support.component';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { FormDirective } from './directives/form.directive';
-import {AuthInterceptor} from "./helpers/auth.interceptor";
+import {AuthInterceptor} from './helpers/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent, SupportComponent, FormDirective],
