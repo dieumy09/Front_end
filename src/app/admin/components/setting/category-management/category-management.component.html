@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    <a data-toggle="collapse"
+       href="#category-control"
+       aria-expanded="true"
+       aria-controls="category-control"
+       id="heading-category"
+       class="collapsed d-block text-dark"
+    >
+      <i class="fa fa-chevron-down pull-right"></i>
+      Danh mục Bất động sản
+    </a>
+  </div>
+  <div id="category-control" class="collapse" aria-labelledby="heading-category">
+    <div class="card-body">
+      <form class="row" [formGroup]="categoryForm" (ngSubmit)="onSubmitCategoryForm()">
+        <div class="col-10">
+          <input class="form-control" placeholder="Tên danh mục" formControlName="name">
+          <p *ngIf="categoryForm.controls.name.errors?.required && categoryForm.controls.name.touched"
+             class="text-danger">Vui lòng nhập tên danh mục!</p>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-outline-secondary">Lưu</button>
+        </div>
+      </form>
+
+      <div class="table-responsive  mt-3">
+        <table class="table table-hover">
+          <caption hidden>Category list</caption>
+          <thead>
+          <tr>
+            <th>Mã</th>
+            <th>Tên danh mục</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let category of categories | paginate: {currentPage: page, itemsPerPage: 5}">
+            <td>
+              <label>DM000{{ category.id | number: '2.'}}</label>
+            </td>
+            <td>
+              <label>{{ category.name }}</label>
+            </td>
+            <td>
+              <button class="btn btn-light" (click)="updateCategory(category.id)"><i class="fas fa-pen"></i></button>
+            </td>
+            <td>
+              <button class="btn btn-light" (click)="deleteCategory(category.id)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-center mr-5">
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

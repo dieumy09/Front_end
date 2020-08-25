@@ -16,6 +16,10 @@ import { InfoComponent } from './components/info/info.component';
 import { SupportListComponent } from './components/support-list/support-list.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { SettingComponent } from './components/setting/setting.component';
+import { CategoryManagementComponent } from './components/setting/category-management/category-management.component';
+import { PostTypeManagementComponent } from './components/setting/post-type-management/post-type-management.component';
+import { RegionManagementComponent } from './components/setting/region-management/region-management.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -31,13 +35,17 @@ import { SettingComponent } from './components/setting/setting.component';
     ApprovedPostListComponent,
     AuthorizationComponent,
     InfoComponent,
+    CategoryManagementComponent,
+    PostTypeManagementComponent,
+    RegionManagementComponent,
   ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    ReactiveFormsModule,
-    NgbPaginationModule,
-  ],
+    imports: [
+        CommonModule,
+        AdminRoutingModule,
+        ReactiveFormsModule,
+        NgbPaginationModule,
+        NgxPaginationModule,
+    ],
   exports: [LoginAdminComponent],
 })
 export class AdminModule {}
