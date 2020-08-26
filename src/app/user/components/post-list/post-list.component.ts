@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {PostService} from '../../../services/post.service';
 import {Post} from '../../../models/post';
@@ -13,21 +13,21 @@ import {TokenStorageService} from '../../../services/token-storage.service';
 export class PostListComponent implements OnInit {
   posts: Post[];
   post: Post;
+  search = '';
   page = 0;
   pages: number[];
-  search = '';
-  totalElements: number;
-  pageSize: number;
   first: boolean;
   last: boolean;
   userId: number;
+  totalPages: number;
 
   constructor(
     private postService: PostService,
     private userService: UserService,
     private tokenStorageService: TokenStorageService,
     private modalService: NgbModal
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getPostsByUser();
@@ -39,9 +39,7 @@ export class PostListComponent implements OnInit {
       // @ts-ignore
       this.posts = data.content;
       // @ts-ignore
-      this.totalElements = data.totalElements;
-      // @ts-ignore
-      this.pageSize = data.size;
+      this.totalPages = data.totalPages;
       // @ts-ignore
       this.page = data.number;
       // @ts-ignore

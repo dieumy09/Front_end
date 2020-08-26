@@ -36,7 +36,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let category of categories | paginate: {currentPage: page, itemsPerPage: 5}">
+          <!--          <tr *ngFor="let category of categories | paginate: {currentPage: page, itemsPerPage: 5}">-->
+          <tr *ngFor="let category of categories">
             <td>
               <label>DM000{{ category.id | number: '2.'}}</label>
             </td>
@@ -54,9 +55,9 @@
         </table>
       </div>
 
-      <div class="d-flex justify-content-center mr-5">
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
-      </div>
+      <!--      <div class="d-flex justify-content-center mr-5">-->
+      <!--        <pagination-controls (pageChange)="page = $event"></pagination-controls>-->
+      <!--      </div>-->
     </div>
   </div>
 </div>
