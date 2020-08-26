@@ -14,7 +14,7 @@
       <div class="carousel-inner">
         <div class="carousel-item" *ngFor="let image of post?.postImages; let isFirst = first"
              [ngClass]="{active:isFirst}">
-          <img [src]="'../../../../../assets/img/'+image.image" class="d-block w-100" height="350">
+          <img [src]="image.image" class="d-block w-100" height="350">
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
@@ -66,6 +66,10 @@
         <label class="col-4">Giá:</label>
         <label class="col-8">{{post?.price | number}} VNĐ</label>
       </div>
+      <div class="row" *ngIf="post?.deal">
+        <label class="col-4"></label>
+        <label class="col-8" style="color: red">(Giá có thể thỏa thuận)</label>
+      </div>
       <div class="row">
         <label class="col-4">Lượt xem:</label>
         <label class="col-8">{{post?.viewCount}}</label>
@@ -109,23 +113,46 @@
     <form [formGroup]="comment" (ngSubmit)="commentSubmit()">
       <div class="row">
         <div class="col-1 d-flex justify-content-center">
-          <img src="../../../../../assets/img/{{user?.avatar}}" style="width: 60px; height: 60px; border-radius: 50%"/>
+          <img *ngIf="user" src="{{user?.avatar}}" style="width: 60px; height: 60px; border-radius: 50%"/>
+          <img *ngIf="!user" src="../../../../../assets/img/default-ava.png" style="width: 60px; height: 60px; border-radius: 50%"/>
         </div>
         <div class=" col-11">
           <textarea rows="3" style="width: 100%" formControlName="content"></textarea>
         </div>
       </div>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-success">Bình luận</button>
+        <button class="btn btn-outline-success" (click)="checkLoginComment(checkUser)">Bình luận</button>
       </div>
+      <ng-template let-modal #checkUser>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Đăng nhập</h4>
+          <span style="cursor: pointer" class="close" (click)="modal.dismiss()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>Vui lòng đăng nhập để tiếp tục!</p>
+          <p>
+            Đăng nhập <a routerLink="/login" (click)="modal.close()">tại đây</a>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-dark"
+            (click)="modal.close()"
+          >
+            Quay lại
+          </button>
+        </div>
+      </ng-template>
+
     </form>
     <div *ngFor="let comment of comments | paginate: paginateComment; index as i">
       <ng-container *ngIf="comment.status">
         <div class="row my-2">
           <div class="col-1">
-            <img src="../../../../../assets/img/{{comment.user?.avatar}}"
+            <img src="{{comment.user?.avatar}}"
                  style="width: 50px; height: 50px; border-radius: 50%">
-            <span class="badge badge-info" style="cursor: pointer" (click)="isShowReply = true; indexComment = i">Trả lời</span>
+            <span class="badge badge-info" style="cursor: pointer" (click)="checkLoginReply(checkUser, i)">Trả lời</span>
           </div>
           <div class="col-11 dropdown">
             <ng-container *ngIf="!isShowEditFormComment">
@@ -136,7 +163,7 @@
                   <ng-container *ngIf="comment.user?.id == user?.id">
                     <div class="dropdown-content">
                       <span class="edit-cmt" (click)="showEditComment(i, comment)">Sửa</span>
-                      <span class="edit-cmt" (click)="openModal(deleteCommentModal)">Xóa</span>
+                      <span class="edit-cmt" (click)="openModalDelete(deleteCommentModal)">Xóa</span>
                     </div>
                   </ng-container>
                 </div>
@@ -174,7 +201,7 @@
               <form [formGroup]="reply">
                 <div class="row">
                   <div class="col-1">
-                    <img src="../../../../../assets/img/{{user.avatar}}"
+                    <img src="{{user.avatar}}"
                          style="width: 50px; height: 50px; border-radius: 50%"/>
                   </div>
                   <div class=" col-11">
@@ -191,7 +218,7 @@
               <ng-container *ngIf="reply.status">
                 <div class="row my-2">
                       <div class="col-1">
-                        <img src="../../../../../assets/img/{{reply.user.avatar}}"
+                        <img src="{{reply.user.avatar}}"
                              style="width: 50px; height: 50px; border-radius: 50%">
                       </div>
                       <div class="col-11 dropdown">
@@ -203,7 +230,7 @@
                               <ng-container *ngIf="reply.user.id == user?.id">
                                 <div class="dropdown-content">
                                   <span class="edit-cmt" (click)="showEditReply(i, y, comment, reply)">Sửa</span>
-                                  <span class="edit-cmt" (click)="openModal(deleteReplyModal)">Xóa</span>
+                                  <span class="edit-cmt" (click)="openModalDelete(deleteReplyModal)">Xóa</span>
                                 </div>
                               </ng-container>
                             </div>

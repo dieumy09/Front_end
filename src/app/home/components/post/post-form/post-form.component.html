@@ -191,7 +191,7 @@
         </div>
           <p *ngIf="checkValidPostImage" class="text-danger">Thêm ít nhất 5 ảnh!</p>
         <button type="button" (click)="addInput.click()"><img src="../../../../../assets/img/upload-img.png" height="100" width="100"></button>
-        <input type="file" (change)="addImage($event)" hidden multiple #addInput>
+        <input type="file" accept="image/*" (change)="addImage($event)" hidden multiple #addInput>
       </div>
     </div>
     <div class="row d-flex justify-content-center" id="button-post">
