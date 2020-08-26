@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Reason} from '../models/reason';
@@ -19,7 +19,8 @@ export class SupportComponent implements OnInit {
     private formBuilder: FormBuilder,
     private reasonService: ReasonService,
     private supportService: SupportService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.supportForm = this.formBuilder.group({
@@ -39,9 +40,7 @@ export class SupportComponent implements OnInit {
 
   onSubmit() {
     if (this.supportForm.valid) {
-      this.supportService.createSupport(this.supportForm.value).subscribe(data => {
-        console.log(data);
-      });
+      this.supportService.createSupport(this.supportForm.value).subscribe();
     }
   }
 
@@ -52,8 +51,7 @@ export class SupportComponent implements OnInit {
         centered: true,
         backdrop: 'static'
       });
-    }
-    else {
+    } else {
       this.modalService.dismissAll();
     }
   }
