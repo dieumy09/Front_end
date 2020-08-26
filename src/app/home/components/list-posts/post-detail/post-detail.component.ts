@@ -14,6 +14,7 @@ import {TokenStorageService} from '../../../../services/token-storage.service';
 import {ViewCountStatisticService} from '../../../../services/view-count-statistic.service';
 import {ViewCountStatistic} from '../../../../models/view-count-statistic';
 import {DatePipe} from '@angular/common';
+import {AuthService} from "../../../../services/auth.service";
 
 @Component({
   selector: 'app-post-detail',
@@ -59,6 +60,7 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private userService: UserService,
     private tokenStorageService: TokenStorageService,
+    private authService: AuthService,
     private commentService: CommentService,
     private replyService: ReplyService,
     private activatedRoute: ActivatedRoute,
@@ -81,12 +83,10 @@ export class PostDetailComponent implements OnInit {
   }
 
   getUser() {
-    if (this.tokenStorageService.getUser() !== null) {
-      this.userId = this.tokenStorageService.getUser().id;
-      this.userService.getUserById(this.userId).subscribe(data => {
-        this.user = data;
-      });
-    }
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    });
+    this.authService.getCurrentUser();
   }
 
   getPostById() {
@@ -166,6 +166,7 @@ export class PostDetailComponent implements OnInit {
     this.indexComment = indexComment;
     this.isShowEditFormComment = true;
     this.isShowEditFormReply = false;
+    this.isShowReply = false;
   }
 
   editComment(comment: Comment) {
@@ -198,6 +199,7 @@ export class PostDetailComponent implements OnInit {
     this.indexReply = indexReply;
     this.isShowEditFormReply = true;
     this.isShowEditFormComment = false;
+    this.isShowReply = false;
   }
 
   editReply(reply: Reply, comment: Comment) {
@@ -224,7 +226,27 @@ export class PostDetailComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
-  openModal(targetModal) {
+  checkLoginComment(content) {
+    if (this.user === null) {
+      this.modalService.open(content);
+    }
+  }
+
+  checkLoginReply(content, indexComment) {
+    if (this.user === null) {
+      this.modalService.open(content);
+    } else {
+      this.isShowReply = true;
+      this.isShowEditFormReply = false;
+      this.isShowEditFormComment = false;
+      this.indexComment = indexComment;
+      this.reply.patchValue({
+        content: ['']
+      });
+    }
+  }
+
+  openModalDelete(targetModal) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static'

@@ -61,7 +61,6 @@ export class PostFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private postDataService: PostDataService,
     private router: Router,
-
   ) { }
 
   ngOnInit(): void {

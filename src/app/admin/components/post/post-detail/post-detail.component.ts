@@ -32,14 +32,16 @@ export class PostDetailComponent implements OnInit {
   removePost() {
     this.post.approved = false;
     this.postService.editPost(this.post, this.post.id).subscribe( () => {
+      this.ngOnInit();
     });
-    this.router.navigateByUrl('/admin');
+    this.router.navigateByUrl('/approved-posts');
   }
 
   approvePost() {
     this.post.approved = true;
     this.postService.editPost(this.post, this.post.id).subscribe( () => {
+      this.ngOnInit();
     });
-    this.router.navigateByUrl('/admin');
+    this.router.navigateByUrl('/pending-posts');
   }
 }
