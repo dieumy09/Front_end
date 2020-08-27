@@ -96,9 +96,9 @@
     </button>
   </div>
 </ng-template>
-<!--pagination nav-->
 
-<nav class="d-flex justify-content-center">
+<!--Pagination nav-->
+<nav *ngIf="totalPages > 1" class="d-flex justify-content-center">
   <ul class="pagination">
 
     <!--    turn to first page-->

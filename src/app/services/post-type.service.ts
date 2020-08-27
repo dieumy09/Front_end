@@ -15,6 +15,10 @@ export class PostTypeService {
     return this.http.get<any>(this.API);
   }
 
+  getPostTypesPages(page: number): Observable<any> {
+    return this.http.get<any>(`${this.API}/pages?page=${page}`);
+  }
+
   createPostType(postType: PostType): Observable<PostType> {
     return this.http.post<PostType>(this.API, postType);
   }

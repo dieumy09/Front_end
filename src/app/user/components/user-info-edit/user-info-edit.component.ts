@@ -7,6 +7,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-info-edit',
@@ -29,7 +30,8 @@ export class UserInfoEditComponent implements OnInit {
     private userService: UserService,
     private angularFireStorage: AngularFireStorage,
     private angularFirestore: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -91,8 +93,8 @@ export class UserInfoEditComponent implements OnInit {
             this.fileRef.getDownloadURL().toPromise().then( (url) => {
               this.infoEditForm.value.avatar = url;
               this.userService.editUser(this.infoEditForm.value).subscribe(data => {
-                console.log(url);
-                location.assign('/user');
+                this.authService.getCurrentUser();
+                this.router.navigateByUrl('/user');
               });
             }).catch(err => { console.log(err); });
           })
@@ -101,8 +103,8 @@ export class UserInfoEditComponent implements OnInit {
       }
       else {
         this.userService.editUser(this.infoEditForm.value).subscribe(data => {
-          console.log(data);
-          location.assign('/user');
+          this.authService.getCurrentUser();
+          this.router.navigateByUrl('/user');
         });
       }
     }

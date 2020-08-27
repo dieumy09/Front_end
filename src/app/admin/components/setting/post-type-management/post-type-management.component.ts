@@ -11,7 +11,11 @@ import {PostTypeService} from '../../../../services/post-type.service';
 export class PostTypeManagementComponent implements OnInit {
   postTypes: PostType[];
   postTypeForm: FormGroup;
-  page: number;
+  page = 0;
+  pages: number[];
+  totalPages: number;
+  first: boolean;
+  last: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,8 +33,16 @@ export class PostTypeManagementComponent implements OnInit {
   }
 
   getPostTypes() {
-    this.postTypeService.getPostTypes().subscribe(data => {
-      this.postTypes = data;
+    this.postTypeService.getPostTypesPages(this.page).subscribe(data => {
+      this.postTypes = data.content;
+      // @ts-ignore
+      this.first = data.first;
+      // @ts-ignore
+      this.last = data.last;
+      // @ts-ignore
+      this.pages = new Array(data.totalPages);
+      // @ts-ignore
+      this.totalPages = data.totalPages;
     });
   }
 
@@ -64,4 +76,9 @@ export class PostTypeManagementComponent implements OnInit {
     }
   }
 
+  setPage(page, event: any) {
+    event.preventDefault();
+    this.page = page;
+    this.getPostTypes();
+  }
 }
