@@ -120,14 +120,7 @@
   <ng-template let-modal #checkUser>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Đăng nhập</h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss()"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <span style="cursor: pointer" class="close" (click)="modal.dismiss()">&times;</span>
     </div>
     <div class="modal-body">
       <p>Vui lòng đăng nhập để tiếp tục!</p>

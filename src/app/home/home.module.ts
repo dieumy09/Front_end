@@ -16,8 +16,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminModule } from '../admin/admin.module';
 import { RouterModule } from '@angular/router';
 
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../environments/environment';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
+
+
 @NgModule({
-  // tslint:disable-next-line:max-line-length
   declarations: [
     HomeComponent,
     PostDetailComponent,
@@ -37,6 +43,10 @@ import { RouterModule } from '@angular/router';
     NgxPaginationModule,
     AdminModule,
     RouterModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
+    NgbProgressbarModule,
   ],
   exports: [],
 })

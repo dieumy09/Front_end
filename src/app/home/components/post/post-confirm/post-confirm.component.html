@@ -77,8 +77,16 @@
         <label  class="col-sm-3 col-form-label" style="font-weight: bold">Hình ảnh:</label>
         <div class="col-sm-9 col-form-label">
           <div class="row">
-            <div *ngFor="let image of listImages" class="d-flex m-1">
+            <div *ngFor="let image of listImages" class="flex-column m-1">
               <img [src]="image" height="130" width="150">
+              <ngb-progressbar
+                type="warning"
+                height="12px"
+                [value]="uploadPercent | async"
+                [animated]="true"
+              >
+                <span *ngIf="(uploadPercent | async) == 100" style="font-size: 6px">Completed!</span>
+              </ngb-progressbar>
             </div>
           </div>
         </div>
@@ -88,18 +96,17 @@
           <button type="submit" class="btn btn-warning btn-block"><i class="fa fa-chevron-left"></i> Quay lại</button>
         </div>
         <div class="col-3">
-          <button type="button" class="btn btn-info btn-block" (click)="submit()" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-check"></i> Xác nhận</button>
+          <button type="button" class="btn btn-info btn-block" (click)="submit(messageModal)"><i class="fa fa-check"></i> Xác nhận</button>
         </div>
       </div>
     </div>
-
   </form>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
+
+<!-- Modal -->
+<ng-template let-modal #messageModal>
       <div class="modal-header bg-primary">
-        <h5 class="modal-title" id="exampleModalLabel" style="color: white">Thông báo!</h5>
+        <h5 class="modal-title" id="messageModalLabel" style="color: white">Thông báo!</h5>
       </div>
       <div class="modal-body">
         <label>
@@ -113,7 +120,5 @@
           <button type="button" class="btn btn-warning btn-block" data-dismiss="modal" (click)="backToHome()"><i class="fa fa-chevron-left"> Quay lại trang chủ </i></button>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+</ng-template>
 
