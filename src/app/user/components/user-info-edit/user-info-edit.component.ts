@@ -35,14 +35,7 @@ export class UserInfoEditComponent implements OnInit {
   ngOnInit(): void {
     this.infoEditForm = this.formBuilder.group({
       id: [''],
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          Validators.pattern('^([a-zA-Z]\\s?)+$'),
-        ],
-      ],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
       address: ['', [Validators.required, Validators.maxLength(100)]],
       phoneNumber: [
         '',
@@ -108,7 +101,6 @@ export class UserInfoEditComponent implements OnInit {
                   this.userService
                     .editUser(this.infoEditForm.value)
                     .subscribe((data) => {
-                      console.log(data);
                       this.router.navigateByUrl('/user');
                     });
                 })
@@ -120,11 +112,9 @@ export class UserInfoEditComponent implements OnInit {
           .subscribe();
       } else {
         this.userService.editUser(this.infoEditForm.value).subscribe((data) => {
-          console.log(data);
+          this.router.navigateByUrl('/user');
         });
       }
-      this.router.navigateByUrl('/user');
-      // window.location.assign('/user');
     }
   }
 }

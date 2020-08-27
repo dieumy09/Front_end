@@ -1,4 +1,3 @@
-import { TokenStorageService } from './../services/token-storage.service';
 import { AuthService } from './../services/auth.service';
 import { Role } from './../models/role';
 import { User } from './../models/user';
@@ -16,8 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private authService: AuthService,
-    private tokenStorageService: TokenStorageService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -36,13 +34,11 @@ export class HomeComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    let isAdmin = false;
-    this.user.roles.forEach((role) => {
-      if (role.roleName === Role.ADMIN) {
-        isAdmin = true;
-      }
-    });
-    return isAdmin;
+    return this.authService.hasRole(Role.ADMIN);
+  }
+
+  isMod(): boolean {
+    return this.authService.hasRole(Role.MOD);
   }
 
   logout(): void {
