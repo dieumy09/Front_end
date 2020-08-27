@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import {UserService} from '../../../services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {observable} from 'rxjs';
-import {error} from '@angular/compiler/src/util';
 import {Router} from '@angular/router';
 
 @Component({
@@ -23,7 +21,7 @@ export class PasswordEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private tokenStorageService: TokenStorageService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +36,7 @@ export class PasswordEditComponent implements OnInit {
   changePassword() {
     if (this.passwordEditForm.valid) {
       this.userId = this.tokenStorageService.getUser().id;
-      this.userService.changePassword(this.userId, this.passwordEditForm.value).subscribe(data => {
+      this.userService.changePassword(this.userId, this.passwordEditForm.value).subscribe(() => {
         this.router.navigateByUrl('/user');
       }, () => {
         this.isWrongPassword = true;

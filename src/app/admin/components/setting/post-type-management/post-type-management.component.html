@@ -36,7 +36,6 @@
           </tr>
           </thead>
           <tbody>
-          <!--                    <tr *ngFor="let postType of postTypes | paginate: {currentPage: page, itemsPerPage: 5}">-->
           <tr *ngFor="let postType of postTypes">
             <td>
               <label>LT000{{ postType.id | number: '2.'}}</label>
@@ -55,9 +54,111 @@
         </table>
       </div>
 
-      <!--      <div class="d-flex justify-content-center mr-5">-->
-      <!--        <pagination-controls (pageChange)="page = $event"></pagination-controls>-->
-      <!--      </div>-->
+      <!--Pagination nav-->
+      <nav *ngIf="totalPages > 1" class="d-flex justify-content-center">
+        <ul class="pagination">
+
+          <!--    turn to first page-->
+          <li class="page-item" [ngClass]="{disabled: first}">
+            <a class="page-link" href="" (click)="setPage(0, $event)">
+              <em class="fa fa-angle-double-left"></em>
+            </a>
+          </li>
+
+          <!--    turn to previous page-->
+          <li class="page-item" [ngClass]="{disabled: first}">
+            <a class="page-link" href="" (click)="setPage(page - 1, $event)">
+              <em class="fa fa-angle-left"></em>
+            </a>
+          </li>
+
+          <!--    display pages list-->
+          <ng-template [ngIf]="totalPages <= 5">
+            <li
+              *ngFor="let p of pages; let i = index"
+              class="page-item"
+              [ngClass]="{active: i === page}"
+            >
+              <a class="page-link" href="" (click)="setPage(i, $event)">{{i + 1}}</a>
+            </li>
+          </ng-template>
+
+
+          <ng-template [ngIf]="totalPages > 5">
+            <ng-template [ngIf]="page <= 1">
+              <li
+                *ngFor="let p of pages; let i = index"
+                class="page-item"
+                [ngClass]="{active: i === page}"
+                [hidden]="i > 4"
+              >
+                <a class="page-link" href="" (click)="setPage(i, $event)">{{i + 1}}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="" (click)="$event.preventDefault()">...</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="" (click)="setPage(totalPages - 1, $event)">{{totalPages}}</a>
+              </li>
+            </ng-template>
+
+
+            <ng-template [ngIf]="page > 1 && page < totalPages - 2">
+              <li class="page-item" [hidden]="page - 3 < 0">
+                <a class="page-link" href="" (click)="setPage(0, $event)">{{1}}</a>
+              </li>
+              <li class="page-item" [hidden]="page < 4">
+                <a class="page-link" href="" (click)="$event.preventDefault()">...</a>
+              </li>
+              <li
+                *ngFor="let p of pages; let i = index"
+                class="page-item"
+                [ngClass]="{active: i === page}"
+                [hidden]="(i < page - 2 || i > page + 2)"
+              >
+                <a class="page-link" href="" (click)="setPage(i, $event)">{{i + 1}}</a>
+              </li>
+              <li class="page-item" [hidden]="page > totalPages - 5">
+                <a class="page-link" href="" (click)="$event.preventDefault()">...</a>
+              </li>
+              <li class="page-item" [hidden]="page > totalPages - 4">
+                <a class="page-link" href="" (click)="setPage(totalPages - 1, $event)">{{totalPages}}</a>
+              </li>
+            </ng-template>
+
+            <ng-template [ngIf]="page >= totalPages - 2">
+              <li class="page-item">
+                <a class="page-link" href="" (click)="setPage(0, $event)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="" (click)="$event.preventDefault()">...</a>
+              </li>
+              <li
+                *ngFor="let p of pages; let i = index"
+                class="page-item"
+                [ngClass]="{active: i === page}"
+                [hidden]="i < totalPages - 5"
+              >
+                <a class="page-link" href="" (click)="setPage(i, $event)">{{i + 1}}</a>
+              </li>
+            </ng-template>
+          </ng-template>
+
+          <!--    turn to next page-->
+          <li class="page-item" [ngClass]="{disabled: last}">
+            <a class="page-link" href="" (click)="setPage(page + 1, $event)">
+              <em class="fa fa-angle-right"></em>
+            </a>
+          </li>
+
+          <!--    turn to last page-->
+          <li class="page-item" [ngClass]="{disabled: last}">
+            <a class="page-link" href="" (click)="setPage(pages.length - 1, $event)">
+              <em class="fa fa-angle-double-right"></em>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>

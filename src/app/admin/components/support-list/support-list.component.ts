@@ -23,8 +23,6 @@ export class SupportListComponent implements OnInit {
   totalPages: number;
   first: boolean;
   last: boolean;
-  userId: number;
-  isShown = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,

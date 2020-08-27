@@ -11,7 +11,11 @@ import {RegionService} from '../../../../services/region.service';
 export class RegionManagementComponent implements OnInit {
   regions: Region[];
   regionForm: FormGroup;
-  page: number;
+  page = 0;
+  pages: number[];
+  totalPages: number;
+  first: boolean;
+  last: boolean;
 
   constructor(
     private regionService: RegionService,
@@ -28,8 +32,16 @@ export class RegionManagementComponent implements OnInit {
   }
 
   getRegions() {
-    this.regionService.getRegions().subscribe(data => {
-      this.regions = data;
+    this.regionService.getRegionsPages(this.page).subscribe(data => {
+      this.regions = data.content;
+      // @ts-ignore
+      this.first = data.first;
+      // @ts-ignore
+      this.last = data.last;
+      // @ts-ignore
+      this.pages = new Array(data.totalPages);
+      // @ts-ignore
+      this.totalPages = data.totalPages;
     });
   }
 
@@ -63,4 +75,9 @@ export class RegionManagementComponent implements OnInit {
     }
   }
 
+  setPage(page, event: any) {
+    event.preventDefault();
+    this.page = page;
+    this.getRegions();
+  }
 }

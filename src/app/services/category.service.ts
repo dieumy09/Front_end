@@ -15,6 +15,10 @@ export class CategoryService {
     return this.http.get<any>(this.API);
   }
 
+  getCategoriesPages(page: number): Observable<any> {
+    return this.http.get<any>(`${this.API}/pages?page=${page}`);
+  }
+
   createCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(this.API, category);
   }
