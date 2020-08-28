@@ -16,6 +16,7 @@ export class RegionManagementComponent implements OnInit {
   totalPages: number;
   first: boolean;
   last: boolean;
+  duplicated = false;
 
   constructor(
     private regionService: RegionService,
@@ -50,10 +51,14 @@ export class RegionManagementComponent implements OnInit {
       if (this.regionForm.value.id) {
         this.regionService.editRegion(this.regionForm.value).subscribe(data => {
           location.reload();
+        }, () => {
+          this.duplicated = true;
         });
       } else {
         this.regionService.createRegion(this.regionForm.value).subscribe(data => {
           location.reload();
+        }, () => {
+          this.duplicated = true;
         });
       }
     }

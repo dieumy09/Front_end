@@ -54,10 +54,14 @@ export class CategoryManagementComponent implements OnInit {
     if (this.categoryForm.value.id) {
       this.categoryService.editCategory(this.categoryForm.value).subscribe(data => {
         location.reload();
+      }, () => {
+        this.duplicated = true;
       });
     } else {
       this.categoryService.createCategory(this.categoryForm.value).subscribe(data => {
         location.reload();
+      }, () => {
+        this.duplicated = true;
       });
     }
   }

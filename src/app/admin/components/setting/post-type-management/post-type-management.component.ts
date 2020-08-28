@@ -16,6 +16,7 @@ export class PostTypeManagementComponent implements OnInit {
   totalPages: number;
   first: boolean;
   last: boolean;
+  duplicated = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,10 +52,14 @@ export class PostTypeManagementComponent implements OnInit {
       if (this.postTypeForm.value.id) {
         this.postTypeService.editPostType(this.postTypeForm.value).subscribe(data => {
           location.reload();
+        }, () => {
+          this.duplicated = true;
         });
       } else {
         this.postTypeService.createPostType(this.postTypeForm.value).subscribe(data => {
           location.reload();
+        }, () => {
+          this.duplicated = true;
         });
       }
     }
