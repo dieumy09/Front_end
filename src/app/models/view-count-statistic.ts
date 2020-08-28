@@ -1,5 +1,8 @@
+import {Post} from './post';
+
 export interface ViewCountStatistic {
   id: number;
-  dateStatistic: string;
+  dateStatistic: Date;
+  post: Post;
   viewCount: number;
 }
