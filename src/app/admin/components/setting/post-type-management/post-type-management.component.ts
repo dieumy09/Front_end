@@ -51,13 +51,13 @@ export class PostTypeManagementComponent implements OnInit {
     if (this.postTypeForm.valid) {
       if (this.postTypeForm.value.id) {
         this.postTypeService.editPostType(this.postTypeForm.value).subscribe(data => {
-          location.reload();
+          this.postTypes.unshift(data);
         }, () => {
           this.duplicated = true;
         });
       } else {
         this.postTypeService.createPostType(this.postTypeForm.value).subscribe(data => {
-          location.reload();
+          this.postTypes.unshift(data);
         }, () => {
           this.duplicated = true;
         });
@@ -74,6 +74,7 @@ export class PostTypeManagementComponent implements OnInit {
   deletePostType(id: number) {
     if (confirm(`Bạn có muốn xóa loại bài đăng có mã là ${id} không?`)) {
       this.postTypeService.deletePostType(id).subscribe(() => {
+        this.postTypes = this.postTypes.filter(pt => pt.id !== id);
         alert(`Bạn đã xóa loại bài đăng có mã là ${id} thành công!`);
       }, () => {
         alert(`Bạn không thể xóa loại bài đăng có mã là ${id}!`);

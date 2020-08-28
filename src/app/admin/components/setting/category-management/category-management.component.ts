@@ -53,13 +53,13 @@ export class CategoryManagementComponent implements OnInit {
     }
     if (this.categoryForm.value.id) {
       this.categoryService.editCategory(this.categoryForm.value).subscribe(data => {
-        location.reload();
+        this.categories.unshift(data);
       }, () => {
         this.duplicated = true;
       });
     } else {
       this.categoryService.createCategory(this.categoryForm.value).subscribe(data => {
-        location.reload();
+        this.categories.unshift(data);
       }, () => {
         this.duplicated = true;
       });
@@ -75,6 +75,7 @@ export class CategoryManagementComponent implements OnInit {
   deleteCategory(id: number) {
     if (confirm(`Bạn có muốn xóa danh mục có mã là ${id} không?`)) {
       this.categoryService.deleteCategory(id).subscribe(() => {
+        this.categories = this.categories.filter(c => c.id !== id);
         alert(`Bạn đã xóa danh mục có mã là ${id} thành công!`);
       }, () => {
         alert(`Bạn không thể xóa danh mục có mã là ${id}!`);
