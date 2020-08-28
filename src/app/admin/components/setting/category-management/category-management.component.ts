@@ -16,6 +16,7 @@ export class CategoryManagementComponent implements OnInit {
   totalPages: number;
   first: boolean;
   last: boolean;
+  duplicated = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,16 +48,17 @@ export class CategoryManagementComponent implements OnInit {
   }
 
   onSubmitCategoryForm() {
-    if (this.categoryForm.valid) {
-      if (this.categoryForm.value.id) {
-        this.categoryService.editCategory(this.categoryForm.value).subscribe(data => {
-          location.reload();
-        });
-      } else {
-        this.categoryService.createCategory(this.categoryForm.value).subscribe(data => {
-          location.reload();
-        });
-      }
+    if (this.categoryForm.invalid) {
+      return;
+    }
+    if (this.categoryForm.value.id) {
+      this.categoryService.editCategory(this.categoryForm.value).subscribe(data => {
+        location.reload();
+      });
+    } else {
+      this.categoryService.createCategory(this.categoryForm.value).subscribe(data => {
+        location.reload();
+      });
     }
   }
 
