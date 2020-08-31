@@ -11,7 +11,12 @@ import {CategoryService} from '../../../../services/category.service';
 export class CategoryManagementComponent implements OnInit {
   categories: Category[];
   categoryForm: FormGroup;
-  page: number;
+  page = 0;
+  pages: number[];
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  duplicated = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,22 +34,35 @@ export class CategoryManagementComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.getCategories().subscribe(data => {
-      this.categories = data;
+    this.categoryService.getCategoriesPages(this.page).subscribe(data => {
+      this.categories = data.content;
+      // @ts-ignore
+      this.first = data.first;
+      // @ts-ignore
+      this.last = data.last;
+      // @ts-ignore
+      this.pages = new Array(data.totalPages);
+      // @ts-ignore
+      this.totalPages = data.totalPages;
     });
   }
 
   onSubmitCategoryForm() {
-    if (this.categoryForm.valid) {
-      if (this.categoryForm.value.id) {
-        this.categoryService.editCategory(this.categoryForm.value).subscribe(data => {
-          location.reload();
-        });
-      } else {
-        this.categoryService.createCategory(this.categoryForm.value).subscribe(data => {
-          location.reload();
-        });
-      }
+    if (this.categoryForm.invalid) {
+      return;
+    }
+    if (this.categoryForm.value.id) {
+      this.categoryService.editCategory(this.categoryForm.value).subscribe(data => {
+        this.categories.unshift(data);
+      }, () => {
+        this.duplicated = true;
+      });
+    } else {
+      this.categoryService.createCategory(this.categoryForm.value).subscribe(data => {
+        this.categories.unshift(data);
+      }, () => {
+        this.duplicated = true;
+      });
     }
   }
 
@@ -57,6 +75,7 @@ export class CategoryManagementComponent implements OnInit {
   deleteCategory(id: number) {
     if (confirm(`Bạn có muốn xóa danh mục có mã là ${id} không?`)) {
       this.categoryService.deleteCategory(id).subscribe(() => {
+        this.categories = this.categories.filter(c => c.id !== id);
         alert(`Bạn đã xóa danh mục có mã là ${id} thành công!`);
       }, () => {
         alert(`Bạn không thể xóa danh mục có mã là ${id}!`);
@@ -64,4 +83,9 @@ export class CategoryManagementComponent implements OnInit {
     }
   }
 
+  setPage(page, event: any) {
+    event.preventDefault();
+    this.page = page;
+    this.getCategories();
+  }
 }

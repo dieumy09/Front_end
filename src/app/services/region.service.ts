@@ -15,6 +15,10 @@ export class RegionService {
     return this.http.get<any>(this.API);
   }
 
+  getRegionsPages(page: number): Observable<any> {
+    return this.http.get<any>(`${this.API}/pages?page=${page}`);
+  }
+
   getRegionById(id: number): Observable<Region> {
     return this.http.get<Region>(`${this.API}/${id}`);
   }

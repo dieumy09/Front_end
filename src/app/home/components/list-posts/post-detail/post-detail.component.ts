@@ -12,20 +12,16 @@ import {ReplyService} from '../../../../services/reply.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TokenStorageService} from '../../../../services/token-storage.service';
 import {ViewCountStatisticService} from '../../../../services/view-count-statistic.service';
-import {ViewCountStatistic} from '../../../../models/view-count-statistic';
-import {DatePipe} from '@angular/common';
-import {AuthService} from "../../../../services/auth.service";
+import {AuthService} from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.scss'],
-  providers: [DatePipe],
 })
 export class PostDetailComponent implements OnInit {
   post: Post;
   user: User;
-  userId: number;
   comment = this.formBuilder.group({
     content: ['', [Validators.required]],
     user: [],
@@ -50,9 +46,9 @@ export class PostDetailComponent implements OnInit {
     previousLabel: '',
     nextLabel: '',
   };
-  viewCountStatistic: ViewCountStatistic;
   viewCountStatisticForm = this.formBuilder.group({
-    dateStatistic: this.datePipe.transform(new Date().toLocaleDateString(), 'MM/dd/yyyy'),
+    dateStatistic: [],
+    post: [],
     viewCount: [1]
   });
 
@@ -67,7 +63,6 @@ export class PostDetailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private viewCountStatisticService: ViewCountStatisticService,
     private modalService: NgbModal,
-    private datePipe: DatePipe,
   ) {
     this.paginateComment = {
       itemsPerPage: 7,
@@ -79,7 +74,6 @@ export class PostDetailComponent implements OnInit {
     this.getUser();
     this.getPostById();
     this.getCommentsByPost();
-    this.updateViewCountStatistic();
   }
 
   getUser() {
@@ -94,27 +88,33 @@ export class PostDetailComponent implements OnInit {
       this.postService.getPostById(next.id).subscribe(data => {
         this.post = data;
         this.post.viewCount += 1;
-        this.postService.editPost(this.post, next.id).subscribe();
+        this.postService.updatePostViewCount(this.post, next.id).subscribe();
+        this.updateViewCountStatistic(data);
       });
     });
   }
 
-  updateViewCountStatistic() {
-    this.viewCountStatisticService.getLastViewCountStatistic().subscribe(data => {
-      if (data === null) {
-        this.viewCountStatisticService.createViewCountStatistic(this.viewCountStatisticForm.value).subscribe();
-      } else {
-        const lastDate = new Date(data.dateStatistic + ' 23:59:59');
-        const currentDate = new Date();
-        if (lastDate < currentDate) {
+  updateViewCountStatistic(post: Post) {
+      this.viewCountStatisticService.getLastViewCountStatistic(post.id).subscribe(data => {
+        this.viewCountStatisticForm.patchValue({
+          dateStatistic: new Date(),
+          post: this.post
+        });
+        if (data === null) {
           this.viewCountStatisticService.createViewCountStatistic(this.viewCountStatisticForm.value).subscribe();
         } else {
-          this.viewCountStatistic = data;
-          this.viewCountStatistic.viewCount += 1;
-          this.viewCountStatisticService.editViewCountStatistic(this.viewCountStatistic).subscribe();
+          const currentDate = new Date().getTime();
+          const lastDate = new Date(new Date(data.dateStatistic).toDateString() + ' 23:59:59').getTime();
+          if (lastDate < currentDate) {
+            this.viewCountStatisticService.createViewCountStatistic(this.viewCountStatisticForm.value).subscribe();
+          } else {
+            this.viewCountStatisticForm.patchValue({
+              viewCount: data.viewCount + 1,
+            });
+            this.viewCountStatisticService.editViewCountStatistic(this.viewCountStatisticForm.value, data.id).subscribe();
+          }
         }
-      }
-    });
+      });
   }
 
   getCommentsByPost() {

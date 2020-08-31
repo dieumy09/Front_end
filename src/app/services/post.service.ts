@@ -38,6 +38,10 @@ export class PostService {
     return this.http.patch<Post>(`${this.API}/${postId}`, post);
   }
 
+  updatePostViewCount(post: Post, postId: number): Observable<Post> {
+    return this.http.patch<Post>(`${this.API}/update-post-viewCount/${postId}`, post);
+  }
+
   deletePost(id: number): Observable<Post> {
     return this.http.delete<Post>(`${this.API}/${id}`);
   }

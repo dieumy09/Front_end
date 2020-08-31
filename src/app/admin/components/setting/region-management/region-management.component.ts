@@ -11,7 +11,12 @@ import {RegionService} from '../../../../services/region.service';
 export class RegionManagementComponent implements OnInit {
   regions: Region[];
   regionForm: FormGroup;
-  page: number;
+  page = 0;
+  pages: number[];
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  duplicated = false;
 
   constructor(
     private regionService: RegionService,
@@ -28,8 +33,16 @@ export class RegionManagementComponent implements OnInit {
   }
 
   getRegions() {
-    this.regionService.getRegions().subscribe(data => {
-      this.regions = data;
+    this.regionService.getRegionsPages(this.page).subscribe(data => {
+      this.regions = data.content;
+      // @ts-ignore
+      this.first = data.first;
+      // @ts-ignore
+      this.last = data.last;
+      // @ts-ignore
+      this.pages = new Array(data.totalPages);
+      // @ts-ignore
+      this.totalPages = data.totalPages;
     });
   }
 
@@ -37,11 +50,15 @@ export class RegionManagementComponent implements OnInit {
     if (this.regionForm.valid) {
       if (this.regionForm.value.id) {
         this.regionService.editRegion(this.regionForm.value).subscribe(data => {
-          location.reload();
+          this.regions.unshift(data);
+        }, () => {
+          this.duplicated = true;
         });
       } else {
         this.regionService.createRegion(this.regionForm.value).subscribe(data => {
-          location.reload();
+          this.regions.unshift(data);
+        }, () => {
+          this.duplicated = true;
         });
       }
     }
@@ -56,6 +73,7 @@ export class RegionManagementComponent implements OnInit {
   deleteRegion(id: number) {
     if (confirm(`Bạn có muốn xóa vùng miền có mã là ${id} không?`)) {
       this.regionService.deleteRegion(id).subscribe(() => {
+        this.regions = this.regions.filter(r => r.id !== id);
         alert(`Bạn đã xóa vùng miền có mã là ${id} thành công!`);
       }, () => {
         alert(`Bạn không thể xóa vùng miền có mã là ${id}!`);
@@ -63,4 +81,9 @@ export class RegionManagementComponent implements OnInit {
     }
   }
 
+  setPage(page, event: any) {
+    event.preventDefault();
+    this.page = page;
+    this.getRegions();
+  }
 }

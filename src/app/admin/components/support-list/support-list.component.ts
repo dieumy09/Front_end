@@ -5,6 +5,7 @@ import {SupportService} from '../../../services/support.service';
 import {Support} from '../../../models/support';
 import {ActivatedRoute} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {PagerService} from '../../../services/pager.service';
 
 @Component({
   selector: 'app-support-list',
@@ -12,6 +13,17 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./support-list.component.scss']
 })
 export class SupportListComponent implements OnInit {
+  reasons: Reason[];
+  supports: Support[];
+  support: Support;
+  supportId: number;
+  reasonId: number;
+  page = 0;
+  pages: number[];
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  clicked = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,24 +32,6 @@ export class SupportListComponent implements OnInit {
     private supportService: SupportService
   ) {
   }
-
-  reasons: Reason[];
-  supports: Support[];
-  support: Support;
-  supportId: number;
-  reasonId: number;
-
-
-  page = 0;
-  pages: number[];
-  currentPages: number[];
-  totalElements: number;
-  totalPages: number;
-  pageSize: number;
-  first: boolean;
-  last: boolean;
-  userId: number;
-  isShown = false;
 
   ngOnInit(): void {
     this.getReasons();
@@ -50,21 +44,14 @@ export class SupportListComponent implements OnInit {
     });
   }
 
-  getSupportById() {
-    this.activatedRoute.params.subscribe(next => {
-      this.supportId = next.id;
-    });
-    this.supportService.getSupportById(this.supportId).subscribe(data => {
-      this.support = data;
-    });
-  }
-
   openModal(targetModal, support) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static'
     });
     this.support = support;
+    this.support.checked = true;
+    this.supportService.editSupport(this.support).subscribe();
   }
 
   getSupports() {
@@ -74,10 +61,6 @@ export class SupportListComponent implements OnInit {
     this.supportService.getSupportsByReasonId(this.reasonId, this.page).subscribe(data => {
       // @ts-ignore
       this.supports = data.content;
-      // @ts-ignore
-      this.totalElements = data.totalElements;
-      // @ts-ignore
-      this.pageSize = data.size;
       // @ts-ignore
       this.first = data.first;
       // @ts-ignore

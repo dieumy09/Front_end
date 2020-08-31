@@ -11,7 +11,12 @@ import {PostTypeService} from '../../../../services/post-type.service';
 export class PostTypeManagementComponent implements OnInit {
   postTypes: PostType[];
   postTypeForm: FormGroup;
-  page: number;
+  page = 0;
+  pages: number[];
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  duplicated = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,8 +34,16 @@ export class PostTypeManagementComponent implements OnInit {
   }
 
   getPostTypes() {
-    this.postTypeService.getPostTypes().subscribe(data => {
-      this.postTypes = data;
+    this.postTypeService.getPostTypesPages(this.page).subscribe(data => {
+      this.postTypes = data.content;
+      // @ts-ignore
+      this.first = data.first;
+      // @ts-ignore
+      this.last = data.last;
+      // @ts-ignore
+      this.pages = new Array(data.totalPages);
+      // @ts-ignore
+      this.totalPages = data.totalPages;
     });
   }
 
@@ -38,11 +51,15 @@ export class PostTypeManagementComponent implements OnInit {
     if (this.postTypeForm.valid) {
       if (this.postTypeForm.value.id) {
         this.postTypeService.editPostType(this.postTypeForm.value).subscribe(data => {
-          location.reload();
+          this.postTypes.unshift(data);
+        }, () => {
+          this.duplicated = true;
         });
       } else {
         this.postTypeService.createPostType(this.postTypeForm.value).subscribe(data => {
-          location.reload();
+          this.postTypes.unshift(data);
+        }, () => {
+          this.duplicated = true;
         });
       }
     }
@@ -57,6 +74,7 @@ export class PostTypeManagementComponent implements OnInit {
   deletePostType(id: number) {
     if (confirm(`Bạn có muốn xóa loại bài đăng có mã là ${id} không?`)) {
       this.postTypeService.deletePostType(id).subscribe(() => {
+        this.postTypes = this.postTypes.filter(pt => pt.id !== id);
         alert(`Bạn đã xóa loại bài đăng có mã là ${id} thành công!`);
       }, () => {
         alert(`Bạn không thể xóa loại bài đăng có mã là ${id}!`);
@@ -64,4 +82,9 @@ export class PostTypeManagementComponent implements OnInit {
     }
   }
 
+  setPage(page, event: any) {
+    event.preventDefault();
+    this.page = page;
+    this.getPostTypes();
+  }
 }
