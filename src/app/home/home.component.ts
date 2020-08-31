@@ -19,9 +19,14 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((user) => {
-      this.user = user;
-    });
+    this.authService.user$.subscribe(
+      (user) => {
+        this.user = user;
+      },
+      (err) => {
+        location.assign('/error');
+      }
+    );
     this.authService.getCurrentUser();
   }
 

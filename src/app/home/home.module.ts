@@ -16,12 +16,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminModule } from '../admin/admin.module';
 import { RouterModule } from '@angular/router';
 
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../environments/environment';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
-import {AngularFireStorageModule} from '@angular/fire/storage';
-import {NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../../environments/environment';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +33,7 @@ import {NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
     ListAllComponent,
     PostFormComponent,
     PostConfirmComponent,
+    ErrorComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +49,6 @@ import {NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
     AngularFireStorageModule,
     NgbProgressbarModule,
   ],
-  exports: [],
+  exports: [ErrorComponent],
 })
 export class HomeModule {}
