@@ -1,7 +1,7 @@
 <div>
   <nav
     class="navbar navbar-expand-lg navbar-light"
-    style="background-color: #f3c623;"
+    style="background-color: #f3c623"
   >
     <a class="navbar-brand" routerLink="/">
       <img src="assets/img/logo.png" height="50" width="150" />
@@ -106,11 +106,11 @@
     <!--    left side-bar-->
     <div class="col-2"></div>
     <!--    content-->
-    <div class="col-sm-12 col-md-7 col-lg-7">
+    <div class="col-sm-12 col-md-8 col-lg-8">
       <router-outlet></router-outlet>
     </div>
     <!--    right side-bar-->
-    <div class="col-3"></div>
+    <div class="col-2"></div>
   </div>
 
   <app-advance-search></app-advance-search>
@@ -120,7 +120,7 @@
   <ng-template let-modal #checkUser>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Đăng nhập</h4>
-      <span style="cursor: pointer;" class="close" (click)="modal.dismiss()"
+      <span style="cursor: pointer" class="close" (click)="modal.dismiss()"
         >&times;</span
       >
     </div>

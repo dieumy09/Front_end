@@ -22,6 +22,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorComponent } from './components/error/error.component';
+import { SupportComponent } from './components/support/support.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ErrorComponent } from './components/error/error.component';
     PostFormComponent,
     PostConfirmComponent,
     ErrorComponent,
+    SupportComponent,
   ],
   imports: [
     CommonModule,

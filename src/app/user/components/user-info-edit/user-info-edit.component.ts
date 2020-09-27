@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
@@ -8,17 +7,6 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { TokenStorageService } from '../../../services/token-storage.service';
 import { Router } from '@angular/router';
-=======
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
-import {User} from '../../../models/user';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {AngularFireStorage} from '@angular/fire/storage';
-import {finalize} from 'rxjs/operators';
-import {TokenStorageService} from '../../../services/token-storage.service';
-import {Router} from '@angular/router';
-import {AuthService} from '../../../services/auth.service';
->>>>>>> d4f429e6ad64f7bf33f4b092773a18611cda6661
 
 @Component({
   selector: 'app-user-info-edit',
@@ -41,14 +29,8 @@ export class UserInfoEditComponent implements OnInit {
     private userService: UserService,
     private angularFireStorage: AngularFireStorage,
     private angularFirestore: AngularFirestore,
-<<<<<<< HEAD
     private router: Router
   ) {}
-=======
-    private router: Router,
-    private authService: AuthService
-  ) { }
->>>>>>> d4f429e6ad64f7bf33f4b092773a18611cda6661
 
   ngOnInit(): void {
     this.infoEditForm = this.formBuilder.group({
@@ -107,7 +89,6 @@ export class UserInfoEditComponent implements OnInit {
     if (this.infoEditForm.valid) {
       if (this.selectedFile) {
         this.uploadFile();
-<<<<<<< HEAD
         this.task
           .snapshotChanges()
           .pipe(
@@ -131,24 +112,6 @@ export class UserInfoEditComponent implements OnInit {
           .subscribe();
       } else {
         this.userService.editUser(this.infoEditForm.value).subscribe((data) => {
-=======
-        this.task.snapshotChanges().pipe(
-          finalize(() => {
-            this.fileRef.getDownloadURL().toPromise().then( (url) => {
-              this.infoEditForm.value.avatar = url;
-              this.userService.editUser(this.infoEditForm.value).subscribe(data => {
-                this.authService.getCurrentUser();
-                this.router.navigateByUrl('/user');
-              });
-            }).catch(err => { console.log(err); });
-          })
-        )
-          .subscribe();
-      }
-      else {
-        this.userService.editUser(this.infoEditForm.value).subscribe(data => {
-          this.authService.getCurrentUser();
->>>>>>> d4f429e6ad64f7bf33f4b092773a18611cda6661
           this.router.navigateByUrl('/user');
         });
       }
